@@ -3,28 +3,42 @@
 {% block title %}User index{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
-
+    <h1>Utilisateurs</h1>
+<div class="container">
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                {# <th>Id</th> #}
+                <th>Civilité</th>
                 <th>Email</th>
                 <th>Roles</th>
-                <th>Password</th>
+                {# <th>Password</th> #}
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Adresse</th>
+                <th>Code_postal</th>
+                <th>Ville</th>
+                <th>Téléphone</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for user in users %}
             <tr>
-                <td>{{ user.id }}</td>
+                {# <td>{{ user.id }}</td> #}
+                <td>{{ user.gender }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.password }}</td>
+                {# <td>{{ user.password }}</td> #}
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.adress }}</td>
+                <td>{{ user.postCode }}</td>
+                <td>{{ user.city }}</td>
+                <td>{{ user.phone }}</td>
                 <td>
-                    <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+                    <a class="btn btn-success" href="{{ path('app_user_show', {'id': user.id}) }}">voir</a>
+                    <a class="btn btn-warning" href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -35,5 +49,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_user_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('app_user_new') }}">Créer un nouvel utilisateur</a>
+</div>
 {% endblock %}
