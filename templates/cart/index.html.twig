@@ -63,6 +63,9 @@
 		<td class="text-center">
         <a class="btn btn-danger" href="{{ path('cart_delete')}}">Vider le panier</a>
 		</td>
+		<td class="text-center">
+        <a class="btn btn-success" href="{{ path('home')}}">Continuer vos achats</a>
+		</td>
 		{% if app.user %}
 		<td class="text-center">
         <a class="btn btn-primary" href="{{path('order_add',{'user':app.user.id})}}">Commander</a>

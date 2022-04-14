@@ -2,7 +2,7 @@
 {% block title %}Hello products!
 {% endblock %}
 {% block body %}
-	<h1>Liste des Livres</h1>
+	<h1>Liste des Produits</h1>
 
 	<div class="row row-cols-1 row-cols-md-6 g-4">
 		{% for product in products %}
@@ -13,18 +13,23 @@
 					<div class="card-body">
 						<h5 class="card-title">{{product.name}}</h5>
 						<p class="card-text">{{product.description}}</p>
+						<p class="card-text">{{product.price}}€</p>
 					</div>
+
 					{% if is_granted('ROLE_ADMIN') %}
 						<a class="btn btn-warning" href="{{path('app_product_edit',{'id': product.id}) }}" class="card-link">Modifier</a>
 						<a class="btn btn-danger" href="{{path('app_product_delete',{'id': product.id})}}" class="card-link">supprimer</a>
 					{% else %}
 						<a class="btn btn-success" href="{{ path('cart_add',{'id':product.id}) }}">Ajouter au panier</a>
 					{% endif %}
-					</div>
 				</div>
-
-			{% endfor %}
-		</div>
-		{# </table> #}
-		{# <a class="btn btn-primary" href="#">Création d'un nouveau livre</a> #}
-	{% endblock %}
+			</div>
+		{% else %}
+			
+				<h1>aucun résultat trouvé</h1>
+			
+		{% endfor %}
+	</div>
+	{# </table> #}
+	{# <a class="btn btn-primary" href="#">Création d'un nouveau livre</a> #}
+{% endblock %}

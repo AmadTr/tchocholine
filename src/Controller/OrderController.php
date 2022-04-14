@@ -39,14 +39,12 @@ class OrderController extends AbstractController
     {
 
         return $this->render('order/index.html.twig', [
-            'orders' => $orderRepo->findAll('orderDate','ASC'),
+            'orders' => $orderRepo->findByExampleField(),
             // 'orders' => $orderRepo->orderBy('ASC')
             
 
         ]); //Je passe à mon twig le repository de mon order comme paramètre
     }
-
-
 
     /**
      *@Route("/add/{user}", name="order_add") 

@@ -12,14 +12,14 @@ import './styles/app.css';
 import './bootstrap';
 
 //nos images
-import './images/livre1.jpg';
-import './images/livre2.jpg';
-import './images/livre3.jpg';
-import './images/livre4.jpg';
-import './images/livre5.jpg';
-import './images/livre6.jpg';
-import './images/livre7.jpg';
-import './images/livre8.jpg';
-import './images/livre9.jpg';
-import './images/livre10.jpg';
-import './images/livre11.jpg';
+import './images/bijoux1.jpg';
+import './images/bijoux2.jpg';
+import './images/bijoux3.jpg';
+import './images/bijoux4.jpg';
+import './images/bijoux5.jpg';
+import './images/bijoux6.jpg';
+import './images/bijoux7.jpg';
+import './images/bijoux8.jpg';
+import './images/bijoux9.jpg';
+import './images/bijoux10.jpg';
+import './images/bijoux11.jpg';

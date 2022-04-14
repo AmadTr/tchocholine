@@ -30,7 +30,7 @@ class AppFixtures extends Fixture
             $product->setCategory($category);
             $product->setStock($faker->numberBetween($min = 2, $max = 4));
             $product->setPrice($faker->randomFloat(2, 20, 30));
-            $product->setPhoto('livre'.$i.'.jpg');
+            $product->setPhoto('bijoux'.$i.'.jpg');
             $manager->persist($product);
         }
     }
