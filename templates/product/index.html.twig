@@ -3,8 +3,8 @@
 {% block title %}Product index{% endblock %}
 
 {% block body %}
-    <h1>Product index</h1>
-
+    <h1>Liste des produits</h1>
+    <div class="container">
     <table class="table">
         <thead>
             <tr>
@@ -39,5 +39,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_product_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('app_product_new') }}">Create new</a>
+    </div>
 {% endblock %}

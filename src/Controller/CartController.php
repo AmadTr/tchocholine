@@ -37,7 +37,7 @@ class CartController extends AbstractController
     public function add($id, CartService $carteService)
     {
         $carteService->add($id);
-        return $this->redirectToRoute('app_product_customer', [
+        return $this->redirectToRoute('home', [
             'controller_name' => 'CartController',
            
         ]);

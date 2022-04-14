@@ -2,19 +2,21 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TchoChoLineController extends AbstractController
 {
     /**
      * @Route("/", name="home")
      */
-    public function index(): Response
+    public function index(ProductRepository $productRepository): Response
     {
+        $products = $productRepository->findAll();
         return $this->render('tcho_cho_line/index.html.twig', [
-            'controller_name' => 'TchoChoLineController',
+            'products'=>$products
         ]);
     }
 }

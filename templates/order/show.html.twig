@@ -1,34 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Order{% endblock %}
+{% block title %}
+
+	TchoChoLine : Détails de commande
+
+{% endblock %}
 
 {% block body %}
-    <h1>Order</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ order.id }}</td>
-            </tr>
-            <tr>
-                <th>RefOrder</th>
-                <td>{{ order.refOrder }}</td>
-            </tr>
-            <tr>
-                <th>Amount</th>
-                <td>{{ order.amount }}</td>
-            </tr>
-            <tr>
-                <th>OrderDate</th>
-                <td>{{ order.orderDate ? order.orderDate|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<div class="container">
 
-    <a href="{{ path('app_order_index') }}">back to list</a>
+		<h1 class="text-center mb-4 mt-4">
+			Détail Commande
+		</h1>
+		<br>
+		<table class="table">
+			<thead>
+				<tr>
+					<th class="text-center">Nom produit</th>
+					<th class="text-center">Quantité</th>
+					<th class="text-center">Montant</th>
+				</tr>
+			</thead>
+			<tbody>
 
-    <a href="{{ path('app_order_edit', {'id': order.id}) }}">edit</a>
+				{% for ol in ols %}
 
-    {{ include('order/_delete_form.html.twig') }}
+					<tr>
+						<td class="text-center">{{ ol.product.name }}</td>
+						<td class="text-center">{{ ol.quantity }}</td>
+						<td class="text-center">{{ ol.amount }}€</td>
+					</tr>
+
+				{% endfor %}
+               
+
+			</tbody>
+            <tfoot>
+             <tr>
+						<td  class="text-center"></td>
+						<th class="text-center">
+							Total :
+						</th>
+						<td class="text-center">
+							{{order}}€</td>
+						<td class="text-center"></td>
+					</tr>
+            <tr>
+            
+
+			<td colspan="3">
+				<a href="{{path('order_all')}}" class="btn btn-secondary">
+					Retour aux commandes
+				</a>
+			</td>
+			<td></td>
+			<td></td>
+            </tr>
+            </tfoot>
+
+		</table>
+
+	</div>
+
 {% endblock %}

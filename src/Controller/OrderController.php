@@ -2,87 +2,102 @@
 
 namespace App\Controller;
 
+use Faker\Factory;
+use App\Entity\User;
 use App\Entity\Order;
-use App\Form\OrderType;
+use DateTimeImmutable;
+use App\Entity\OrderLine;
+use App\Service\Cart\CartService;
 use App\Repository\OrderRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @Route("/order")
  */
 class OrderController extends AbstractController
 {
+
     /**
-     * @Route("/", name="app_order_index", methods={"GET"})
+     *@Route("/", name="order_all") 
      */
-    public function index(OrderRepository $orderRepository): Response
+    public function index(OrderRepository $orderRepo,UserInterface $user): Response
     {
+
         return $this->render('order/index.html.twig', [
-            'orders' => $orderRepository->findAll(),
-        ]);
+            'orders' => $orderRepo->findBy(['user'=>$user]),
+            // 'user'=>$orderRepo->getuser($user)
+        ]); //Je passe à mon twig le repository de mon order comme paramètre
+    }
+     /**
+     *@Route("/all", name="all_order") 
+     */
+    public function indexAdmin(OrderRepository $orderRepo): Response
+    {
+
+        return $this->render('order/index.html.twig', [
+            'orders' => $orderRepo->findAll('orderDate','ASC'),
+            // 'orders' => $orderRepo->orderBy('ASC')
+            
+
+        ]); //Je passe à mon twig le repository de mon order comme paramètre
     }
 
-    /**
-     * @Route("/new", name="app_order_new", methods={"GET", "POST"})
-     */
-    public function new(Request $request, OrderRepository $orderRepository): Response
-    {
-        $order = new Order();
-        $form = $this->createForm(OrderType::class, $order);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $orderRepository->add($order);
-            return $this->redirectToRoute('app_order_index', [], Response::HTTP_SEE_OTHER);
+
+    /**
+     *@Route("/add/{user}", name="order_add") 
+     */
+    public function addOrder(
+        User $user,
+        cartService $cart,
+        EntityManagerInterface $em
+    ) {
+        //On a récupéré l'id de l'utilisateur directement à partir de index.twig
+        $faker = \Faker\Factory::create();
+        if ($user) {
+            $order = new Order();
+            $order->setRefOrder('Ref' . $faker->numberBetween($min = 1000000, $max = 9999999));
+            $order->setOrderDate(new \DateTimeImmutable());
+            $order->setAmount($cart->getCartTotal()); //On utilise la méthode getCartTotal pour récupérer le total de produits dans le panier
+            $order->setUser($user);
+
+            $em->persist($order);
+
+            //Création des lignes de commandes
+            $cartDetails = $cart->getCartDetails();
+            foreach ($cartDetails as $line) {
+                $orderLine = new OrderLine();
+                $orderLine->setQuantity($line['quantity']);
+                $orderLine->setProduct($line['product']);
+                $orderLine->setOrders($order);
+
+                $totalLine = $line['quantity'] * $line['product']->getPrice();
+
+                $orderLine->setAmount($totalLine);
+
+                $em->persist($orderLine);
+                $em->flush();
+            }
+            $em->flush();
+            $cart->clearCart();
+            return $this->redirectToRoute('order_all');
+        } else {
+            return $this->redirectToRoute('home');
         }
-
-        return $this->renderForm('order/new.html.twig', [
-            'order' => $order,
-            'form' => $form,
-        ]);
     }
 
     /**
-     * @Route("/{id}", name="app_order_show", methods={"GET"})
+     * @Route("/detail/{order}", name="order_detail")
      */
-    public function show(Order $order): Response
+    public function showCdeDetail(Order $order)
     {
-        return $this->render('order/show.html.twig', [
-            'order' => $order,
+        return $this->render('/order/show.html.twig', [
+            'ols' => $order->getOrderLines(),
+            'order' => $order->getamount(),
         ]);
-    }
-
-    /**
-     * @Route("/{id}/edit", name="app_order_edit", methods={"GET", "POST"})
-     */
-    public function edit(Request $request, Order $order, OrderRepository $orderRepository): Response
-    {
-        $form = $this->createForm(OrderType::class, $order);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $orderRepository->add($order);
-            return $this->redirectToRoute('app_order_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('order/edit.html.twig', [
-            'order' => $order,
-            'form' => $form,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="app_order_delete", methods={"POST"})
-     */
-    public function delete(Request $request, Order $order, OrderRepository $orderRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$order->getId(), $request->request->get('_token'))) {
-            $orderRepository->remove($order);
-        }
-
-        return $this->redirectToRoute('app_order_index', [], Response::HTTP_SEE_OTHER);
     }
 }
