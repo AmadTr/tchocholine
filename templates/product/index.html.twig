@@ -8,27 +8,25 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
+                <th>Nom</th>
                 <th>Description</th>
                 <th>Stock</th>
                 <th>Photo</th>
-                <th>price</th>
-                <th>actions</th>
+                <th>Prix</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for product in products %}
             <tr>
-                <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
                 <td>{{ product.description }}</td>
                 <td>{{ product.stock }}</td>
                 <td>{{ product.photo }}</td>
                 <td>{{ product.price }}€</td>
                 <td>
-                    <a class="btn btn-success" href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
-                    <a class="btn btn-warning" href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
+                    <a class="btn btn-success" href="{{ path('app_product_show', {'id': product.id}) }}">Voir</a>
+                    <a class="btn btn-warning" href="{{ path('app_product_edit', {'id': product.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -39,6 +37,6 @@
         </tbody>
     </table>
 
-    <a class="btn btn-primary" href="{{ path('app_product_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('app_product_new') }}">Créer un nouveau produit</a>
     </div>
 {% endblock %}
