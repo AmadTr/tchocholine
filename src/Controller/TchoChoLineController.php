@@ -17,32 +17,33 @@ class TchoChoLineController extends AbstractController
      */
     public function index(
         Request $request,
-        ProductRepository $productRepository,CategoryRepository $categoryRepository
+        ProductRepository $productRepository,
+        CategoryRepository $categoryRepository
     ): Response {
-        
-       
         if ($request->get('search')) {
             return $this->render('tcho_cho_line/index.html.twig', [
-                'products' => $productRepository->findByExampleField([$request->get('search')])
+                'products' => $productRepository->findByExampleField([
+                    $request->get('search'),
+                ]),
             ]);
         }
         $products = $productRepository->findAll();
         return $this->render('tcho_cho_line/index.html.twig', [
             'products' => $products,
-            'categories' => $categoryRepository->findAll()
-
+            'categories' => $categoryRepository->findAll(),
         ]);
     }
     /**
- * @Route("/{category}", name="app_find_category", methods={"GET"})
- */
-public function findByCategory(Category $category,ProductRepository $productRepository,CategoryRepository $categoryRepository): Response
-{
-    
-    
-    return $this->render('tcho_cho_line/index.html.twig', [
-        'products' => $productRepository->findBy(['category'=> $category]),
-        'categories' => $categoryRepository->findAll()
-    ]);
-}
+     * @Route("/{category}", name="app_find_category", methods={"GET"})
+     */
+    public function findByCategory(
+        Category $category,
+        ProductRepository $productRepository,
+        CategoryRepository $categoryRepository
+    ): Response {
+        return $this->render('tcho_cho_line/index.html.twig', [
+            'products' => $productRepository->findBy(['category' => $category]),
+            'categories' => $categoryRepository->findAll(),
+        ]);
+    }
 }

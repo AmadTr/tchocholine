@@ -23,7 +23,7 @@
 						<a class="btn btn-warning" href="{{path('app_product_edit',{'id': product.id}) }}" class="card-link">Modifier</a>
 						<a class="btn btn-danger" href="{{path('app_product_delete',{'id': product.id})}}" class="card-link">supprimer</a>
 					{% else %}
-						<a class="btn btn-success" href="{{ path('cart_add',{'id':product.id}) }}">Ajouter au panier</a>
+						<a class="btn btn-secondary" href="{{ path('app_products_show',{'id':product.id}) }}">Voir le produit</a>
 					{% endif %}
 				</div>
 			</div>

@@ -21,4 +21,14 @@ class ProductCustomerController extends AbstractController
             'products' => $productRepository->findAll()
         ]);
     }
+
+     /**
+     * @Route("/products/{id}", name="app_products_show", methods={"GET"})
+     */
+    public function show(Product $product): Response
+    {
+        return $this->render('product_customer/showProduct.html.twig', [
+            'product' => $product,
+        ]);
+    }
 }
