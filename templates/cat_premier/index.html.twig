@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CatPremier index{% endblock %}
+
+{% block body %}
+    <h1>CatPremier index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for cat_premier in cat_premiers %}
+            <tr>
+                <td>{{ cat_premier.id }}</td>
+                <td>{{ cat_premier.Name }}</td>
+                <td>
+                    <a class="btn btn-success" href="{{ path('app_cat_premier_show', {'id': cat_premier.id}) }}">Voir</a>
+                    <a class="btn btn-warning" href="{{ path('app_cat_premier_edit', {'id': cat_premier.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary" href="{{ path('app_cat_premier_new') }}">Créer</a>
+{% endblock %}

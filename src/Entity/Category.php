@@ -29,6 +29,11 @@ class Category
      */
     private $products;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=CatPremier::class, inversedBy="categories")
+     */
+    private $catPremier;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -77,6 +82,18 @@ class Category
                 $product->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCatPremier(): ?CatPremier
+    {
+        return $this->catPremier;
+    }
+
+    public function setCatPremier(?CatPremier $catPremier): self
+    {
+        $this->catPremier = $catPremier;
 
         return $this;
     }

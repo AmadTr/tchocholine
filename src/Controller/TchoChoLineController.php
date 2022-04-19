@@ -33,17 +33,17 @@ class TchoChoLineController extends AbstractController
             'categories' => $categoryRepository->findAll(),
         ]);
     }
-    /**
-     * @Route("/{category}", name="app_find_category", methods={"GET"})
-     */
-    public function findByCategory(
-        Category $category,
-        ProductRepository $productRepository,
-        CategoryRepository $categoryRepository
-    ): Response {
-        return $this->render('tcho_cho_line/index.html.twig', [
-            'products' => $productRepository->findBy(['category' => $category]),
-            'categories' => $categoryRepository->findAll(),
-        ]);
-    }
+    // /**
+    //  * @Route("/{category}", name="app_find_category", methods={"GET"})
+    //  */
+    // public function findByCategory(
+    //     Category $category,
+    //     ProductRepository $productRepository,
+    //     CategoryRepository $categoryRepository
+    // ): Response {
+    //     return $this->render('tcho_cho_line/index.html.twig', [
+    //         'products' => $productRepository->findBy(['category' => $category]),
+    //         'categories' => $categoryRepository->findAll(),
+    //     ]);
+    // }
 }

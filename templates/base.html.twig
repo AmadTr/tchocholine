@@ -53,6 +53,9 @@
 							<a class="nav-link" href="{{ path('app_product_index') }}">Produits</a>
 						</li>
 						<li class="nav-item">
+							<a class="nav-link" href="{{ path('app_cat_premier_index') }}">CatPrémier</a>
+						</li>
+						<li class="nav-item">
 							<a class="nav-link" href="{{ path('app_category_index') }}">Catégories</a>
 						</li>
 						<li class="nav-item">
@@ -98,11 +101,11 @@
 				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 				{% if categories is defined %}
 					
-					{% for category in categories %}
+					{# {% for category in categories %}
 						<li>
 							<a class="dropdown-item" href="{{ path('app_find_category', {'category': category.id}) }}">{{category.name}}</a>
 						</li>
-					{% endfor %}
+					{% endfor %} #}
 				{% endif %}
 
 				</ul>
