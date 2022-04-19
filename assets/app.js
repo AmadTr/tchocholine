@@ -13,6 +13,7 @@ import './bootstrap';
 
 //nos images
 import './images/bijoux1.jpg';
+import './images/livre1.jpg';
 import './images/bijoux2.jpg';
 import './images/bijoux3.jpg';
 import './images/bijoux4.jpg';
