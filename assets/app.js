@@ -24,3 +24,4 @@ import './images/bijoux8.jpg';
 import './images/bijoux9.jpg';
 import './images/bijoux10.jpg';
 import './images/bijoux11.jpg';
+import './images/logoTchoChoLine.png';
