@@ -8,8 +8,10 @@
     <table class="table">
         <thead>
             <tr>
+                <th>Id</th>
                 <th>Nom</th>
                 <th>Description</th>
+                <th>Catégorie</th>
                 <th>Stock</th>
                 <th>Photo</th>
                 <th>Prix</th>
@@ -19,10 +21,12 @@
         <tbody>
         {% for product in products %}
             <tr>
+                <td>{{ product.id }}</td>
                 <td>{{ product.name }}</td>
                 <td>{{ product.description }}</td>
+                <td>{{ product.category.name }}</td>
                 <td>{{ product.stock }}</td>
-                <td>{{ product.photo }}</td>
+                <td><img src="{{ asset('build/images/' ~ product.photo) }}" class="card-img-top" width="80" height="80" alt="..."></td>
                 <td>{{ product.price }}€</td>
                 <td>
                     <a class="btn btn-success" href="{{ path('app_product_show', {'id': product.id}) }}">Voir</a>
