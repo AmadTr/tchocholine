@@ -1,26 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}CatPremier{% endblock %}
+{% block title %}CatPremier
+{% endblock %}
 
 {% block body %}
-    <h1>CatPremier</h1>
+	<h1>Catégorie Supérieure</h1>
+	<div class="container">
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>Id</th>
+					<td>{{ cat_premier.id }}</td>
+				</tr>
+				<tr>
+					<th>Nom</th>
+					<td>{{ cat_premier.Name }}</td>
+				</tr>
+			</tbody>
+			<td>
+				<a class="btn btn-success" href="{{ path('app_cat_premier_index') }}">Retour</a>
+			</td>
+			<td>
+				<a class="btn btn-warning" href="{{ path('app_cat_premier_edit', {'id': cat_premier.id}) }}">Modifier</a>
+			</td>
+			<td>
+				{{ include('cat_premier/_delete_form.html.twig') }}
+			</td>
+		</div>
+	</table>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ cat_premier.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ cat_premier.Name }}</td>
-            </tr>
-        </tbody>
-    </table>
 
-    <a class="btn btn-success" href="{{ path('app_cat_premier_index') }}">Retour</a>
-
-    <a class="btn btn-warning" href="{{ path('app_cat_premier_edit', {'id': cat_premier.id}) }}">Modifier</a>
-
-    {{ include('cat_premier/_delete_form.html.twig') }}
 {% endblock %}

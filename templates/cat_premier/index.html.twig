@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}CatPremier index{% endblock %}
+{% block title %}Liste des catégorieSup{% endblock %}
 
 {% block body %}
-    <h1>CatPremier index</h1>
-
+    <h1>Liste des catégorieSup</h1>
+<div class="container">
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
+                <th>Nom</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -25,11 +25,12 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3">Aucun résultat trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a class="btn btn-primary" href="{{ path('app_cat_premier_new') }}">Créer</a>
+    <a class="btn btn-primary" href="{{ path('app_cat_premier_new') }}">Créer une nouvelle catégorieSup</a>
+</div>
 {% endblock %}

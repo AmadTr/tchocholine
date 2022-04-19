@@ -1,36 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Produit{% endblock %}
+{% block title %}Produit
+{% endblock %}
 
 {% block body %}
-    <a href="{{ path('app_product_index') }}">Retour</a>
-    <h1>Produit</h1>
-<div class="container">
-    <table class="table">
-        <tbody>
-           
-            <tr>
-                <th>Nom</th>
-                <td>{{ product.name }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ product.description }}</td>
-            </tr>
-            <tr>
-                <th>Stock</th>
-                <td>{{ product.stock }}</td>
-            </tr>
-            <tr>
-                <th>Photo</th>
-                <td>{{ product.photo }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<a href="{{ path('app_product_index') }}">Retour</a>
+	<h1>Produit</h1>
+	<div class="container">
+		<table class="table">
+			<tbody>
+
+				<tr>
+					<th>Nom</th>
+					<td>{{ product.name }}</td>
+				</tr>
+				<tr>
+					<th>Description</th>
+					<td>{{ product.description }}</td>
+				</tr>
+				<tr>
+					<th>Stock</th>
+					<td>{{ product.stock }}</td>
+				</tr>
+				<tr>
+					<th>Photo</th>
+					<td><img src="{{ asset('build/images/' ~ product.photo) }}" width="200"></td>
+				</tr>
+			</tbody>
+			<a class="btn btn-success" href="{{ path('app_product_edit', {'id': product.id}) }}">Modifier</a>
+			{{ include('product/_delete_form.html.twig') }}
+		</div>
+	</table>
 
 
-    <a class="btn btn-success" href="{{ path('app_product_edit', {'id': product.id}) }}">Modifier</a>
-
-    {{ include('product/_delete_form.html.twig') }}
-</div>
 {% endblock %}

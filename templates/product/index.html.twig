@@ -30,6 +30,8 @@
                 <td>{{ product.price }}€</td>
                 <td>
                     <a class="btn btn-success" href="{{ path('app_product_show', {'id': product.id}) }}">Voir</a>
+                    </td>
+                    <td>
                     <a class="btn btn-warning" href="{{ path('app_product_edit', {'id': product.id}) }}">Modifier</a>
                 </td>
             </tr>
