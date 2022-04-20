@@ -61,7 +61,41 @@ class ProductRepository extends ServiceEntityRepository
         ;
     }
     
-
+    public function sort($value=null,$value2=null)
+    {
+        // dd($value,$value2);
+        if($value[1] == 'croissant'){
+            $order1 = 'p.price';
+            $order2 = 'ASC';
+        }
+        if($value[1] == 'décroissant'){
+            $order1 = 'p.price';
+            $order2 = 'DESC';
+        }
+        if($value == null && $value2== null){
+            $order1 = 'p.name';
+            $order2 = 'ASC';
+        }
+        if($value[0]){
+            return $this->createQueryBuilder('p')
+            ->andWhere('p.category = :val')
+            ->setParameter('val',$value[0]->getId())
+            ->orderBy($order1, $order2)
+            // ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+        }else{
+        return $this->createQueryBuilder('p')
+            // ->andWhere('p.name like :val')
+            // ->setParameter('val','%'.$value[0].'%')
+            ->orderBy($order1, $order2)
+            // ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+        }
+    }
     /*
     public function findOneBySomeField($value): ?Product
     {

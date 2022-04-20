@@ -9,6 +9,7 @@ use App\Repository\CatPremierRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TchoChoLineController extends AbstractController
@@ -22,6 +23,7 @@ class TchoChoLineController extends AbstractController
         CategoryRepository $categoryRepository,
         CatPremierRepository $catPremierRepository
     ): Response {
+        
         if ($request->get('search')) {
             return $this->render('tcho_cho_line/index.html.twig', [
                 'categories' => $categoryRepository->findAll(),
@@ -33,8 +35,7 @@ class TchoChoLineController extends AbstractController
         $products = $productRepository->findAll();
         return $this->render('tcho_cho_line/index.html.twig', [
             'products' => $products,
-            'categories' => $categoryRepository->findAll(),
-            'cat_premiers' => $catPremierRepository->findAll(),
+            'categories' => $categoryRepository->findAll()
         ]);
     }
 
@@ -45,8 +46,13 @@ class TchoChoLineController extends AbstractController
         ProductRepository $productRepository,
         Category $cat,
         CategoryRepository $catRepo
+        ,
+        SessionInterface $session
+
     ): Response {
         // dd($cat);
+        $session->set('category', $cat);
+        
         return $this->render('tcho_cho_line/index.html.twig', [
             'products' => $productRepository->findBy([
                 'category' => $cat->getId(),
@@ -61,10 +67,32 @@ class TchoChoLineController extends AbstractController
         Category $category,
         ProductRepository $productRepository,
         CategoryRepository $categoryRepository
+        
     ): Response {
+
+        
+
         return $this->render('tcho_cho_line/index.html.twig', [
             'products' => $productRepository->findBy(['category' => $category]),
             'categories' => $categoryRepository->findAll(),
         ]);
+    }
+    /**
+     * @Route("/sort", name="app_sort", methods={"GET"})
+     */
+    public function sortByPrice(Request $request, ProductRepository $productRepository, SessionInterface $session, CategoryRepository $categoryRepository){
+        // dd($request->get('answer'));
+        $session->set('answer', $request->get('answer'));
+        $cat = $session->get('category');
+        
+
+        return $this->render('tcho_cho_line/index.html.twig', [
+            'products' => $productRepository->Sort([$session->get('category', $cat),$session->get('answer')]),
+            'categories' => $categoryRepository->findAll(),
+        ]);
+
+           
+     
+
     }
 }
