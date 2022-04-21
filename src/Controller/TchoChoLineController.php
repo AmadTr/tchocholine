@@ -21,9 +21,15 @@ class TchoChoLineController extends AbstractController
         Request $request,
         ProductRepository $productRepository,
         CategoryRepository $categoryRepository,
-        CatPremierRepository $catPremierRepository
+        CatPremierRepository $catPremierRepository,
+        SessionInterface $session
     ): Response {
         
+        $session->remove('answer');
+        $session->remove('category');
+
+
+
         if ($request->get('search')) {
             return $this->render('tcho_cho_line/index.html.twig', [
                 'categories' => $categoryRepository->findAll(),

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ImageBlog index{% endblock %}
+
+{% block body %}
+    <h1>ImageBlog index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Link</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for image_blog in image_blogs %}
+            <tr>
+                <td>{{ image_blog.id }}</td>
+                <td>{{ image_blog.link }}</td>
+                <td>
+                    <a href="{{ path('app_image_blog_show', {'id': image_blog.id}) }}">show</a>
+                    <a href="{{ path('app_image_blog_edit', {'id': image_blog.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_image_blog_new') }}">Create new</a>
+{% endblock %}

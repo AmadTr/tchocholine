@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Images;
 use App\Entity\Product;
 use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
@@ -11,19 +12,21 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProductType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ): void {
         $builder
             ->add('name')
             ->add('description')
-            ->add('category',EntityType::class,[
+            ->add('category', EntityType::class, [
                 'class' => Category::class,
-                'choice_label'=>'name'
-                ])  
+                'choice_label' => 'name',
+            ])
+           
             ->add('stock')
             ->add('photo')
-            ->add('price')
-        ;
+            ->add('price');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

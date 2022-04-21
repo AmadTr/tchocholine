@@ -95,6 +95,9 @@
 <div class="container-fluid">
 <div class="collapse navbar-collapse" id="navbarColor01">
 
+
+{% if catSups is defined %}
+	
 {% for catSup in catSups %}
 
 	<div class="dropdown">
@@ -114,6 +117,10 @@
 		</ul>
 	</div>
 {% endfor %}
+					<a class="btn btn-outline-warning" href="#">
+						Blog
+					</a>
+{% endif %}
 </div>
 </div>
 <div class="dropdown">
