@@ -90,10 +90,18 @@
 		</div>
 		<!-- JavaScript Bundle with Popper -->
 	</body>
-</html></div></nav><nav class="navbar navbar-expand-lg navbar-dark "><div class="container-fluid">
+</html></div></nav>
+<nav class="navbar navbar-expand-lg navbar-dark ">
+<div class="container-fluid">
 <div class="collapse navbar-collapse" id="navbarColor01">
-	<ul class="navbar-nav me-auto">
-		{% if categories is defined %}
+
+{% for catSup in catSups %}
+
+	<div class="dropdown">
+		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+			{{catSup.name}}
+		</button>
+		<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
 			{% for category in categories %}
 				<li class="nav-item">
@@ -103,9 +111,11 @@
 					</a>
 				</li>
 			{% endfor %}
-		{% endif %}
-	</ul>
-</div></div>
+		</ul>
+	</div>
+{% endfor %}
+</div>
+</div>
 <div class="dropdown">
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
     Trier

@@ -16,17 +16,22 @@ class AppFixtures extends Fixture
     {
         $faker = \Faker\Factory::create();
 
-   
+        for ($catSup = 0; $catSup <3; $catSup++) {
+            $categorySup = new CatPremier();
+            $categorySup->setName('catégorieSup'.$catSup);
+            $manager->persist($categorySup);
+        
             // $product = new Product();
             // $manager->persist($product);
             // create 5 categories! Bam!
-            for ($cat = 0; $cat <3; $cat++) {
+            for ($cat = 1; $cat <2; $cat++) {
                 $category = new Category();
-                $category->setName($faker->word());
+                $category->setName('catégorie'.$cat);
+                $category->setCatPremier($categorySup);
                 $manager->persist($category);
             
                 // create 20 products! Bam!
-                for ($i = 1; $i <5; $i++) {
+                for ($i = 1; $i <3; $i++) {
                     $product = new Product();
                     $product->setName($faker->word());
                     $product->setDescription($faker->paragraph(2));
@@ -44,6 +49,7 @@ class AppFixtures extends Fixture
                     }
                 }
             }
+        }
         
 
         $manager->flush();

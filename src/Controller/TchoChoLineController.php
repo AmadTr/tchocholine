@@ -30,12 +30,14 @@ class TchoChoLineController extends AbstractController
                 'products' => $productRepository->findByExampleField([
                     $request->get('search'),
                 ]),
+                'catSups' => $catPremierRepository->findAll()
             ]);
         }
         $products = $productRepository->findAll();
         return $this->render('tcho_cho_line/index.html.twig', [
             'products' => $products,
-            'categories' => $categoryRepository->findAll()
+            'categories' => $categoryRepository->findAll(),
+            'catSups' => $catPremierRepository->findAll()
         ]);
     }
 
@@ -47,6 +49,7 @@ class TchoChoLineController extends AbstractController
         Category $cat,
         CategoryRepository $catRepo
         ,
+        CatPremierRepository $catPremierRepository,
         SessionInterface $session
 
     ): Response {
@@ -58,6 +61,8 @@ class TchoChoLineController extends AbstractController
                 'category' => $cat->getId(),
             ]),
             'categories' => $catRepo->findAll(),
+            'catSups' => $catPremierRepository->findAll()
+
         ]);
     }
     /**
@@ -80,8 +85,9 @@ class TchoChoLineController extends AbstractController
     /**
      * @Route("/sort", name="app_sort", methods={"GET"})
      */
-    public function sortByPrice(Request $request, ProductRepository $productRepository, SessionInterface $session, CategoryRepository $categoryRepository){
+    public function sortByPrice(Request $request,CatPremierRepository $catPremierRepository, ProductRepository $productRepository, SessionInterface $session, CategoryRepository $categoryRepository){
         // dd($request->get('answer'));
+        // dd($request);
         $session->set('answer', $request->get('answer'));
         $cat = $session->get('category');
         
@@ -89,6 +95,8 @@ class TchoChoLineController extends AbstractController
         return $this->render('tcho_cho_line/index.html.twig', [
             'products' => $productRepository->Sort([$session->get('category', $cat),$session->get('answer')]),
             'categories' => $categoryRepository->findAll(),
+            'catSups' => $catPremierRepository->findAll()
+
         ]);
 
            
