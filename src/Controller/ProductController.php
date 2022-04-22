@@ -130,14 +130,14 @@ class ProductController extends AbstractController
     public function deleteImage(Images $image, Request $request){
     
 
-        $data = json_decode($request->getProduct(), true);
-        // dd($data);
+        $data = json_decode($request->getContent(), true);
         
         if($this->isCsrfTokenValid('delete'.$image->getId(), $data['_token'])){
-            $name = $image->getName();
+            $name = $image->getlink();
+            // dd($name);
             unlink($this->getParameter('images_directory').'/'.$name);
 
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->remove($image);
             $em->flush();
 
