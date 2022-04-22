@@ -35,7 +35,7 @@ class ArticleBlog
     private $categoryBlog;
 
     /**
-     * @ORM\OneToMany(targetEntity=ImageBlog::class, mappedBy="articleBlog")
+     * @ORM\OneToMany(targetEntity=ImageBlog::class, mappedBy="articleBlog",cascade={"persist"})
      */
     private $images;
 

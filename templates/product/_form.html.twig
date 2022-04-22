@@ -5,8 +5,6 @@
 <h2>image</h2>
 
 {% for image in product.images %}
-    {# {{ dump(image) }} #}
-
 
     <div>
     <img src="{{asset('build/images/'~ image.link)}}" alt="Image" width="150">

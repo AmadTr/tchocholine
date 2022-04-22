@@ -2,13 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\ImageBlog;
 use App\Entity\ArticleBlog;
 use App\Form\ArticleBlogType;
 use App\Repository\ArticleBlogRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/article/blog")
@@ -35,6 +36,24 @@ class ArticleBlogController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $images = $form->get('imageBlog')->getData();
+
+            foreach ($images as $image) {
+                $fichier = md5(uniqid()).'.'.$image->guessExtension();
+
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+
+                $img = new ImageBlog();
+                $img->setLink($fichier);
+                $articleBlog->addImage($img);
+            }
+
+
+
             $articleBlogRepository->add($articleBlog);
             return $this->redirectToRoute('app_article_blog_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -64,6 +83,22 @@ class ArticleBlogController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $imageBlog = $form->get('imageBlog')->getData();
+
+            foreach ($imageBlog as $image) {
+                $fichier = md5(uniqid()).'.'.$image->guessExtension();
+
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+
+                $img = new ImageBlog();
+                $img->setLink($fichier);
+                $articleBlog->addImage($img);
+            }
+
             $articleBlogRepository->add($articleBlog);
             return $this->redirectToRoute('app_article_blog_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -85,4 +120,31 @@ class ArticleBlogController extends AbstractController
 
         return $this->redirectToRoute('app_article_blog_index', [], Response::HTTP_SEE_OTHER);
     }
+
+ /**
+    * @Route("/delete/image/{id}", name="article_delete_image", methods={"DELETE"})
+    */
+    public function deleteImage(ImageBlog $image, Request $request){
+    
+
+        $data = json_decode($request->getContent(), true);
+        
+        if($this->isCsrfTokenValid('delete'.$image->getId(), $data['_token'])){
+            $name = $image->getlink();
+            unlink($this->getParameter('images_directory').'/'.$name);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($image);
+            $em->flush();
+
+            return new JsonResponse(['success' => 1]);
+        }
+        else{
+            return new JsonResponse(['error' => 'token invalide'], 400);
+        }
+
+    }
+
 }
+
+
