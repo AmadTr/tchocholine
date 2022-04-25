@@ -39,6 +39,13 @@ class ArticleBlog
      */
     private $images;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $PostDate;
+
+    
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -114,4 +121,17 @@ class ArticleBlog
 
         return $this;
     }
+
+    public function getPostDate(): ?\DateTimeInterface
+    {
+        return $this->PostDate;
+    }
+
+    public function setPostDate(\DateTimeInterface $PostDate): self
+    {
+        $this->PostDate = $PostDate;
+
+        return $this;
+    }
+
 }

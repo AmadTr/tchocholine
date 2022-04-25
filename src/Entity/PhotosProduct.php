@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ImagesRepository;
+use App\Repository\PhotosProductRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ImagesRepository::class)
+ * @ORM\Entity(repositoryClass=PhotosProductRepository::class)
  */
-class Images
+class PhotosProduct
 {
     /**
      * @ORM\Id
@@ -23,7 +23,7 @@ class Images
     private $link;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="images")
+     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="photosProduct")
      */
     private $product;
 

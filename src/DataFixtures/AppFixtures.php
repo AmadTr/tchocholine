@@ -3,13 +3,13 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
-use App\Entity\Images;
 use App\Entity\Product;
 use App\Entity\Category;
 use App\Entity\ImageBlog;
 use App\Entity\CatPremier;
 use App\Entity\ArticleBlog;
 use App\Entity\CategoryBlog;
+use App\Entity\PhotosProduct;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
@@ -47,7 +47,7 @@ class AppFixtures extends Fixture
                     $manager->persist($product);
 
                     for ($k = 1; $k < 3; $k++) {
-                        $image = new Images();
+                        $image = new PhotosProduct();
                         $image->setLink('bijoux' . $k . '.jpg');
                         $image->setProduct($product);
                         $manager->persist($image);
@@ -68,6 +68,7 @@ class AppFixtures extends Fixture
             for ($i = 1; $i < 3; $i++) {
                 $article = new ArticleBlog();
                 $article->setTitle($faker->word());
+                $article->setPostDate($faker->dateTime());
                 $article->setContent($faker->paragraph(2));
                 $article->setCategoryblog($categoryBlog);
                 $manager->persist($article);

@@ -55,14 +55,16 @@ class Product
     private $price;
 
     /**
-     * @ORM\OneToMany(targetEntity=Images::class, mappedBy="product", cascade={"Persist"})
+     * @ORM\OneToMany(targetEntity=PhotosProduct::class, mappedBy="product")
      */
-    private $images;
+    private $photosProduct;
+
+   
 
     public function __construct()
     {
         $this->orderlines = new ArrayCollection();
-        $this->images = new ArrayCollection();
+        $this->photosProduct = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -173,33 +175,33 @@ class Product
     }
 
     /**
-     * @return Collection<int, Images>
+     * @return Collection<int, PhotosProduct>
      */
-    public function getImages(): Collection
+    public function getPhotosProduct(): Collection
     {
-        return $this->images;
+        return $this->photosProduct;
     }
 
-    public function addImage(Images $image): self
+    public function addPhotosProduct(PhotosProduct $photosProduct): self
     {
-        if (!$this->images->contains($image)) {
-            $this->images[] = $image;
-            $image->setProduct($this);
+        if (!$this->photosProduct->contains($photosProduct)) {
+            $this->photosProduct[] = $photosProduct;
+            $photosProduct->setProduct($this);
         }
 
         return $this;
     }
 
-    public function removeImage(Images $image): self
+    public function removePhotosProduct(PhotosProduct $photosProduct): self
     {
-        if ($this->images->removeElement($image)) {
+        if ($this->photosProduct->removeElement($photosProduct)) {
             // set the owning side to null (unless already changed)
-            if ($image->getProduct() === $this) {
-                $image->setProduct(null);
+            if ($photosProduct->getProduct() === $this) {
+                $photosProduct->setProduct(null);
             }
         }
 
         return $this;
-    }
+    }  
    
 }

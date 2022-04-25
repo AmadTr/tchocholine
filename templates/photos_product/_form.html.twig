@@ -1,0 +1,14 @@
+{{ form_start(form) }}
+
+<h2>Vous pouvez charger une nouvelle photo si vous souhaitez la changer</h2>
+    {% if app.request.attributes.get('_route') == 'app_photos_product_edit' %}
+    <div>
+    <img src="{{asset('build/images/'~ photos_product.link)}}" alt="Image" width="150">
+    
+    </div>
+    
+{% endif %}
+    {{ form_widget(form) }}
+
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
