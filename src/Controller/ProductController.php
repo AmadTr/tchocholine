@@ -30,32 +30,38 @@ class ProductController extends AbstractController
     /**
      * @Route("/new", name="app_product_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, ProductRepository $productRepository): Response
-    {
+    public function new(
+        Request $request,
+        ProductRepository $productRepository
+    ): Response {
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $image = $form->get('photo')->getData();
+            // dd($image->getClientOriginalName());
+            // foreach ($images as $image) {
+            // $fichier = md5(uniqid()).'.'.$image->guessExtension();
+            // $fichier =(uniqid()).'.'.$image->guessExtension();
 
-            $images = $form->get('images')->getData();
+            $image->move(
+                $this->getParameter('images_directory'),
+                $image->getClientOriginalName()
+            );
+            // dd($fichier);
+            // $img = new Images();
+            // $img->setLink($fichier);
+            $product->setPhoto($image->getClientOriginalName());
 
-            foreach ($images as $image) {
-                $fichier = md5(uniqid()).'.'.$image->guessExtension();
-
-                $image->move(
-                    $this->getParameter('images_directory'),
-                    $fichier
-                );
-
-                $img = new Images();
-                $img->setLink($fichier);
-                $product->addImage($img);
-
-            }
+            // }
 
             $productRepository->add($product);
-            return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute(
+                'app_product_index',
+                [],
+                Response::HTTP_SEE_OTHER
+            );
         }
 
         return $this->renderForm('product/new.html.twig', [
@@ -77,31 +83,38 @@ class ProductController extends AbstractController
     /**
      * @Route("/{id}/edit", name="app_product_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Product $product, ProductRepository $productRepository): Response
-    {
+    public function edit(
+        Request $request,
+        Product $product,
+        ProductRepository $productRepository
+    ): Response {
+        // dd($product);
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $image = $form->get('photo')->getData();
 
-            $images = $form->get('images')->getData();
+            // foreach ($images as $image) {
+            // $fichier = md5(uniqid()).'.'.$image->guessExtension();
 
-            foreach ($images as $image) {
-                $fichier = md5(uniqid()).'.'.$image->guessExtension();
+            $image->move(
+                $this->getParameter('images_directory'),
+                $image->getClientOriginalName()
+            );
 
-                $image->move(
-                    $this->getParameter('images_directory'),
-                    $fichier
-                );
+            // $img = new Images();
+            // $img->setLink($fichier);
+            $product->setPhoto($image->getClientOriginalName());
 
-                $img = new Images();
-                $img->setLink($fichier);
-                $product->addImage($img);
-
-            }
+            // }
 
             $productRepository->add($product);
-            return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute(
+                'app_product_index',
+                [],
+                Response::HTTP_SEE_OTHER
+            );
         }
 
         return $this->renderForm('product/edit.html.twig', [
@@ -113,40 +126,48 @@ class ProductController extends AbstractController
     /**
      * @Route("/{id}", name="app_product_delete", methods={"POST"})
      */
-    public function delete(Request $request, Product $product, ProductRepository $productRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
+    public function delete(
+        Request $request,
+        Product $product,
+        ProductRepository $productRepository
+    ): Response {
+        if (
+            $this->isCsrfTokenValid(
+                'delete' . $product->getId(),
+                $request->request->get('_token')
+            )
+        ) {
             $productRepository->remove($product);
         }
 
-        return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute(
+            'app_product_index',
+            [],
+            Response::HTTP_SEE_OTHER
+        );
     }
 
+    // /**
+    //  * @Route("/delete/image/{id}", name="prod_delete_image", methods={"DELETE"})
+    //  */
+    // public function deleteImage(Images $image, Request $request)
+    // {
+    //     $data = json_decode($request->getContent(), true);
 
+    //     if (
+    //         $this->isCsrfTokenValid('delete' . $image->getId(), $data['_token'])
+    //     ) {
+    //         $name = $image->getlink();
+    //         // dd($name);
+    //         unlink($this->getParameter('images_directory') . '/' . $name);
 
-    /**
-    * @Route("/delete/image/{id}", name="prod_delete_image", methods={"DELETE"})
-    */
-    public function deleteImage(Images $image, Request $request){
-    
+    //         $em = $this->getDoctrine()->getManager();
+    //         $em->remove($image);
+    //         $em->flush();
 
-        $data = json_decode($request->getContent(), true);
-        
-        if($this->isCsrfTokenValid('delete'.$image->getId(), $data['_token'])){
-            $name = $image->getlink();
-            // dd($name);
-            unlink($this->getParameter('images_directory').'/'.$name);
-
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($image);
-            $em->flush();
-
-            return new JsonResponse(['success' => 1]);
-        }
-        else{
-            return new JsonResponse(['error' => 'token invalide'], 400);
-        }
-
-    }
-
+    //         return new JsonResponse(['success' => 1]);
+    //     } else {
+    //         return new JsonResponse(['error' => 'token invalide'], 400);
+    //     }
+    // }
 }

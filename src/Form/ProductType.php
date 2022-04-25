@@ -26,10 +26,11 @@ class ProductType extends AbstractType
             ])
            
             ->add('stock')
-            ->add('photo')
-            ->add('images',FileType::class, [
+            // ->add('photo')
+            // ->add('photo',FileType::class,[])
+            ->add('photo',FileType::class, [
                 'label' => false,
-                'multiple' => true,
+                'multiple' => false,
                 'mapped' =>false,
                 'required'=>false
             ])

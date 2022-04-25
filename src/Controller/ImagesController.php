@@ -85,4 +85,28 @@ class ImagesController extends AbstractController
 
         return $this->redirectToRoute('app_images_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    // /**
+    //  * @Route("/delete/image/{id}", name="prod_delete_image", methods={"DELETE"})
+    //  */
+    // public function deleteImage(Images $image, Request $request)
+    // {
+    //     $data = json_decode($request->getContent(), true);
+
+    //     if (
+    //         $this->isCsrfTokenValid('delete' . $image->getId(), $data['_token'])
+    //     ) {
+    //         $name = $image->getlink();
+    //         // dd($name);
+    //         unlink($this->getParameter('images_directory') . '/' . $name);
+
+    //         $em = $this->getDoctrine()->getManager();
+    //         $em->remove($image);
+    //         $em->flush();
+
+    //         return new JsonResponse(['success' => 1]);
+    //     } else {
+    //         return new JsonResponse(['error' => 'token invalide'], 400);
+    //     }
+    // }
 }
