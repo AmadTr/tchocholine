@@ -44,6 +44,11 @@ class ArticleBlog
      */
     private $PostDate;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $photo;
+
     
 
     public function __construct()
@@ -130,6 +135,18 @@ class ArticleBlog
     public function setPostDate(\DateTimeInterface $PostDate): self
     {
         $this->PostDate = $PostDate;
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(string $photo): self
+    {
+        $this->photo = $photo;
 
         return $this;
     }

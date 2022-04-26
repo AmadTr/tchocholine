@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ArticleBlog{% endblock %}
+
+{% block body %}
+    <h1>ArticleBlog</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ article_blog.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ article_blog.title }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ article_blog.content }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_blog') }}">Retour</a>
+
+
+{% endblock %}

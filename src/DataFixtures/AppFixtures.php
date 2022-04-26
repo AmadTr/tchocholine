@@ -68,6 +68,7 @@ class AppFixtures extends Fixture
             for ($i = 1; $i < 3; $i++) {
                 $article = new ArticleBlog();
                 $article->setTitle($faker->word());
+                $article->setPhoto('bijoux' . $i . '.jpg');
                 $article->setPostDate($faker->dateTime());
                 $article->setContent($faker->paragraph(2));
                 $article->setCategoryblog($categoryBlog);
