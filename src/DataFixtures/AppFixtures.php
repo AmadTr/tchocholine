@@ -65,7 +65,7 @@ class AppFixtures extends Fixture
             $manager->persist($categoryBlog);
 
             // create 20 products! Bam!
-            for ($i = 1; $i < 3; $i++) {
+            for ($i = 1; $i < 10; $i++) {
                 $article = new ArticleBlog();
                 $article->setTitle($faker->word());
                 $article->setPhoto('bijoux' . $i . '.jpg');
