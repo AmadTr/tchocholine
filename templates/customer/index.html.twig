@@ -3,7 +3,7 @@
 {% block title %}Utilisateurs{% endblock %}
 
 {% block body %}
-    <h1>Utilisateurs</h1>
+    <h1>Votre profil</h1>
 <div class="container">
     <table class="table">
         <thead>
@@ -37,8 +37,8 @@
                 <td>{{ user.city }}</td>
                 <td>{{ user.phone }}</td>
                 <td>
-                    <a class="btn btn-success" href="{{ path('app_user_show', {'id': user.id}) }}">voir</a>
-                    <a class="btn btn-warning" href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier</a>
+                    <a class="btn btn-success" href="{{ path('app_customer_show', {'id': user.id}) }}">voir</a>
+                    <a class="btn btn-warning" href="{{ path('app_customer_edit', {'id': user.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -48,6 +48,5 @@
         {% endfor %}
         </tbody>
     </table>
-    <a class="btn btn-primary" href="{{ path('app_user_new') }}">Créer un nouvel utilisateur</a>
 </div>
 {% endblock %}

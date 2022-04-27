@@ -29,15 +29,7 @@ class UserController extends AbstractController
         ]);
     }
     
-     /**
-     * @Route("/profile", name="app_user_indexProfile", methods={"GET"})
-     */
-    public function indexProfile(UserRepository $userRepository,UserInterface $user): Response
-    {
-        return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findBy(['id'=>$user]),
-        ]);
-    }
+   
 
     /**
      * @Route("/new", name="app_user_new", methods={"GET", "POST"})
@@ -103,6 +95,8 @@ class UserController extends AbstractController
             $userRepository->remove($user);
         }
 
-        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+        // return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_customer');
+
     }
 }
