@@ -23,7 +23,7 @@ class BlogController extends AbstractController
 
 
     /**
-     * @Route("/{id}", name="blog_show", methods={"GET"})
+     * @Route("/blog/{id}", name="blog_show", methods={"GET"})
      */
     public function show(ArticleBlog $articleBlog): Response
     {

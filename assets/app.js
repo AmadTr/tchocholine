@@ -7,9 +7,11 @@
 
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.css';
+import './styles/blog.css';
 
 // start the Stimulus application
 import './bootstrap';
+import './images';
 
 //nos images
 import './images/bijoux1.jpg';

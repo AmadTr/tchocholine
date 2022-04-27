@@ -65,7 +65,7 @@ class ArticleBlogController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="app_article_blog_show", methods={"GET"})
+     * @Route("/show/{id}", name="app_article_blog_show", methods={"GET"})
      */
     public function show(ArticleBlog $articleBlog): Response
     {
@@ -110,7 +110,7 @@ class ArticleBlogController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="app_article_blog_delete", methods={"POST"})
+     * @Route("/delete/{id}", name="app_article_blog_delete", methods={"POST"})
      */
     public function delete(Request $request, ArticleBlog $articleBlog, ArticleBlogRepository $articleBlogRepository): Response
     {
@@ -122,7 +122,7 @@ class ArticleBlogController extends AbstractController
     }
 
  /**
-    * @Route("/delete/image/{id}", name="article_delete_image", methods={"DELETE"})
+    * @Route("/del/image/{id}", name="article_delete_image", methods={"DELETE"})
     */
     public function deleteImage(ImageBlog $image, Request $request){
     
