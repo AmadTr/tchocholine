@@ -16,6 +16,7 @@ class BlogController extends AbstractController
      */
     public function index(ArticleBlogRepository $articleBlogRepository, ImageBlogRepository $imageBlogRepository): Response
     {
+        
         return $this->render('blog/index.html.twig', [
             'article_blogs' => $articleBlogRepository->findAll(),
         ]);
@@ -27,6 +28,7 @@ class BlogController extends AbstractController
      */
     public function show(ArticleBlog $articleBlog): Response
     {
+        
         return $this->render('blog/show.html.twig', [
             'article_blog' => $articleBlog,
         ]);
