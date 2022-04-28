@@ -4,12 +4,9 @@
 
 {% block body %}
     <h1>Modifier l'utilisateur</h1>
-
-    {{ include('user/_form.html.twig', {'button_label': 'Modifier'}) }}
-{% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('app_user_index') }}">Retour</a>
-{% else %}
-    <a href="{{ path('app_user_indexProfile') }}">Retour</a>
-{% endif %}
-    {{ include('user/_delete_form.html.twig') }}
+<div class="container">
+    <a {{ include('user/_form.html.twig', {'button_label': 'Modifier'}) }}
+    <a class="btn btn-dark" href="{{ path('app_user_index') }}">Retour</a>
+    <a {{ include('user/_delete_form.html.twig') }}
+</div>
 {% endblock %}

@@ -9,6 +9,7 @@ use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -72,10 +73,12 @@ class CustomerController extends AbstractController
      */
     public function delete(Request $request, User $user, UserRepository $userRepository): Response
     {
+        $session = new Session();
+        $session->invalidate();
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $userRepository->remove($user);
         }
 
-        return $this->redirectToRoute('app_customer');
+        return $this->redirectToRoute('app_logout');
     }
 }
