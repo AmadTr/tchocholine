@@ -13,7 +13,6 @@ class CustomerType extends AbstractType
     {
         $builder
             ->add('email')
-            // ->add('roles')
             ->add('password')
             ->add('lastname')
             ->add('firstname')

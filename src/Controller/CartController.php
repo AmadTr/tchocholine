@@ -19,18 +19,15 @@ class CartController extends AbstractController
      * @Route("/", name="app_cart")
      *
      */
-    public function index(
-       CartService $cart
-    ): Response {
+    public function index(CartService $cart): Response {
 
-        // dd($cartWithDate);
         return $this->render('cart/index.html.twig', [
             'items' => $cart->getCartDetails(),
-            // 'nbreItems' => count($cartWithData),
             'total' => $cart->getCartTotal(),
-            
         ]);
     }
+
+
     /**
      * @Route("/add/{id}",name="cart_add")
      */
@@ -42,6 +39,8 @@ class CartController extends AbstractController
            
         ]);
     }
+
+
      /**
      * @Route("/addQty/{id}",name="cart_addQty")
      */
@@ -50,9 +49,10 @@ class CartController extends AbstractController
         $carteService->addQtyItem($id);
         return $this->redirectToRoute('app_cart', [
             'controller_name' => 'CartController',
-           
         ]);
     }
+
+
     /**
      * @Route("/lessQty/{id}",name="cart_lessQty")
      */
@@ -61,11 +61,10 @@ class CartController extends AbstractController
         $carteService->lessQtyItem($id);
         return $this->redirectToRoute('app_cart', [
             'controller_name' => 'CartController',
-            // 'nbreItems' =>$cartService->getCartQty()
-            // dd(count($cart))
-            // 'nbreItems'=>$nbreitems
         ]);
     }
+
+
     /**
      * @Route("/remove/{id}",name="cart_remove")
      */
@@ -80,6 +79,8 @@ class CartController extends AbstractController
 
         return $this->redirectToRoute('app_cart');
     }
+
+    
     /**
      * @Route("/delete",name="cart_delete")
      */
