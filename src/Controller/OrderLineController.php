@@ -5,10 +5,11 @@ namespace App\Controller;
 use App\Entity\OrderLine;
 use App\Form\OrderLineType;
 use App\Repository\OrderLineRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/order/line")
@@ -19,6 +20,18 @@ class OrderLineController extends AbstractController
      * @Route("/", name="app_order_line_index", methods={"GET"})
      */
     public function index(OrderLineRepository $orderLineRepository): Response
+    {
+        return $this->render('order_line/indexCustomer.html.twig', [
+            'order_lines' => $orderLineRepository->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("/all", name="app_order_line_all", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN", statusCode=404, message="Page introuvable")
+     * 
+     */
+    public function indexAdmin(OrderLineRepository $orderLineRepository): Response
     {
         return $this->render('order_line/index.html.twig', [
             'order_lines' => $orderLineRepository->findAll(),

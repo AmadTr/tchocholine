@@ -12,8 +12,9 @@ use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/order")
@@ -22,32 +23,32 @@ class OrderController extends AbstractController
 {
 
     /**
-     *@Route("/", name="order_all") 
+     * @IsGranted("ROLE_USER", statusCode=404, message="Page introuvable")
+     *@Route("/", name="order_all")
      */
     public function index(OrderRepository $orderRepo,UserInterface $user): Response
     {
 
-        return $this->render('order/index.html.twig', [
+        return $this->render('order/indexCustomer.html.twig', [
             'orders' => $orderRepo->findBy(['user'=>$user]),
-            // 'user'=>$orderRepo->getuser($user)
         ]); //Je passe à mon twig le repository de mon order comme paramètre
     }
+
      /**
-     *@Route("/all", name="all_order") 
+      * @IsGranted("ROLE_ADMIN", statusCode=404, message="Page introuvable")
+     *@Route("/all", name="all_order")
      */
     public function indexAdmin(OrderRepository $orderRepo): Response
     {
 
         return $this->render('order/index.html.twig', [
-            'orders' => $orderRepo->findByExampleField(),
-            // 'orders' => $orderRepo->orderBy('ASC')
-            
-
-        ]); //Je passe à mon twig le repository de mon order comme paramètre
+            'orders' => $orderRepo->findByExampleField(),            
+        ]);
     }
 
     /**
-     *@Route("/add/{user}", name="order_add") 
+      * @IsGranted("ROLE_USER", statusCode=404, message="Page introuvable")
+     *@Route("/add/{user}", name="order_add")
      */
     public function addOrder(
         User $user,
@@ -89,13 +90,28 @@ class OrderController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_USER", statusCode=404, message="Page introuvable")
      * @Route("/detail/{order}", name="order_detail")
      */
     public function showCdeDetail(Order $order)
+    {
+        return $this->render('/order/showCustomer.html.twig', [
+            'ols' => $order->getOrderLines(),
+            'order' => $order->getamount(),
+        ]);
+    }
+
+     /**
+     * @IsGranted("ROLE_ADMIN", statusCode=404, message="Page introuvable")
+     * @Route("all/detail/{order}", name="detail_order_all")
+     */
+    public function showCdeDetailAmin(Order $order)
     {
         return $this->render('/order/show.html.twig', [
             'ols' => $order->getOrderLines(),
             'order' => $order->getamount(),
         ]);
     }
+
+
 }

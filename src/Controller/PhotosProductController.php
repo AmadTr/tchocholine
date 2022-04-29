@@ -5,12 +5,14 @@ namespace App\Controller;
 use App\Entity\PhotosProduct;
 use App\Form\PhotosProductType;
 use App\Repository\PhotosProductRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
+ * @IsGranted("ROLE_ADMIN", statusCode=404, message="Page introuvable")
  * @Route("/photos/product")
  */
 class PhotosProductController extends AbstractController

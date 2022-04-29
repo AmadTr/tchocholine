@@ -5,10 +5,11 @@ namespace App\Controller;
 use App\Entity\CatPremier;
 use App\Form\CatPremierType;
 use App\Repository\CatPremierRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 
@@ -19,6 +20,7 @@ class CatPremierController extends AbstractController
 {
     
     /**
+     * @IsGranted("ROLE_ADMIN", statusCode=404, message="Page introuvable")
      * @Route("/", name="app_cat_premier_index", methods={"GET"})
      */
     public function index(CatPremierRepository $catPremierRepository): Response

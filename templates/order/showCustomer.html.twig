@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+	TchoChoLine : Détails de commande
+
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+
+		<h1 class="text-center mb-4 mt-4">
+			Détail Commande
+		</h1>
+		<br>
+		<table class="table">
+			<thead>
+				<tr>
+					<th class="text-center">Nom produit</th>
+					<th class="text-center">Quantité</th>
+					<th class="text-center">Montant</th>
+					<th class="text-center">Photo</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				{% for ol in ols %}
+
+					<tr>
+						<td class="text-center">{{ ol.product.name }}</td>
+						<td class="text-center">{{ ol.quantity }}</td>
+						<td class="text-center">{{ ol.amount }}€</td>
+						<td class="text-center"><img src="{{ asset('build/images/' ~ ol.product.photo) }}"  width="180"  alt="..."></td>
+					</tr>
+
+				{% endfor %}
+               
+
+			</tbody>
+            <tfoot>
+             <tr>
+						<td  class="text-center"></td>
+						<th class="text-center">
+							Total :
+						</th>
+						<td class="text-center">
+							{{order}}€</td>
+						<td class="text-center"></td>
+					</tr>
+            <tr>
+            
+
+			<td colspan="3">
+				<a href="{{path('order_all')}}" class="btn btn-secondary">
+					Retour aux commandes
+				</a>
+			</td>
+			<td></td>
+			<td></td>
+            </tr>
+            </tfoot>
+
+		</table>
+
+	</div>
+
+{% endblock %}
