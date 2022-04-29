@@ -10,6 +10,7 @@ import './styles/app.css';
 import './styles/bootstrap.min.css';
 import './styles/bootstrap.min.css';
 import './styles/blog.css';
+import './styles/headers.css';
 
 // start the Stimulus application
 import './bootstrap';
