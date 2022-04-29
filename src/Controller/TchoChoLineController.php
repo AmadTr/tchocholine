@@ -106,4 +106,19 @@ class TchoChoLineController extends AbstractController
         ]);
 
     }
+
+      /**
+     * @Route("/", name="app_indexCategories", methods={"GET"})
+     */
+    public function indexCategories(CategoryRepository $categoryRepository,CatPremierRepository $catPremierRepository): Response
+    {
+
+            return $this->render('base.html.twig', [
+                'categories' => $categoryRepository->findAll(),
+                'catSups' => $catPremierRepository->findAll()
+
+            ]);
+
+        
+    }
 }

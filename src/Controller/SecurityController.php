@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\CategoryRepository;
+use App\Repository\CatPremierRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -32,5 +34,20 @@ class SecurityController extends AbstractController
     public function logout(): void
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+    }
+
+      /**
+     * @Route("/", name="app_indexCategories", methods={"GET"})
+     */
+    public function indexCategories(CategoryRepository $categoryRepository,CatPremierRepository $catPremierRepository): Response
+    {
+
+            return $this->render('base.html.twig', [
+                'categories' => $categoryRepository->findAll(),
+                'catSups' => $catPremierRepository->findAll()
+
+            ]);
+
+        
     }
 }

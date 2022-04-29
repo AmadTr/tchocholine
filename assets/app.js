@@ -11,6 +11,8 @@ import './styles/bootstrap.min.css';
 import './styles/bootstrap.min.css';
 import './styles/blog.css';
 import './styles/headers.css';
+import './styles/navbar.css';
+import './styles/footers.css';
 
 // start the Stimulus application
 import './bootstrap';

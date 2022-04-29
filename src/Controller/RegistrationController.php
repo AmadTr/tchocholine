@@ -4,13 +4,15 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use App\Repository\CategoryRepository;
+use App\Repository\CatPremierRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class RegistrationController extends AbstractController
 {
@@ -42,5 +44,19 @@ class RegistrationController extends AbstractController
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
+    }
+      /**
+     * @Route("/", name="app_indexCategories", methods={"GET"})
+     */
+    public function indexCategories(CategoryRepository $categoryRepository,CatPremierRepository $catPremierRepository): Response
+    {
+
+            return $this->render('base.html.twig', [
+                'categories' => $categoryRepository->findAll(),
+                'catSups' => $catPremierRepository->findAll()
+
+            ]);
+
+        
     }
 }

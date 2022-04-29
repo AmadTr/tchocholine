@@ -23,7 +23,10 @@ class UserType extends AbstractType
         ],
         'expanded'=> true,
         'multiple'=> true,
-        'label'=>"Roles"
+        'label'=>"Roles",
+        'label_attr'=>[
+            'class'=>'checkbox-inline'
+        ]
         ])
         ->add('gender',ChoiceType::class,['choices'=>[
             'Madame' => "Mme",
@@ -31,12 +34,16 @@ class UserType extends AbstractType
         ],
         'expanded'=> true,
         'multiple'=> false,
-        'label'=>"Civilité"
+        'label'=>"Civilité",
+        'label_attr'=>[
+            'class'=>'radio-inline'
+        ]
         ])
             ->add('firstName')
             ->add('lastName')
             ->add('email')
-            ->add('password',RepeatedType::class, [ PasswordType::class, [
+            ->add('password', RepeatedType::class, [ 
+                'type' => PasswordType::class, 
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
@@ -52,10 +59,10 @@ class UserType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-            ],
-                'first_options'  => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat Password'],
-            ] )
+            // ,
+            'first_options'  => ['label' => 'mot de passe'],
+            'second_options' => ['label' => 'Répéter le mot de passe'],
+        ])
             ->add('adress')
             ->add('postCode')
             ->add('city')

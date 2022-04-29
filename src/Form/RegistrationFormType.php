@@ -28,11 +28,14 @@ class RegistrationFormType extends AbstractType
             ->add('phone')
             ->add('gender',ChoiceType::class,['choices'=>[
                 'Madame' => "Mme",
-                'Monsieur' => "M"
+                'Monsieur' => "M",
             ],
             'expanded'=> true,
             'multiple'=> false,
-            'label'=>"Civilité"
+            'label'=>"Civilité",
+            'label_attr'=>[
+                'class'=>'radio-inline'
+            ]
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
