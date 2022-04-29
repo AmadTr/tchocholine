@@ -13,10 +13,12 @@ import './styles/blog.css';
 import './styles/headers.css';
 import './styles/navbar.css';
 import './styles/footers.css';
+import './styles/dashboard.css';
 
 // start the Stimulus application
 import './bootstrap';
 import './bootstrap.bundle.min';
+import './dashboard.js';
 
 //nos images
 import './images/bijoux1.jpg';
