@@ -30,4 +30,8 @@
   .dropdown-toggle {
     outline: 0;
   }
+  h1#titre_site{
+    color: brown;
+    text-align: center;
+  }
   
