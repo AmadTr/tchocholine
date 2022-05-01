@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
 * @Route("/customer")
@@ -52,14 +53,20 @@ class CustomerController extends AbstractController
      /**
      * @Route("/{id}/edit", name="app_customer_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, User $user, UserRepository $userRepository): Response
+    public function edit(Request $request, User $user,UserPasswordHasherInterface $userPasswordHasher, UserRepository $userRepository): Response
     {
         $form = $this->createForm(CustomerType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                        $user,
+                        $form->get('password')->getData()
+                    )
+                );
             $userRepository->add($user);
-            return $this->redirectToRoute('app_customer_indexProfile',['id'=>$user->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_customer_show',['id'=>$user->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('customer/edit.html.twig', [

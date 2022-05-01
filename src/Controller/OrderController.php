@@ -28,7 +28,7 @@ class OrderController extends AbstractController
      */
     public function index(OrderRepository $orderRepo,UserInterface $user): Response
     {
-
+        // dd($orderRepo->findBy(['user'=>$user]));
         return $this->render('order/indexCustomer.html.twig', [
             'orders' => $orderRepo->findBy(['user'=>$user]),
         ]); //Je passe à mon twig le repository de mon order comme paramètre

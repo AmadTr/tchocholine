@@ -3,25 +3,47 @@
 {% block title %}Utilisateur{% endblock %}
 
 {% block body %}
-    <h1>Votre profil</h1>
+    <h1>Votre profil {{ user.firstname }}</h1>
 <div class="container">
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
+                <th>Civilité</th>
+             <td>{{ user.gender }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ user.lastName }}</td>
+            </tr>
+            <tr>
+                <th>Prénom</th>
+                <td>{{ user.firstName }}</td>
+            </tr>
+            <tr>
+                <th>Mot de passe</th>
+                <td>{{ user.password }}</td>
             </tr>
             <tr>
                 <th>Email</th>
                 <td>{{ user.email }}</td>
             </tr>
             <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <th>Adresse</th>
+                <td>{{ user.adress }}</td>
             </tr>
             <tr>
-                <th>Mot de passe</th>
-                <td>{{ user.password }}</td>
+                <th>Code postal</th>
+                <td>{{ user.postCode }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+
+                <td>{{ user.city }}</td>
+            </tr>
+            <tr>
+                <th>Numéro de téléphone</th>
+
+                <td>{{ user.phone }}</td>
             </tr>
         </tbody>
     </table>
@@ -29,10 +51,9 @@
 
     <a href="{{ path('app_user_index') }}">Retour</a>
 {% else %}
-    <a class="btn btn-success" href="{{ path('app_customer_indexProfile',{'id':user.id}) }}">Retour</a>
+    <a class="btn btn-success" href="{{ path('home',{'id':user.id}) }}">Retour</a>
 {% endif %}
     <a class="btn btn-warning" href="{{ path('app_customer_edit', {'id': user.id}) }}">Modifier</a>
 
-    {{ include('customer/_delete_form.html.twig') }}
 </div>
 {% endblock %}

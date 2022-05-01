@@ -5,6 +5,8 @@
 
 {% block body %}
 <h1>Liste des commandes</h1>
+		{% if orders | length > 0 %}
+
 <div class="container">
 	<table class="table">
 		<thead>
@@ -28,8 +30,13 @@
 			</td>
 		</tbody>
 	</tr>
+{% endfor %}
+</table>
+</div>
 {% else %}
-	<tr>
+	{# <tr>
 		<td colspan="5">Aucun résultat trouvé</td>
-	</tr>
-</table></div>{% endfor %}{# </tbody></table><a href="{{ path('app_order_new') }}">Create new</a> #}{% endblock %}
+	</tr> #}
+	<h3>Aucun résultat trouvé</h3>
+	{% endif %}
+{% endblock %}

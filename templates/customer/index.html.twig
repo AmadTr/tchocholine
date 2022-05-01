@@ -8,11 +8,8 @@
     <table class="table">
         <thead>
             <tr>
-                {# <th>Id</th> #}
                 <th>Civilité</th>
                 <th>Email</th>
-                <th>Roles</th>
-                {# <th>Password</th> #}
                 <th>Nom</th>
                 <th>Prénom</th>
                 <th>Adresse</th>
@@ -25,11 +22,8 @@
         <tbody>
         {% for user in users %}
             <tr>
-                {# <td>{{ user.id }}</td> #}
                 <td>{{ user.gender }}</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                {# <td>{{ user.password }}</td> #}
                 <td>{{ user.lastName }}</td>
                 <td>{{ user.firstName }}</td>
                 <td>{{ user.adress }}</td>

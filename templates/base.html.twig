@@ -69,7 +69,7 @@
 				{% if is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
 
 					<li class="nav-item">
-						<a class="nav-link" href="{{ path('app_customer_indexProfile',{'id':app.user.id}) }}">Profile</a>
+						<a class="nav-link" href="{{ path('app_customer_show',{'id':app.user.id}) }}">Profile</a>
 					</li>
 				{% endif %}
 
