@@ -46,13 +46,16 @@
   </button>
 </div> #}
 
-<div class="container">
-<hr>
+{# <div class="container"> #}
 
+{# <br> #}
+<main>
+	{# <div class="row row-cols-1 row-cols-md-4 g-4"> #}
+  <div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
 <nav class="navbar navbar-expand-lg navbar-dark ">
 
 <div class="dropdown">
-	<input class=" dropdown-toggle" type="toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" value="Trier par prix" />
+	<button class="btn-lg dropdown-toggle" type="input" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> Trier par prix </button>
 	<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 		<form class="d-flex" action="{{path('app_sort')}}" method="get">
 			<li>
@@ -63,24 +66,25 @@
 	</ul>
 </div>
 </nav>
-{# <br> #}
-	<div class="row row-cols-1 row-cols-md-4 g-4">
+        <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
 		{% for product in products %}
 			<div class="col">
-				<div class="card h-100">
+				<div class="card h-100 shadow-sm">
 					<img src="{{ asset('build/images/' ~ product.photo) }}" class="card-img-top" alt="...">
 
 					<div class="card-body">
-						<h5 class="card-title">{{product.name}}</h5>
-						<p class="card-text">{{product.description}}</p>
-						<p class="card-text">{{product.price}}€</p>
+						<div class="clearfix mb-3"> <span class="float-start badge rounded-pill bg-primary">{{product.name}}</span> <span class="float-end price-hp">
+						{{product.price}}€</span> </div>
+						<h5 class="card-title">{{product.description}}</5>
 					</div>
 
 					{% if is_granted('ROLE_ADMIN') %}
 						<a class="btn btn-warning" href="{{path('app_product_edit',{'id': product.id}) }}" class="card-link">Modifier</a>
 						<a class="btn btn-danger" href="{{path('app_product_delete',{'id': product.id})}}" class="card-link">supprimer</a>
 					{% else %}
+          <div class="text-center my-4">
 						<a class="btn btn-secondary" href="{{ path('app_products_show',{'id':product.id}) }}">Voir le produit</a>
+            </div>
 					{% endif %}
 				</div>
 			</div>
@@ -90,8 +94,10 @@
 			
 		{% endfor %}
 	</div>
+	</div>
+</main>
 	{# </table> #}
 	{# <a class="btn btn-primary" href="#">Création d'un nouveau livre</a> #}
-</div>
+{# </div> #}
 
 {% endblock %}

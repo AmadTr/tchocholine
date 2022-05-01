@@ -205,5 +205,14 @@ p, ul li, ol li {
   margin-bottom: 5px;
   padding-bottom: 10px;
 }
+.bi-arrow-up-circle-fill{
 
-  
+  color:#ffc300;
+}
+.bi-arrow-up-circle-fill:hover{
+
+  color:brown;
+}
+.fa-cc-visa,.fa-cc-mastercard,.fa-cc-amex,.fa-cc-paypal{
+  font-size:larger;
+}

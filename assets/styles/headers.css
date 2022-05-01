@@ -31,7 +31,19 @@
     outline: 0;
   }
   h1#titre_site{
-    color: brown;
+    color:#ffc300; 
+    ;
     text-align: center;
   }
+  a#upper_page{
+
+color:#ffc300; 
+ }
+ .btn-warning{
+   color:#ffc300;
+ }
+ .bi-search{
+color:black;
+ }
+
   
