@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}votre panier
+{% block title %}Votre panier
 {% endblock %}
 
 {% block body %}
@@ -70,7 +70,7 @@
         <a class="btn btn-danger" href="{{ path('cart_delete')}}">Vider le panier</a>
 		</td> #}
 		<td class="text-center">
-        <a class="btn btn-secondary" href="{{ path('home')}}">Continuer vos achats</a>
+        <a class="btn btn-success" href="{{ path('home')}}">Continuer vos achats</a>
 		</td>
 		{% if app.user %}
 		<td class="text-center">

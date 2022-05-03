@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\ArticleBlog;
+use App\Repository\CategoryRepository;
 use App\Repository\ImageBlogRepository;
+use App\Repository\CatPremierRepository;
 use App\Repository\ArticleBlogRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,11 +16,13 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog", name="app_blog")
      */
-    public function index(ArticleBlogRepository $articleBlogRepository, ImageBlogRepository $imageBlogRepository): Response
+    public function index(ArticleBlogRepository $articleBlogRepository, ImageBlogRepository $imageBlogRepository, CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository): Response
     {
         
         return $this->render('blog/index.html.twig', [
             'article_blogs' => $articleBlogRepository->findAll(),
+            'catSups' => $catPremierRepository->findAll(),
+            'categories' => $categoryRepository->findAll()
         ]);
     }
 
@@ -26,11 +30,13 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog/{id}", name="blog_show", methods={"GET"})
      */
-    public function show(ArticleBlog $articleBlog): Response
+    public function show(ArticleBlog $articleBlog, CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository): Response
     {
         
         return $this->render('blog/show.html.twig', [
             'article_blog' => $articleBlog,
+            'catSups' => $catPremierRepository->findAll(),
+            'categories' => $categoryRepository->findAll()
         ]);
     }
 }

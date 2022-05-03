@@ -9,6 +9,8 @@ use DateTimeImmutable;
 use App\Entity\OrderLine;
 use App\Service\Cart\CartService;
 use App\Repository\OrderRepository;
+use App\Repository\CategoryRepository;
+use App\Repository\CatPremierRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,11 +28,13 @@ class OrderController extends AbstractController
      * @IsGranted("ROLE_USER", statusCode=404, message="Page introuvable")
      *@Route("/", name="order_all")
      */
-    public function index(OrderRepository $orderRepo,UserInterface $user): Response
+    public function index(OrderRepository $orderRepo,UserInterface $user,CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository): Response
     {
         // dd($orderRepo->findBy(['user'=>$user]));
         return $this->render('order/indexCustomer.html.twig', [
             'orders' => $orderRepo->findBy(['user'=>$user]),
+            'catSups' => $catPremierRepository->findAll(),
+             'categories' => $categoryRepository->findAll()
         ]); //Je passe à mon twig le repository de mon order comme paramètre
     }
 

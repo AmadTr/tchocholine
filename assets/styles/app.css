@@ -28,12 +28,30 @@ h2 {
 .container-fluid {
     max-width: 1200px
 }
-.bi-dash-circle,.bi-plus-circle-fill,.bi-trash{
+.bi-dash-circle{
+    color:rgb(255, 140, 0);
+    /* background-color:#f7810a; */
+    }
+.bi-dash-circle:hover{
+color:#ffc278;
+/* background-color:#f7810a; */
+}
+
+.bi-plus-circle-fill,.bi-trash{
+    color:rgb(0, 0, 255);
+    /* background-color:#f7810a; */
+    }
+.bi-plus-circle-fill:hover,.bi-trash:hover{
+color:#567bff;
+/* background-color:#f7810a; */
+}
+
+.bi-trash{
     color:red;
     /* background-color:#f7810a; */
     }
-.bi-dash-circle:hover,.bi-plus-circle-fill:hover,.bi-trash:hover{
-color:#ffc300;
+.bi-trash:hover{
+color:#ff5656;
 /* background-color:#f7810a; */
 }
 

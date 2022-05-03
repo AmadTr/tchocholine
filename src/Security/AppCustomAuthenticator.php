@@ -51,7 +51,7 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
         // For example:
-    if(isset($token->getRoleNames()[1])){
+    if(isset($token->getRoleNames()[1]) == 'ROLE_ADMIN'){
 
         return new RedirectResponse($this->urlGenerator->generate('app_admin'));
 

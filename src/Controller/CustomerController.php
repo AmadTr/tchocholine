@@ -6,6 +6,8 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Form\CustomerType;
 use App\Repository\UserRepository;
+use App\Repository\CategoryRepository;
+use App\Repository\CatPremierRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,10 +34,13 @@ class CustomerController extends AbstractController
      /**
      * @Route("/{id}", name="app_customer_show", methods={"GET"})
      */
-    public function show(User $user): Response
+    public function show(User $user, CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository): Response
     {
         return $this->render('customer/show.html.twig', [
             'user' => $user,
+             'catSups' => $catPremierRepository->findAll(),
+             'categories' => $categoryRepository->findAll()
+
         ]);
     }
 
@@ -47,6 +52,8 @@ class CustomerController extends AbstractController
     {
         return $this->render('customer/index.html.twig', [
             'users' => $userRepository->findBy(['id'=>$user]),
+            
+
         ]);
     }
 
