@@ -18,9 +18,18 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td>
-						<a class="btn btn-primary" href="{{ path('cart_add',{'id':product.id}) }}">Ajouter au panier</a>
-					</td>
+					{% if product.stock <= 0 %}
+						<td>
+							<button class="btn btn-danger" type="disabled">
+								Rupture de stock
+							</button>
+						</td>
+					{% else %}
+						<td>
+							<a class="btn btn-primary" href="{{ path('cart_add',{'id':product.id}) }}">Ajouter au panier</a>
+						</td>
+					{% endif %}
+
 				</tr>
 			</tfoot>
 
