@@ -61,13 +61,10 @@ class TchoChoLineController extends AbstractController
     public function indexByCategory(
         ProductRepository $productRepository,
         Category $cat,
-        CategoryRepository $catRepo
-        ,
+        CategoryRepository $catRepo,
         CatPremierRepository $catPremierRepository,
-        SessionInterface $session
+        SessionInterface $session): Response {
 
-    ): Response {
-        // dd($cat);
         $session->set('category', $cat);
         
         return $this->render('tcho_cho_line/index.html.twig', [
@@ -79,6 +76,9 @@ class TchoChoLineController extends AbstractController
 
         ]);
     }
+
+
+    
     /**
      * @Route("TchoChoLine/{category}", name="app_find_category", methods={"GET"})
      */
