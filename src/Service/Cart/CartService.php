@@ -18,19 +18,24 @@ class CartService
         $this->productRepository = $productRepository;
     }
 
-    public function clearCart(){
+    public function clearCart()
+    {
 
         $cart = $this->session->get('cart', []);
 
         if (!empty($cart)) {
             unset($cart);
         }
-        $this->session->set('cart', []);    
+        $this->session->set('cart', []);
     }
 
     public function add(int $id)
     {
         $cart = $this->session->get('cart', []);
+
+        if (isset($cart[$id]) && $cart[$id] >= $this->productRepository->Find($id)->getStock()) {
+            ///écrire message d'erreur pour stipuler stock max 
+        } else
         if (!empty($cart[$id])) {
             $cart[$id]++;
         } else {
@@ -40,8 +45,12 @@ class CartService
     }
     public function addQtyItem(int $id)
     {
+        // dd($this->productRepository->Find($id)->GetStock());
+
         $cart = $this->session->get('cart', []);
-        if (!empty($cart[$id])) {
+        if ($cart[$id] >= $this->productRepository->Find($id)->getStock()) {
+            ///écrire message d'erreur pour stipuler stock max 
+        } else if (!empty($cart[$id])) {
             $cart[$id]++;
         }
         $this->session->set('cart', $cart);
