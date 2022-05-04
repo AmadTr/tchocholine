@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\ArticleBlog;
+use App\Service\Cart\CartService;
 use App\Repository\CategoryRepository;
 use App\Repository\ImageBlogRepository;
 use App\Repository\CatPremierRepository;
@@ -16,13 +17,14 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog", name="app_blog")
      */
-    public function index(ArticleBlogRepository $articleBlogRepository, ImageBlogRepository $imageBlogRepository, CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository): Response
+    public function index(ArticleBlogRepository $articleBlogRepository, ImageBlogRepository $imageBlogRepository, CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository,CartService $cart): Response
     {
         
         return $this->render('blog/index.html.twig', [
             'article_blogs' => $articleBlogRepository->findAll(),
             'catSups' => $catPremierRepository->findAll(),
-            'categories' => $categoryRepository->findAll()
+            'categories' => $categoryRepository->findAll(),
+            'items' => $cart->getCartDetails()
         ]);
     }
 

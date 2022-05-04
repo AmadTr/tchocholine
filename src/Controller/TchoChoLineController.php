@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Entity\Category;
+use App\Service\Cart\CartService;
 use App\Repository\ProductRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\CatPremierRepository;
@@ -24,14 +25,17 @@ class TchoChoLineController extends AbstractController
         ProductRepository $productRepository,
         CategoryRepository $categoryRepository,
         CatPremierRepository $catPremierRepository,
-        SessionInterface $session
+        SessionInterface $session,
+        CartService $cart
     ): Response {
 
         
         $session->remove('answer');
         $session->remove('category');
 
+        // dd($cart->getCartDetails()[0]);
 
+        
 
         if ($request->get('search')) {
             return $this->render('tcho_cho_line/index.html.twig', [
@@ -46,7 +50,8 @@ class TchoChoLineController extends AbstractController
         return $this->render('tcho_cho_line/index.html.twig', [
             'products' => $products,
             'categories' => $categoryRepository->findAll(),
-            'catSups' => $catPremierRepository->findAll()
+            'catSups' => $catPremierRepository->findAll(),
+            'items' => $cart->getCartDetails()
         ]);
     }
 

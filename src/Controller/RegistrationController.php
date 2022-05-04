@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Service\Cart\CartService;
 use App\Form\RegistrationFormType;
 use App\Repository\CategoryRepository;
 use App\Repository\CatPremierRepository;
@@ -19,7 +20,7 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager,CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager,CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository, CartService $cart): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -44,7 +45,8 @@ class RegistrationController extends AbstractController
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
             'catSups' => $catPremierRepository->findAll(),
-            'categories' => $categoryRepository->findAll()
+            'categories' => $categoryRepository->findAll(),
+            'items' => $cart->getCartDetails()
         ]);
     }
       /**

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\Cart\CartService;
 use App\Repository\CategoryRepository;
 use App\Repository\CatPremierRepository;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +15,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/login", name="app_login")
      */
-    public function login(AuthenticationUtils $authenticationUtils,CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository): Response
+    public function login(AuthenticationUtils $authenticationUtils,CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository, CartService $cart): Response
     {
         // if ($this->getUser()) {
         //     return $this->redirectToRoute('target_path');
@@ -27,7 +28,7 @@ class SecurityController extends AbstractController
             
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error,
         'catSups' => $catPremierRepository->findAll(),
-        'categories' => $categoryRepository->findAll()]);
+        'categories' => $categoryRepository->findAll(),'items' => $cart->getCartDetails()]);
     }
 
     /**
