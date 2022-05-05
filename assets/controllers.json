@@ -1,4 +1,6 @@
 {
     "controllers": [],
-    "entrypoints": ["./styles/app.css"]
+    "entrypoints": [
+        "./styles/app.css"
+    ]
 }

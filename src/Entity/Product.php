@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
@@ -16,26 +17,34 @@ class Product
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("prods:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("prods:read")
+     * 
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups("prods:read")
+     * 
      */
     private $description;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups("prods:read")
+     * 
      */
     private $stock;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
      */
     private $photo;
 
