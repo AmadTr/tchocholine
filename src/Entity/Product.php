@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\Collection;
@@ -24,7 +25,13 @@ class Product
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups("prods:read")
+     * @Assert\NotBlank(message="Le nom du produit doit etre indique.")
      * 
+     * @Assert\Length(
+     * min=3,
+     * minMessage="plus de 3 caratères",
+     * max=255,
+     * maxMessage="moins de 255 caractères") 
      */
     private $name;
 
@@ -38,7 +45,7 @@ class Product
     /**
      * @ORM\Column(type="integer")
      * @Groups("prods:read")
-     * 
+     * @Assert\PositiveOrZero(message="La quantité doit etre >=0.")
      */
     private $stock;
 
@@ -60,6 +67,8 @@ class Product
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\PositiveOrZero(message="La quantité doit etre >=0.")
+     * 
      */
     private $price;
 
