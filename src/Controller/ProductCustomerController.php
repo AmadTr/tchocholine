@@ -23,10 +23,10 @@ class ProductCustomerController extends AbstractController
         ]);
     }
 
-     /**
+    /**
      * @Route("/products/{id}", name="app_products_show", methods={"GET"})
      */
-    public function show(Product $product,CartService $cart): Response
+    public function show(Product $product, CartService $cart): Response
     {
         return $this->render('product_customer/showProduct.html.twig', [
             'product' => $product,

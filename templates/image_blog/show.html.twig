@@ -1,26 +1,27 @@
 {% extends 'dashboardbase.html.twig' %}
 
-{% block title %}ImageBlog{% endblock %}
+{% block title %}ImageBlog
+{% endblock %}
 
 {% block body %}
-    <h1>ImageBlog</h1>
+	<h1>ImageBlog</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ image_blog.id }}</td>
-            </tr>
-            <tr>
-                <th>Link</th>
-                <td>{{ image_blog.link }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ image_blog.id }}</td>
+			</tr>
+			<tr>
+				<th>Link</th>
+				<td>{{ image_blog.link }}</td>
+			</tr>
+		</tbody>
+	</table>
 
-    <a href="{{ path('app_image_blog_index') }}">back to list</a>
+	<a href="{{ path('app_image_blog_index') }}">back to list</a>
 
-    <a href="{{ path('app_image_blog_edit', {'id': image_blog.id}) }}">edit</a>
+	<a href="{{ path('app_image_blog_edit', {'id': image_blog.id}) }}">edit</a>
 
-    {{ include('image_blog/_delete_form.html.twig') }}
+	{{ include('image_blog/_delete_form.html.twig') }}
 {% endblock %}

@@ -49,7 +49,7 @@ class ArticleBlog
      */
     private $photo;
 
-    
+
 
     public function __construct()
     {
@@ -150,5 +150,4 @@ class ArticleBlog
 
         return $this;
     }
-
 }

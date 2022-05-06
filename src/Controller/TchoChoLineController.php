@@ -29,13 +29,13 @@ class TchoChoLineController extends AbstractController
         CartService $cart
     ): Response {
 
-        
+
         $session->remove('answer');
         $session->remove('category');
 
         // dd($cart->getCartDetails()[0]);
 
-        
+
 
         if ($request->get('search')) {
             return $this->render('tcho_cho_line/index.html.twig', [
@@ -63,70 +63,80 @@ class TchoChoLineController extends AbstractController
         Category $cat,
         CategoryRepository $catRepo,
         CatPremierRepository $catPremierRepository,
-        SessionInterface $session): Response {
+        SessionInterface $session,
+        CartService $cart
+    ): Response {
 
         $session->set('category', $cat);
-        
+
         return $this->render('tcho_cho_line/index.html.twig', [
             'products' => $productRepository->findBy([
                 'category' => $cat->getId(),
             ]),
             'categories' => $catRepo->findAll(),
-            'catSups' => $catPremierRepository->findAll()
+            'catSups' => $catPremierRepository->findAll(),
+            'items' => $cart->getCartDetails()
 
         ]);
     }
 
 
-    
+
     /**
      * @Route("TchoChoLine/{category}", name="app_find_category", methods={"GET"})
      */
     public function findByCategory(
         Category $category,
         ProductRepository $productRepository,
-        CategoryRepository $categoryRepository
-        
+        CategoryRepository $categoryRepository,
+        CartService $cart
+
     ): Response {
 
-        
+
 
         return $this->render('tcho_cho_line/index.html.twig', [
             'products' => $productRepository->findBy(['category' => $category]),
             'categories' => $categoryRepository->findAll(),
+            'items' => $cart->getCartDetails()
         ]);
     }
     /**
      * @Route("/sort", name="app_sort", methods={"GET"})
      */
-    public function sortByPrice(Request $request,CatPremierRepository $catPremierRepository, ProductRepository $productRepository, SessionInterface $session, CategoryRepository $categoryRepository){
+    public function sortByPrice(
+        Request $request,
+        CatPremierRepository $catPremierRepository,
+        ProductRepository $productRepository,
+        SessionInterface $session,
+        CategoryRepository $categoryRepository,
+        CartService $cart
+    ) {
         // dd($request->get('answer'));
         // dd($request);
         $session->set('answer', $request->get('answer'));
         $cat = $session->get('category');
-        
+
 
         return $this->render('tcho_cho_line/index.html.twig', [
-            'products' => $productRepository->Sort([$session->get('category', $cat),$session->get('answer')]),
+            'products' => $productRepository->Sort([$session->get('category', $cat), $session->get('answer')]),
+            'categories' => $categoryRepository->findAll(),
+            'catSups' => $catPremierRepository->findAll(),
+            'items' => $cart->getCartDetails()
+
+        ]);
+    }
+
+    /**
+     * @Route("/", name="app_indexCategories", methods={"GET"})
+     */
+    public function indexCategories(CategoryRepository $categoryRepository, CatPremierRepository $catPremierRepository): Response
+    {
+
+        return $this->render('base.html.twig', [
             'categories' => $categoryRepository->findAll(),
             'catSups' => $catPremierRepository->findAll()
 
         ]);
-
-    }
-
-      /**
-     * @Route("/", name="app_indexCategories", methods={"GET"})
-     */
-    public function indexCategories(CategoryRepository $categoryRepository,CatPremierRepository $catPremierRepository): Response
-    {
-
-            return $this->render('base.html.twig', [
-                'categories' => $categoryRepository->findAll(),
-                'catSups' => $catPremierRepository->findAll()
-
-            ]);
-
-        
     }
 }

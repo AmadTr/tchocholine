@@ -1,27 +1,28 @@
 {% extends 'dashboardbase.html.twig' %}
 
-{% block title %}Lign de commande{% endblock %}
+{% block title %}Lign de commande
+{% endblock %}
 
 {% block body %}
-    <h1>Ligne de commande</h1>
+	<h1>Ligne de commande</h1>
 
-    <table class="table">
-        <tbody>
-            
-            <tr>
-                <th>Ligne de commande</th>
-                <td>{{ order_line.quantity }}</td>
-            </tr>
-            <tr>
-                <th>Montant</th>
-                <td>{{ order_line.amount }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<table class="table">
+		<tbody>
 
-    <a href="{{ path('app_order_line_index') }}">Retour</a>
+			<tr>
+				<th>Ligne de commande</th>
+				<td>{{ order_line.quantity }}</td>
+			</tr>
+			<tr>
+				<th>Montant</th>
+				<td>{{ order_line.amount }}</td>
+			</tr>
+		</tbody>
+	</table>
 
-    <a href="{{ path('app_order_line_edit', {'id': order_line.id}) }}">Modifier</a>
+	<a href="{{ path('app_order_line_index') }}">Retour</a>
 
-    {{ include('order_line/_delete_form.html.twig') }}
+	<a href="{{ path('app_order_line_edit', {'id': order_line.id}) }}">Modifier</a>
+
+	{{ include('order_line/_delete_form.html.twig') }}
 {% endblock %}

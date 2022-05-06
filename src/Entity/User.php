@@ -108,7 +108,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->firstname." ".$this->lastname;
+        return (string) $this->firstname . " " . $this->lastname;
     }
 
     /**
@@ -116,7 +116,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->firstname." ".$this->lastname;
+        return (string) $this->firstname . " " . $this->lastname;
     }
 
     /**

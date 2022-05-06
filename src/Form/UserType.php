@@ -17,33 +17,35 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('roles',ChoiceType::class,['choices'=>[
-            'utilisateur' => "ROLE_USER",
-            'administrateur' => "ROLE_ADMIN"
-        ],
-        'expanded'=> true,
-        'multiple'=> true,
-        'label'=>"Roles",
-        'label_attr'=>[
-            'class'=>'checkbox-inline'
-        ]
-        ])
-        ->add('gender',ChoiceType::class,['choices'=>[
-            'Madame' => "Mme",
-            'Monsieur' => "M"
-        ],
-        'expanded'=> true,
-        'multiple'=> false,
-        'label'=>"Civilité",
-        'label_attr'=>[
-            'class'=>'radio-inline'
-        ]
-        ])
+            ->add('roles', ChoiceType::class, [
+                'choices' => [
+                    'utilisateur' => "ROLE_USER",
+                    'administrateur' => "ROLE_ADMIN"
+                ],
+                'expanded' => true,
+                'multiple' => true,
+                'label' => "Roles",
+                'label_attr' => [
+                    'class' => 'checkbox-inline'
+                ]
+            ])
+            ->add('gender', ChoiceType::class, [
+                'choices' => [
+                    'Madame' => "Mme",
+                    'Monsieur' => "M"
+                ],
+                'expanded' => true,
+                'multiple' => false,
+                'label' => "Civilité",
+                'label_attr' => [
+                    'class' => 'radio-inline'
+                ]
+            ])
             ->add('firstName')
             ->add('lastName')
             ->add('email')
-            ->add('password', RepeatedType::class, [ 
-                'type' => PasswordType::class, 
+            ->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
@@ -59,15 +61,14 @@ class UserType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-            // ,
-            'first_options'  => ['label' => 'mot de passe'],
-            'second_options' => ['label' => 'Répéter le mot de passe'],
-        ])
+                // ,
+                'first_options'  => ['label' => 'mot de passe'],
+                'second_options' => ['label' => 'Répéter le mot de passe'],
+            ])
             ->add('adress')
             ->add('postCode')
             ->add('city')
-            ->add('phone')
-        ;
+            ->add('phone');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

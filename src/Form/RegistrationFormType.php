@@ -26,16 +26,17 @@ class RegistrationFormType extends AbstractType
             ->add('postcode')
             ->add('city')
             ->add('phone')
-            ->add('gender',ChoiceType::class,['choices'=>[
-                'Madame' => "Mme",
-                'Monsieur' => "M",
-            ],
-            'expanded'=> true,
-            'multiple'=> false,
-            'label'=>"Civilité",
-            'label_attr'=>[
-                'class'=>'radio-inline'
-            ]
+            ->add('gender', ChoiceType::class, [
+                'choices' => [
+                    'Madame' => "Mme",
+                    'Monsieur' => "M",
+                ],
+                'expanded' => true,
+                'multiple' => false,
+                'label' => "Civilité",
+                'label_attr' => [
+                    'class' => 'radio-inline'
+                ]
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
@@ -46,8 +47,8 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('plainPassword', RepeatedType::class, [ 
-                'type' => PasswordType::class, 
+            ->add('plainPassword', RepeatedType::class, [
+                'type' => PasswordType::class,
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
@@ -63,11 +64,10 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-            // ,
-            'first_options'  => ['label' => 'mot de passe'],
-            'second_options' => ['label' => 'Répéter le mot de passe'],
-        ])
-        ;
+                // ,
+                'first_options'  => ['label' => 'mot de passe'],
+                'second_options' => ['label' => 'Répéter le mot de passe'],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

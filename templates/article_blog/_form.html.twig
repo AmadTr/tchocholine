@@ -1,19 +1,18 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+{{ form_widget(form) }}
 
 {% if app.request.attributes.get('_route') == 'app_article_blog_edit' %}
-<h2>image</h2>
+	<h2>image</h2>
 
-{% for image in article_blog.images %}
+	{% for image in article_blog.images %}
 
-    <div>
-    <img src="{{asset('build/images/'~ image.link)}}" alt="Image" width="150">
-    <a href="{{ path('article_delete_image', {id: image.id}) }}"
-    data-delete data-token="{{ csrf_token('delete' ~ image.id) }}">Supprimer</a>
-    
-    </div>
-{% endfor %}
-    
+		<div>
+			<img src="{{asset('build/images/'~ image.link)}}" alt="Image" width="150">
+			<a href="{{ path('article_delete_image', {id: image.id}) }}" data-delete data-token="{{ csrf_token('delete' ~ image.id) }}">Supprimer</a>
+
+		</div>
+	{% endfor %}
+
 {% endif %}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

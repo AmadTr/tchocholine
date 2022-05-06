@@ -82,7 +82,7 @@ class ImageBlogController extends AbstractController
      */
     public function delete(Request $request, ImageBlog $imageBlog, ImageBlogRepository $imageBlogRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$imageBlog->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $imageBlog->getId(), $request->request->get('_token'))) {
             $imageBlogRepository->remove($imageBlog);
         }
 

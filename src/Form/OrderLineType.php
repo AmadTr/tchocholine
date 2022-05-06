@@ -15,8 +15,7 @@ class OrderLineType extends AbstractType
             ->add('quantity')
             ->add('amount')
             ->add('product')
-            ->add('orders')
-        ;
+            ->add('orders');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

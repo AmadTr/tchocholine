@@ -92,7 +92,7 @@ class OrderLineController extends AbstractController
      */
     public function delete(Request $request, OrderLine $orderLine, OrderLineRepository $orderLineRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$orderLine->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $orderLine->getId(), $request->request->get('_token'))) {
             $orderLineRepository->remove($orderLine);
         }
 

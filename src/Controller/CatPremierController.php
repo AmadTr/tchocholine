@@ -18,7 +18,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class CatPremierController extends AbstractController
 {
-    
+
     /**
      * @IsGranted("ROLE_ADMIN", statusCode=404, message="Page introuvable")
      * @Route("/", name="app_cat_premier_index", methods={"GET"})
@@ -31,9 +31,7 @@ class CatPremierController extends AbstractController
             return $this->render('cat_premier/index.html.twig', [
                 'cat_premiers' => $catPremierRepository->findAll(),
             ]);
-        }
-
-        catch(AccessDeniedException $ex){
+        } catch (AccessDeniedException $ex) {
             $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
             return $this->redirectToRoute('home');
         }
@@ -61,8 +59,7 @@ class CatPremierController extends AbstractController
                 'cat_premier' => $catPremier,
                 'form' => $form,
             ]);
-        }
-        catch(AccessDeniedException $ex){
+        } catch (AccessDeniedException $ex) {
             $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
             return $this->redirectToRoute('home');
         }
@@ -79,9 +76,7 @@ class CatPremierController extends AbstractController
             return $this->render('cat_premier/show.html.twig', [
                 'cat_premier' => $catPremier,
             ]);
-        }
-
-        catch(AccessDeniedException $ex){
+        } catch (AccessDeniedException $ex) {
             $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
             return $this->redirectToRoute('home');
         }
@@ -107,9 +102,7 @@ class CatPremierController extends AbstractController
                 'cat_premier' => $catPremier,
                 'form' => $form,
             ]);
-        }
-
-        catch(AccessDeniedException $ex){
+        } catch (AccessDeniedException $ex) {
             $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
             return $this->redirectToRoute('home');
         }
@@ -123,18 +116,14 @@ class CatPremierController extends AbstractController
         try {
             $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-            if ($this->isCsrfTokenValid('delete'.$catPremier->getId(), $request->request->get('_token'))) {
+            if ($this->isCsrfTokenValid('delete' . $catPremier->getId(), $request->request->get('_token'))) {
                 $catPremierRepository->remove($catPremier);
             }
 
             return $this->redirectToRoute('app_cat_premier_index', [], Response::HTTP_SEE_OTHER);
-        }
-        
-        catch(AccessDeniedException $ex){
+        } catch (AccessDeniedException $ex) {
             $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
             return $this->redirectToRoute('home');
         }
     }
 }
-
-

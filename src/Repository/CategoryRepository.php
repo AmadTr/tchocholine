@@ -54,13 +54,11 @@ class CategoryRepository extends ServiceEntityRepository
         // dd($value);
         return $this->createQueryBuilder('c')
             ->andWhere('c.name like :val')
-            ->setParameter('val','%'.$value[0].'%')
+            ->setParameter('val', '%' . $value[0] . '%')
             ->orderBy('c.id', 'ASC')
             // ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-        ;
-   
+            ->getResult();
     }
     // */
 

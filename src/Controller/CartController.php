@@ -4,26 +4,35 @@ namespace App\Controller;
 
 use App\Service\Cart\CartService;
 use App\Repository\ProductRepository;
+use App\Repository\CategoryRepository;
+use App\Repository\CatPremierRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
- /**
-     * @Route("/cart")
-     *
-     */
+
+/**
+ * @Route("/cart")
+ *
+ */
 class CartController extends AbstractController
 {
     /**
      * @Route("/", name="app_cart")
      *
      */
-    public function index(CartService $cart): Response {
+    public function index(
+        CartService $cart,
+        CategoryRepository $categoryRepository,
+        CatPremierRepository $catPremierRepository
+    ): Response {
 
         return $this->render('cart/index.html.twig', [
             'items' => $cart->getCartDetails(),
             'total' => $cart->getCartTotal(),
+            'categories' => $categoryRepository->findAll(),
+            'catSups' => $catPremierRepository->findAll(),
         ]);
     }
 
@@ -36,12 +45,12 @@ class CartController extends AbstractController
         $carteService->add($id);
         return $this->redirectToRoute('home', [
             'controller_name' => 'CartController',
-           
+
         ]);
     }
 
 
-     /**
+    /**
      * @Route("/addQty/{id}",name="cart_addQty")
      */
     public function addQtyItem($id, CartService $carteService)
@@ -80,7 +89,7 @@ class CartController extends AbstractController
         return $this->redirectToRoute('app_cart');
     }
 
-    
+
     /**
      * @Route("/delete",name="cart_delete")
      */
@@ -95,5 +104,4 @@ class CartController extends AbstractController
 
         return $this->redirectToRoute('app_cart');
     }
-
 }

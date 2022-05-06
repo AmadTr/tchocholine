@@ -11,8 +11,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 /**
-* @Route("/api")
-*/
+ * @Route("/api")
+ */
 
 class ApiProductController extends AbstractController
 {
@@ -22,6 +22,6 @@ class ApiProductController extends AbstractController
     public function index(ProductRepository $prodRepo): Response
     {
         dd($prodRepo->findAll());
-        return $this->json($prodRepo->findAll(), 200, [], ['groups'=> 'prods:read']);
+        return $this->json($prodRepo->findAll(), 200, [], ['groups' => 'prods:read']);
     }
 }

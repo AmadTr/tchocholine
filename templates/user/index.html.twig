@@ -1,53 +1,54 @@
 {% extends 'dashboardbase.html.twig' %}
 
-{% block title %}Utilisateurs{% endblock %}
+{% block title %}Utilisateurs
+{% endblock %}
 
 {% block body %}
-    <h1>Comptes</h1>
-<div class="container">
-    <table class="table">
-        <thead>
-            <tr>
-                {# <th>Id</th> #}
-                <th>Civilité</th>
-                <th>Email</th>
-                <th>Roles</th>
-                {# <th>Password</th> #}
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Adresse</th>
-                <th>Code_postal</th>
-                <th>Ville</th>
-                <th>Téléphone</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                {# <td>{{ user.id }}</td> #}
-                <td>{{ user.gender }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                {# <td>{{ user.password }}</td> #}
-                <td>{{ user.lastName }}</td>
-                <td>{{ user.firstName }}</td>
-                <td>{{ user.adress }}</td>
-                <td>{{ user.postCode }}</td>
-                <td>{{ user.city }}</td>
-                <td>{{ user.phone }}</td>
-                <td>
-                    <a class="btn btn-success" href="{{ path('app_user_show', {'id': user.id}) }}">voir</a>
-                    <a class="btn btn-warning" href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">Aucun résultat trouvé</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <a class="btn btn-primary" href="{{ path('app_user_new') }}">Créer un nouvel utilisateur</a>
-</div>
+	<h1>Comptes</h1>
+	<div class="container">
+		<table class="table">
+			<thead>
+				<tr>
+					{# <th>Id</th> #}
+					<th>Civilité</th>
+					<th>Email</th>
+					<th>Roles</th>
+					{# <th>Password</th> #}
+					<th>Nom</th>
+					<th>Prénom</th>
+					<th>Adresse</th>
+					<th>Code_postal</th>
+					<th>Ville</th>
+					<th>Téléphone</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for user in users %}
+					<tr>
+						{# <td>{{ user.id }}</td> #}
+						<td>{{ user.gender }}</td>
+						<td>{{ user.email }}</td>
+						<td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+						{# <td>{{ user.password }}</td> #}
+						<td>{{ user.lastName }}</td>
+						<td>{{ user.firstName }}</td>
+						<td>{{ user.adress }}</td>
+						<td>{{ user.postCode }}</td>
+						<td>{{ user.city }}</td>
+						<td>{{ user.phone }}</td>
+						<td>
+							<a class="btn btn-success" href="{{ path('app_user_show', {'id': user.id}) }}">voir</a>
+							<a class="btn btn-warning" href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="5">Aucun résultat trouvé</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<a class="btn btn-primary" href="{{ path('app_user_new') }}">Créer un nouvel utilisateur</a>
+	</div>
 {% endblock %}

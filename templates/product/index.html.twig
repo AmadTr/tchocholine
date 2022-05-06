@@ -1,48 +1,49 @@
 {% extends 'dashboardbase.html.twig' %}
 
-{% block title %}Product index{% endblock %}
+{% block title %}Product index
+{% endblock %}
 
 {% block body %}
-    <h1>Liste des produits</h1>
-    <div class="container">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Catégorie</th>
-                <th>Stock</th>
-                <th>Photo</th>
-                <th>Prix</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for product in products %}
-            <tr>
-                <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.description }}</td>
-                <td>{{ product.category.name }}</td>
-                <td>{{ product.stock }}</td>
-                <td><img src="{{ asset('build/images/' ~ product.photo) }}" class="card-img-top" width="80" height="80" alt="..."></td>
-                <td>{{ product.price }}€</td>
-                <td>
-                    <a class="btn btn-success" href="{{ path('app_product_show', {'id': product.id}) }}">Voir</a>
-                    </td>
-                    <td>
-                    <a class="btn btn-warning" href="{{ path('app_product_edit', {'id': product.id}) }}">Modifier</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">Aucun résultat trouvé</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<h1>Liste des produits</h1>
+	<div class="container">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Nom</th>
+					<th>Description</th>
+					<th>Catégorie</th>
+					<th>Stock</th>
+					<th>Photo</th>
+					<th>Prix</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for product in products %}
+					<tr>
+						<td>{{ product.id }}</td>
+						<td>{{ product.name }}</td>
+						<td>{{ product.description }}</td>
+						<td>{{ product.category.name }}</td>
+						<td>{{ product.stock }}</td>
+						<td><img src="{{ asset('build/images/' ~ product.photo) }}" class="card-img-top" width="80" height="80" alt="..."></td>
+						<td>{{ product.price }}€</td>
+						<td>
+							<a class="btn btn-success" href="{{ path('app_product_show', {'id': product.id}) }}">Voir</a>
+						</td>
+						<td>
+							<a class="btn btn-warning" href="{{ path('app_product_edit', {'id': product.id}) }}">Modifier</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="6">Aucun résultat trouvé</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
 
-    <a class="btn btn-primary" href="{{ path('app_product_new') }}">Créer un nouveau produit</a>
-    </div>
+		<a class="btn btn-primary" href="{{ path('app_product_new') }}">Créer un nouveau produit</a>
+	</div>
 {% endblock %}

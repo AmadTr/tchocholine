@@ -28,30 +28,30 @@ class OrderController extends AbstractController
      * @IsGranted("ROLE_USER", statusCode=404, message="Page introuvable")
      *@Route("/", name="order_all")
      */
-    public function index(OrderRepository $orderRepo,UserInterface $user,CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository): Response
+    public function index(OrderRepository $orderRepo, UserInterface $user, CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository): Response
     {
         // dd($orderRepo->findBy(['user'=>$user]));
         return $this->render('order/indexCustomer.html.twig', [
-            'orders' => $orderRepo->findBy(['user'=>$user]),
+            'orders' => $orderRepo->findBy(['user' => $user]),
             'catSups' => $catPremierRepository->findAll(),
-             'categories' => $categoryRepository->findAll()
+            'categories' => $categoryRepository->findAll()
         ]); //Je passe à mon twig le repository de mon order comme paramètre
     }
 
-     /**
-      * @IsGranted("ROLE_ADMIN", statusCode=404, message="Page introuvable")
+    /**
+     * @IsGranted("ROLE_ADMIN", statusCode=404, message="Page introuvable")
      *@Route("/all", name="all_order")
      */
     public function indexAdmin(OrderRepository $orderRepo): Response
     {
 
         return $this->render('order/index.html.twig', [
-            'orders' => $orderRepo->findByExampleField(),            
+            'orders' => $orderRepo->findByExampleField(),
         ]);
     }
 
     /**
-      * @IsGranted("ROLE_USER", statusCode=404, message="Page introuvable")
+     * @IsGranted("ROLE_USER", statusCode=404, message="Page introuvable")
      *@Route("/add/{user}", name="order_add")
      */
     public function addOrder(
@@ -105,7 +105,7 @@ class OrderController extends AbstractController
         ]);
     }
 
-     /**
+    /**
      * @IsGranted("ROLE_ADMIN", statusCode=404, message="Page introuvable")
      * @Route("all/detail/{order}", name="detail_order_all")
      */
@@ -116,6 +116,4 @@ class OrderController extends AbstractController
             'order' => $order->getamount(),
         ]);
     }
-
-
 }

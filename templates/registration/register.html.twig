@@ -7,27 +7,27 @@
 
 
 	{# <div class="container">
-	    {{ form_start(registrationForm) }}
-	        {{ form_row(registrationForm.gender) }}
-	        {{ form_row(registrationForm.email) }}
-	        {{ form_row(registrationForm.lastName) }}
-	        {{ form_row(registrationForm.firstname) }}
-	        {{ form_row(registrationForm.adress) }}
-	        {{ form_row(registrationForm.postcode) }}
-	        {{ form_row(registrationForm.city) }}
-	        {{ form_row(registrationForm.phone) }}
-	        {{ form_row(registrationForm.plainPassword, {
-	            label: 'Password'
-	        }) }}
-	        {{ form_row(registrationForm.agreeTerms) }}
-	
-	        <button type="submit" class="btn btn-primary">Valider</button>
-	    {{ form_end(registrationForm) }}
-	</div> #}
+		    {{ form_start(registrationForm) }}
+		        {{ form_row(registrationForm.gender) }}
+		        {{ form_row(registrationForm.email) }}
+		        {{ form_row(registrationForm.lastName) }}
+		        {{ form_row(registrationForm.firstname) }}
+		        {{ form_row(registrationForm.adress) }}
+		        {{ form_row(registrationForm.postcode) }}
+		        {{ form_row(registrationForm.city) }}
+		        {{ form_row(registrationForm.phone) }}
+		        {{ form_row(registrationForm.plainPassword, {
+		            label: 'Password'
+		        }) }}
+		        {{ form_row(registrationForm.agreeTerms) }}
+		
+		        <button type="submit" class="btn btn-primary">Valider</button>
+		    {{ form_end(registrationForm) }}
+		</div> #}
 
 	<!doctype html>
 	<html lang="en">
-		
+
 		<body>
 			<div class="container">
 
@@ -130,7 +130,7 @@
 					</div>
 				</div>
 			</div>
-		
+
 		</body>
 	</html>
 {% endblock %}

@@ -17,12 +17,12 @@ class CategoryTest extends TestCase
         $cat->setName($value);
         $this->assertEquals($value, $cat->getName());
     }
-//     public function testGetAllCategories(){
-//         $cat = new CategoryController;
-//         $registry = new ManagerRegistry();
-// $categoryRepository = new CategoryRepository($registry);
-//         $this->assertEquals(array(),$cat->index($categoryRepository));
-//     }
+    //     public function testGetAllCategories(){
+    //         $cat = new CategoryController;
+    //         $registry = new ManagerRegistry();
+    // $categoryRepository = new CategoryRepository($registry);
+    //         $this->assertEquals(array(),$cat->index($categoryRepository));
+    //     }
     // public function testAddCategory(){
 
     //     $this->assertEquals(true,addCategory(1));

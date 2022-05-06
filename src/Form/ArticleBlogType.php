@@ -17,17 +17,16 @@ class ArticleBlogType extends AbstractType
         $builder
             ->add('title')
             ->add('content')
-            ->add('imageBlog',FileType::class, [
+            ->add('imageBlog', FileType::class, [
                 'label' => false,
                 'multiple' => true,
-                'mapped' =>false,
-                'required'=>false
+                'mapped' => false,
+                'required' => false
             ])
-            ->add('categoryBlog',EntityType::class,[
+            ->add('categoryBlog', EntityType::class, [
                 'class' => CategoryBlog::class,
-                'choice_label'=>'name'
-                ])  
-        ;
+                'choice_label' => 'name'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

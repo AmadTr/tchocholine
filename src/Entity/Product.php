@@ -77,7 +77,7 @@ class Product
      */
     private $photosProduct;
 
-   
+
 
     public function __construct()
     {
@@ -220,6 +220,5 @@ class Product
         }
 
         return $this;
-    }  
-   
+    }
 }

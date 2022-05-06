@@ -28,66 +28,54 @@
 								{{item.product.category.name}}
 							</td>
 							<td class="text-center">
-								<a class="btn" href="{{ path('cart_lessQty',{'id':item.product.id}) }}"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
-  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
-</svg>
-</svg></a>
-								{{item.quantity}}<a class="btn"  href="{{ path('cart_addQty',{'id':item.product.id}) }}"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-</svg></a>
-							</td>
-							<td class="text-center">
-								{{item.product.price}}€
-							</td>
-							<td class="text-center">
-								{{item.product.price * item.quantity}}€
-							</td>
-							<td class="text-center">
-								<a href="{{path('cart_remove',{'id':item.product.id})}}"> 
-									<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash" viewbox="0 0 16 16">
-										<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-										<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+								<a class="btn" href="{{ path('cart_lessQty',{'id':item.product.id}) }}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-dash-circle" viewbox="0 0 16 16">
+										<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+										<path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
 									</svg>
-								</a>
+								</svg>
 							</td>
 						</tr>
-					{% endfor %}
+					</a>
+					{{item.quantity}}<a class="btn" href="{{ path('cart_addQty',{'id':item.product.id}) }}">
+						<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-circle-fill" viewbox="0 0 16 16">
+							<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+						</svg>
+					</a>
 				</tbody>
-				<tfoot>
-					<tr>
-						<td colspan="3" class="text-center"></td>
-						<td class="text-center">
-							Total :
-						</td class="text-center">
-						<td class="text-center">
-							{{total}}€</td>
-						<td class="text-center"></td>
-					</tr>
-					<tr>
-					<td colspan="4" class="text-center"></td>
-		{# <td class="text-center">
-        <a class="btn btn-danger" href="{{ path('cart_delete')}}">Vider le panier</a>
-		</td> #}
+			</td>
+			<td class="text-center">
+				{{item.product.price}}€
+			</td>
+			<td class="text-center">
+				{{item.product.price * item.quantity}}€
+			</td>
+			<td class="text-center">
+				<a href="{{path('cart_remove',{'id':item.product.id})}}">
+					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash" viewbox="0 0 16 16">
+						<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+						<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+					</svg>
+				</a>
+			</td>
+		</tr>
+	{% endfor %}
+</tbody>
+<tfoot>
+	<tr>
+		<td colspan="3" class="text-center"></td>
 		<td class="text-center">
-        <a class="btn btn-success" href="{{ path('home')}}">Continuer vos achats</a>
+			Total :
 		</td>
-		{% if app.user %}
-		<td class="text-center">
-        <a class="btn btn-primary" href="{{path('order_add',{'user':app.user.id})}}">Commander</a>
-		</td>
-    {% else %}
-		<td class="text-center">
-        <a class="btn btn-primary" href="{{ path('app_login')}}">Connectez vous</a>
-		</td>
-    {% endif %}
-					</tr>
-				</tfoot>
-			{% else %}
-				<h1>Votre panier est vide</h1>
-        	<a class="btn btn-primary" href="{{ path('home')}}">liste des produits</a>
-
-			{% endif %}
-		</table>
-	</div>
-{% endblock %}
+	</tr>
+</tfoot></tdclass="text-center"><td class="text-center">
+{{total}}€</td><td class="text-center"></td></tr><tr><td colspan="4" class="text-center"></td>{# <td class="text-center">
+	        <a class="btn btn-danger" href="{{ path('cart_delete')}}">Vider le panier</a>
+			</td> #}<td class="text-center">
+<a class="btn btn-success" href="{{ path('home')}}">Continuer vos achats</a></td>{% if app.user %}
+<td class="text-center">
+	<a class="btn btn-primary" href="{{path('order_add',{'user':app.user.id})}}">Commander</a>
+</td>{% else %}
+<td class="text-center">
+	<a class="btn btn-primary" href="{{ path('app_login')}}">Connectez vous</a>
+</td>{% endif %}</tr></tfoot>{% else %}<h1>Votre panier est vide</h1><a class="btn btn-primary" href="{{ path('home')}}">liste des produits</a>{% endif %}</table></div>{% endblock %}

@@ -1,11 +1,12 @@
 {% extends 'dashboardbase.html.twig' %}
 
-{% block title %}New PhotosProduct{% endblock %}
+{% block title %}New PhotosProduct
+{% endblock %}
 
 {% block body %}
-    <h1>Create new PhotosProduct</h1>
+	<h1>Create new PhotosProduct</h1>
 
-    {{ include('photos_product/_form.html.twig') }}
+	{{ include('photos_product/_form.html.twig') }}
 
-    <a href="{{ path('app_photos_product_index') }}">back to list</a>
+	<a href="{{ path('app_photos_product_index') }}">back to list</a>
 {% endblock %}

@@ -23,11 +23,11 @@
 					<td class="text-center">{{ order.amount }}€</td>
 					<td class="text-center">{{ order.orderDate ? order.orderDate|date('d-m-Y / H:i') : '' }}</td>
 					<td class="text-center">
-					{% if order.user.firstname is defined %}
-						
-						{{order.user.firstname}}
-						{{order.user.lastname}}
-					{% endif %}
+						{% if order.user.firstname is defined %}
+
+							{{order.user.firstname}}
+							{{order.user.lastname}}
+						{% endif %}
 					</td>
 					<td class="text-center">
 						<a href="{{ path('order_detail', {'order': order.id}) }}" class="btn btn-success">Voir détail</a>

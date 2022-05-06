@@ -1,13 +1,14 @@
 {% extends 'dashboardbase.html.twig' %}
 
-{% block title %}Edit PhotosProduct{% endblock %}
+{% block title %}Edit PhotosProduct
+{% endblock %}
 
 {% block body %}
-    <h1>Edit PhotosProduct</h1>
+	<h1>Edit PhotosProduct</h1>
 
-    {{ include('photos_product/_form.html.twig', {'button_label': 'Update'}) }}
+	{{ include('photos_product/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_photos_product_index') }}">back to list</a>
+	<a href="{{ path('app_photos_product_index') }}">back to list</a>
 
-    {{ include('photos_product/_delete_form.html.twig') }}
+	{{ include('photos_product/_delete_form.html.twig') }}
 {% endblock %}

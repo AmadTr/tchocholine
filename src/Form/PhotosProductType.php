@@ -15,17 +15,16 @@ class PhotosProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('link',FileType::class, [
-            'label' => 'Photo',
-            'multiple' => true,
-            'mapped' =>false,
-            'required'=>false
-        ])
-            ->add('product',EntityType::class,[
+            ->add('link', FileType::class, [
+                'label' => 'Photo',
+                'multiple' => true,
+                'mapped' => false,
+                'required' => false
+            ])
+            ->add('product', EntityType::class, [
                 'class' => Product::class,
-                'choice_label'=>'name'
-                ])
-        ;
+                'choice_label' => 'name'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

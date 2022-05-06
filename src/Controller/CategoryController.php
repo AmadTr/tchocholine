@@ -29,15 +29,13 @@ class CategoryController extends AbstractController
             return $this->render('category/index.html.twig', [
                 'categories' => $categoryRepository->findAll(),
             ]);
-        }
-
-        catch(AccessDeniedException $ex){
+        } catch (AccessDeniedException $ex) {
             $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
             return $this->redirectToRoute('home');
         }
     }
 
-  
+
 
 
     /**
@@ -47,7 +45,7 @@ class CategoryController extends AbstractController
     public function new(Request $request, CategoryRepository $categoryRepository): Response
     {
         try {
-           
+
             $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
             $category = new Category();
@@ -63,11 +61,9 @@ class CategoryController extends AbstractController
                 'category' => $category,
                 'form' => $form,
             ]);
-        }
-
-        catch(AccessDeniedException $ex){
+        } catch (AccessDeniedException $ex) {
             $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
-		    return $this->redirectToRoute('home');
+            return $this->redirectToRoute('home');
         }
     }
 
@@ -83,9 +79,7 @@ class CategoryController extends AbstractController
             return $this->render('category/show.html.twig', [
                 'category' => $category,
             ]);
-        }
-
-        catch(AccessDeniedException $ex){
+        } catch (AccessDeniedException $ex) {
             $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
             return $this->redirectToRoute('home');
         }
@@ -112,8 +106,7 @@ class CategoryController extends AbstractController
                 'category' => $category,
                 'form' => $form,
             ]);
-        }
-        catch(AccessDeniedException $ex){
+        } catch (AccessDeniedException $ex) {
             $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
             return $this->redirectToRoute('home');
         }
@@ -125,17 +118,15 @@ class CategoryController extends AbstractController
      */
     public function delete(Request $request, Category $category, CategoryRepository $categoryRepository): Response
     {
-        try{
+        try {
             $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-            if ($this->isCsrfTokenValid('delete'.$category->getId(), $request->request->get('_token'))) {
+            if ($this->isCsrfTokenValid('delete' . $category->getId(), $request->request->get('_token'))) {
                 $categoryRepository->remove($category);
             }
 
             return $this->redirectToRoute('app_category_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        catch(AccessDeniedException $ex){
+        } catch (AccessDeniedException $ex) {
             $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
             return $this->redirectToRoute('home');
         }

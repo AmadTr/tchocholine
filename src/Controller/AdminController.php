@@ -17,6 +17,4 @@ class AdminController extends AbstractController
             'controller_name' => 'AdminController',
         ]);
     }
-
-    
 }

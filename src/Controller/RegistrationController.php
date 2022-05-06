@@ -20,7 +20,7 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager,CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository, CartService $cart): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository, CartService $cart): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -29,7 +29,7 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
-            $userPasswordHasher->hashPassword(
+                $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
@@ -49,18 +49,16 @@ class RegistrationController extends AbstractController
             'items' => $cart->getCartDetails()
         ]);
     }
-      /**
+    /**
      * @Route("/", name="app_indexCategories", methods={"GET"})
      */
-    public function indexCategories(CategoryRepository $categoryRepository,CatPremierRepository $catPremierRepository): Response
+    public function indexCategories(CategoryRepository $categoryRepository, CatPremierRepository $catPremierRepository): Response
     {
 
-            return $this->render('base.html.twig', [
-                'categories' => $categoryRepository->findAll(),
-                'catSups' => $catPremierRepository->findAll()
+        return $this->render('base.html.twig', [
+            'categories' => $categoryRepository->findAll(),
+            'catSups' => $catPremierRepository->findAll()
 
-            ]);
-
-        
+        ]);
     }
 }

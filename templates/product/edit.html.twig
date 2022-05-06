@@ -1,19 +1,20 @@
 {% extends 'dashboardbase.html.twig' %}
 
-{% block title %}Modifier produit{% endblock %}
+{% block title %}Modifier produit
+{% endblock %}
 
 {% block body %}
-    <a class="btn btn-dark" href="{{ path('app_product_index') }}">Retour</a>
-    <h1>Modifier Produit</h1>
-<div class="container">
-    {{ include('product/_form.html.twig', {'button_label': 'Modifier'}) }}
+	<a class="btn btn-dark" href="{{ path('app_product_index') }}">Retour</a>
+	<h1>Modifier Produit</h1>
+	<div class="container">
+		{{ include('product/_form.html.twig', {'button_label': 'Modifier'}) }}
 
 
-    {{ include('product/_delete_form.html.twig') }}
-</div>
+		{{ include('product/_delete_form.html.twig') }}
+	</div>
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{{asset('js/images.js')}}"></script>
+	<script src="{{asset('js/images.js')}}"></script>
 
 {% endblock %}

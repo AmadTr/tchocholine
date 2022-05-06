@@ -17,9 +17,9 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog", name="app_blog")
      */
-    public function index(ArticleBlogRepository $articleBlogRepository, ImageBlogRepository $imageBlogRepository, CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository,CartService $cart): Response
+    public function index(ArticleBlogRepository $articleBlogRepository, ImageBlogRepository $imageBlogRepository, CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository, CartService $cart): Response
     {
-        
+
         return $this->render('blog/index.html.twig', [
             'article_blogs' => $articleBlogRepository->findAll(),
             'catSups' => $catPremierRepository->findAll(),
@@ -34,7 +34,7 @@ class BlogController extends AbstractController
      */
     public function show(ArticleBlog $articleBlog, CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository): Response
     {
-        
+
         return $this->render('blog/show.html.twig', [
             'article_blog' => $articleBlog,
             'catSups' => $catPremierRepository->findAll(),

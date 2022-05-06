@@ -1,11 +1,12 @@
 {% extends 'dashboardbase.html.twig' %}
 
-{% block title %}New CategoryBlog{% endblock %}
+{% block title %}New CategoryBlog
+{% endblock %}
 
 {% block body %}
-    <h1>Create new CategoryBlog</h1>
+	<h1>Create new CategoryBlog</h1>
 
-    {{ include('category_blog/_form.html.twig') }}
+	{{ include('category_blog/_form.html.twig') }}
 
-    <a href="{{ path('app_category_blog_index') }}">back to list</a>
+	<a href="{{ path('app_category_blog_index') }}">back to list</a>
 {% endblock %}

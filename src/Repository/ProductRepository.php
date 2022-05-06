@@ -45,55 +45,52 @@ class ProductRepository extends ServiceEntityRepository
         }
     }
 
-     /**
-      * @return Product[] Returns an array of Product objects
-      */
-    
+    /**
+     * @return Product[] Returns an array of Product objects
+     */
+
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.name like :val')
-            ->setParameter('val','%'.$value[0].'%')
+            ->setParameter('val', '%' . $value[0] . '%')
             ->orderBy('p.name', 'ASC')
             // ->setMaxResults(10)
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    
-    public function sort($value=null,$value2=null)
+
+    public function sort($value = null, $value2 = null)
     {
         // dd($value,$value2);
-        if($value[1] == 'croissant'){
+        if ($value[1] == 'croissant') {
             $order1 = 'p.price';
             $order2 = 'ASC';
         }
-        if($value[1] == 'décroissant'){
+        if ($value[1] == 'décroissant') {
             $order1 = 'p.price';
             $order2 = 'DESC';
         }
-        if($value == null && $value2== null){
+        if ($value == null && $value2 == null) {
             $order1 = 'p.name';
             $order2 = 'ASC';
         }
-        if($value[0]){
+        if ($value[0]) {
             return $this->createQueryBuilder('p')
-            ->andWhere('p.category = :val')
-            ->setParameter('val',$value[0]->getId())
-            ->orderBy($order1, $order2)
-            // ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-        }else{
-        return $this->createQueryBuilder('p')
-            // ->andWhere('p.name like :val')
-            // ->setParameter('val','%'.$value[0].'%')
-            ->orderBy($order1, $order2)
-            // ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+                ->andWhere('p.category = :val')
+                ->setParameter('val', $value[0]->getId())
+                ->orderBy($order1, $order2)
+                // ->setMaxResults(10)
+                ->getQuery()
+                ->getResult();
+        } else {
+            return $this->createQueryBuilder('p')
+                // ->andWhere('p.name like :val')
+                // ->setParameter('val','%'.$value[0].'%')
+                ->orderBy($order1, $order2)
+                // ->setMaxResults(10)
+                ->getQuery()
+                ->getResult();
         }
     }
     /*

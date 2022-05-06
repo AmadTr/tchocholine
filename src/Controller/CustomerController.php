@@ -17,8 +17,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
-* @Route("/customer")
-*/
+ * @Route("/customer")
+ */
 class CustomerController extends AbstractController
 {
     /**
@@ -31,36 +31,36 @@ class CustomerController extends AbstractController
         ]);
     }
 
-     /**
+    /**
      * @Route("/{id}", name="app_customer_show", methods={"GET"})
      */
     public function show(User $user, CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository): Response
     {
         return $this->render('customer/show.html.twig', [
             'user' => $user,
-             'catSups' => $catPremierRepository->findAll(),
-             'categories' => $categoryRepository->findAll()
+            'catSups' => $catPremierRepository->findAll(),
+            'categories' => $categoryRepository->findAll()
 
         ]);
     }
 
 
-      /**
+    /**
      * @Route("/profile/{id}", name="app_customer_indexProfile", methods={"GET"})
      */
-    public function indexProfile(UserRepository $userRepository,UserInterface $user): Response
+    public function indexProfile(UserRepository $userRepository, UserInterface $user): Response
     {
         return $this->render('customer/index.html.twig', [
-            'users' => $userRepository->findBy(['id'=>$user]),
-            
+            'users' => $userRepository->findBy(['id' => $user]),
+
 
         ]);
     }
 
-     /**
+    /**
      * @Route("/{id}/edit", name="app_customer_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, User $user,UserPasswordHasherInterface $userPasswordHasher, UserRepository $userRepository): Response
+    public function edit(Request $request, User $user, UserPasswordHasherInterface $userPasswordHasher, UserRepository $userRepository): Response
     {
         $form = $this->createForm(CustomerType::class, $user);
         $form->handleRequest($request);
@@ -68,12 +68,12 @@ class CustomerController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
-                        $user,
-                        $form->get('password')->getData()
-                    )
-                );
+                    $user,
+                    $form->get('password')->getData()
+                )
+            );
             $userRepository->add($user);
-            return $this->redirectToRoute('app_customer_show',['id'=>$user->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_customer_show', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('customer/edit.html.twig', [
@@ -89,7 +89,7 @@ class CustomerController extends AbstractController
     {
         $session = new Session();
         $session->invalidate();
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $userRepository->remove($user);
         }
 

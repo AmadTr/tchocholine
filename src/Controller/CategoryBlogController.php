@@ -27,10 +27,9 @@ class CategoryBlogController extends AbstractController
             return $this->render('category_blog/index.html.twig', [
                 'category_blogs' => $categoryBlogRepository->findAll(),
             ]);
-        }
-        catch(AccessDeniedException $ex){
+        } catch (AccessDeniedException $ex) {
             $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
-		    return $this->redirectToRoute('home');
+            return $this->redirectToRoute('home');
         }
     }
 
@@ -56,11 +55,9 @@ class CategoryBlogController extends AbstractController
                 'category_blog' => $categoryBlog,
                 'form' => $form,
             ]);
-        }
-
-        catch(AccessDeniedException $ex){
+        } catch (AccessDeniedException $ex) {
             $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
-		    return $this->redirectToRoute('home');
+            return $this->redirectToRoute('home');
         }
     }
 
@@ -76,12 +73,10 @@ class CategoryBlogController extends AbstractController
             return $this->render('category_blog/show.html.twig', [
                 'category_blog' => $categoryBlog,
             ]);
-        }
-        catch(AccessDeniedException $ex){
+        } catch (AccessDeniedException $ex) {
             $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
-		    return $this->redirectToRoute('home');
+            return $this->redirectToRoute('home');
         }
-
     }
 
     /**
@@ -104,9 +99,7 @@ class CategoryBlogController extends AbstractController
                 'category_blog' => $categoryBlog,
                 'form' => $form,
             ]);
-        }
-
-        catch(AccessDeniedException $ex){
+        } catch (AccessDeniedException $ex) {
             $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
             return $this->redirectToRoute('home');
         }
@@ -121,12 +114,11 @@ class CategoryBlogController extends AbstractController
         try {
             $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-            if ($this->isCsrfTokenValid('delete'.$categoryBlog->getId(), $request->request->get('_token'))) {
+            if ($this->isCsrfTokenValid('delete' . $categoryBlog->getId(), $request->request->get('_token'))) {
                 $categoryBlogRepository->remove($categoryBlog);
-            }  
+            }
             return $this->redirectToRoute('app_category_blog_index', [], Response::HTTP_SEE_OTHER);
-        }
-        catch(AccessDeniedException $ex){
+        } catch (AccessDeniedException $ex) {
             $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
             return $this->redirectToRoute('home');
         }

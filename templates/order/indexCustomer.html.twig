@@ -4,39 +4,36 @@
 {% endblock %}
 
 {% block body %}
-<h1>Liste des commandes</h1>
-		{% if orders | length > 0 %}
+	<h1>Liste des commandes</h1>
+	{% if orders | length > 0 %}
 
-<div class="container">
-	<table class="table">
-		<thead>
-			<tr>
-				<th class="text-center">Référence commande</th>
-				<th class="text-center">Total</th>
-				<th class="text-center">Date/heure de la commande</th>
-				<th class="text-center">Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for order in orders %}
-				<tr>
-					<td class="text-center">{{ order.refOrder }}</td>
-					<td class="text-center">{{ order.amount }}€</td>
-					<td class="text-center">{{ order.orderDate ? order.orderDate|date('d-m-Y / H:i') : '' }}</td>
-					<td class="text-center">
-						<a href="{{ path('order_detail', {'order': order.id}) }}" class="btn btn-success">Voir détail</a>
+		<div class="container">
+			<table class="table">
+				<thead>
+					<tr>
+						<th class="text-center">Référence commande</th>
+						<th class="text-center">Total</th>
+						<th class="text-center">Date/heure de la commande</th>
+						<th class="text-center">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for order in orders %}
+						<tr>
+							<td class="text-center">{{ order.refOrder }}</td>
+							<td class="text-center">{{ order.amount }}€</td>
+							<td class="text-center">{{ order.orderDate ? order.orderDate|date('d-m-Y / H:i') : '' }}</td>
+							<td class="text-center">
+								<a href="{{ path('order_detail', {'order': order.id}) }}" class="btn btn-success">Voir détail</a>
+							</td>
+						</tr>
 					</td>
-				</tr>
-			</td>
-		</tbody>
-	</tr>
-{% endfor %}
-</table>
-</div>
-{% else %}
-	{# <tr>
+				</tbody>
+			</tr>
+		{% endfor %}
+	</table>
+</div>{% else %}
+{# <tr>
 		<td colspan="5">Aucun résultat trouvé</td>
 	</tr> #}
-	<h3>Aucun résultat trouvé</h3>
-	{% endif %}
-{% endblock %}
+<h3>Aucun résultat trouvé</h3>{% endif %}{% endblock %}

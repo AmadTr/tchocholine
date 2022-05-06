@@ -17,8 +17,8 @@ class CustomerType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('password', RepeatedType::class, [ 
-                'type' => PasswordType::class, 
+            ->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
@@ -34,18 +34,17 @@ class CustomerType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-            // ,
-            'first_options'  => ['label' => 'mot de passe'],
-            'second_options' => ['label' => 'Répéter le mot de passe'],
-        ])
+                // ,
+                'first_options'  => ['label' => 'mot de passe'],
+                'second_options' => ['label' => 'Répéter le mot de passe'],
+            ])
             ->add('lastname')
             ->add('firstname')
             ->add('phone')
             ->add('adress')
             ->add('postCode')
             ->add('city')
-            ->add('gender')
-        ;
+            ->add('gender');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

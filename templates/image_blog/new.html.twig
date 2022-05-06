@@ -1,11 +1,12 @@
 {% extends 'dashboardbase.html.twig' %}
 
-{% block title %}New ImageBlog{% endblock %}
+{% block title %}New ImageBlog
+{% endblock %}
 
 {% block body %}
-    <h1>Create new ImageBlog</h1>
+	<h1>Create new ImageBlog</h1>
 
-    {{ include('image_blog/_form.html.twig') }}
+	{{ include('image_blog/_form.html.twig') }}
 
-    <a href="{{ path('app_image_blog_index') }}">back to list</a>
+	<a href="{{ path('app_image_blog_index') }}">back to list</a>
 {% endblock %}

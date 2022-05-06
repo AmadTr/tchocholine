@@ -15,12 +15,10 @@ class ImageBlogType extends AbstractType
     {
         $builder
             ->add('link')
-            ->add('articleBlog',EntityType::class,[
+            ->add('articleBlog', EntityType::class, [
                 'class' => ArticleBlog::class,
-                'choice_label'=>'title'
-                ])  
-            
-        ;
+                'choice_label' => 'title'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

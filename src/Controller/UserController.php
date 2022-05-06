@@ -21,15 +21,15 @@ class UserController extends AbstractController
     /**
      * @Route("/", name="app_user_index", methods={"GET"})
      */
-    public function index(UserRepository $userRepository,CategoryRepository $categoryRepository): Response
+    public function index(UserRepository $userRepository, CategoryRepository $categoryRepository): Response
     {
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findAll(),
             'categories' => $categoryRepository->findAll(),
         ]);
     }
-    
-   
+
+
 
     /**
      * @Route("/new", name="app_user_new", methods={"GET", "POST"})
@@ -42,10 +42,10 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword(
-            $userPasswordHasher->hashPassword(
-                $user,
-                $form->get('password')->getData()
-            )
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('password')->getData()
+                )
             );
             $userRepository->add($user);
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
@@ -91,11 +91,10 @@ class UserController extends AbstractController
      */
     public function delete(Request $request, User $user, UserRepository $userRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $userRepository->remove($user);
         }
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
-
     }
 }

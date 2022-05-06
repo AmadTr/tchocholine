@@ -1,36 +1,37 @@
 {% extends 'dashboardbase.html.twig' %}
 
-{% block title %}Liste des catégorieSup{% endblock %}
+{% block title %}Liste des catégorieSup
+{% endblock %}
 
 {% block body %}
-    <h1>Liste des catégorieSup</h1>
-<div class="container">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for cat_premier in cat_premiers %}
-            <tr>
-                <td>{{ cat_premier.id }}</td>
-                <td>{{ cat_premier.Name }}</td>
-                <td>
-                    <a class="btn btn-success" href="{{ path('app_cat_premier_show', {'id': cat_premier.id}) }}">Voir</a>
-                    <a class="btn btn-warning" href="{{ path('app_cat_premier_edit', {'id': cat_premier.id}) }}">Modifier</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">Aucun résultat trouvé</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<h1>Liste des catégorieSup</h1>
+	<div class="container">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Nom</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for cat_premier in cat_premiers %}
+					<tr>
+						<td>{{ cat_premier.id }}</td>
+						<td>{{ cat_premier.Name }}</td>
+						<td>
+							<a class="btn btn-success" href="{{ path('app_cat_premier_show', {'id': cat_premier.id}) }}">Voir</a>
+							<a class="btn btn-warning" href="{{ path('app_cat_premier_edit', {'id': cat_premier.id}) }}">Modifier</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="3">Aucun résultat trouvé</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
 
-    <a class="btn btn-primary" href="{{ path('app_cat_premier_new') }}">Créer une nouvelle catégorieSup</a>
-</div>
+		<a class="btn btn-primary" href="{{ path('app_cat_premier_new') }}">Créer une nouvelle catégorieSup</a>
+	</div>
 {% endblock %}

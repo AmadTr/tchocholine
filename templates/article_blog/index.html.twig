@@ -1,37 +1,38 @@
 {% extends 'dashboardbase.html.twig' %}
 
-{% block title %}ArticleBlog index{% endblock %}
+{% block title %}ArticleBlog index
+{% endblock %}
 
 {% block body %}
-    <h1>ArticleBlog index</h1>
+	<h1>ArticleBlog index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Content</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for article_blog in article_blogs %}
-            <tr>
-                <td>{{ article_blog.id }}</td>
-                <td>{{ article_blog.title }}</td>
-                <td>{{ article_blog.content }}</td>
-                <td>
-                    <a href="{{ path('app_article_blog_show', {'id': article_blog.id}) }}">show</a>
-                    <a href="{{ path('app_article_blog_edit', {'id': article_blog.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Title</th>
+				<th>Content</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for article_blog in article_blogs %}
+				<tr>
+					<td>{{ article_blog.id }}</td>
+					<td>{{ article_blog.title }}</td>
+					<td>{{ article_blog.content }}</td>
+					<td>
+						<a href="{{ path('app_article_blog_show', {'id': article_blog.id}) }}">show</a>
+						<a href="{{ path('app_article_blog_edit', {'id': article_blog.id}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="4">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 
-    <a href="{{ path('app_article_blog_new') }}">Create new</a>
+	<a href="{{ path('app_article_blog_new') }}">Create new</a>
 {% endblock %}

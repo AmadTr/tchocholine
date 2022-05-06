@@ -1,12 +1,13 @@
 {% extends 'dashboardbase.html.twig' %}
 
-{% block title %}Créer{% endblock %}
+{% block title %}Créer
+{% endblock %}
 
 {% block body %}
-    <a class="btn btn-secondary" href="{{ path('app_user_index') }}">Retour</a>
-    <h1>Admin</h1>
-<div class="container">
-    {{ include('user/_form.html.twig') }}
+	<a class="btn btn-secondary" href="{{ path('app_user_index') }}">Retour</a>
+	<h1>Admin</h1>
+	<div class="container">
+		{{ include('user/_form.html.twig') }}
 
-</div>
+	</div>
 {% endblock %}

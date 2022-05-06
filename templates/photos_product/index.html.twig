@@ -1,41 +1,42 @@
 {% extends 'dashboardbase.html.twig' %}
 
-{% block title %}PhotosProduct index{% endblock %}
+{% block title %}PhotosProduct index
+{% endblock %}
 
 {% block body %}
-    <h1>Liste des Photos-Produits</h1>
+	<h1>Liste des Photos-Produits</h1>
 
-<div class="container">
+	<div class="container">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Link</th>
-                <th>Produit</th>
-                <th>Photo</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for photos_product in photos_products %}
-            <tr>
-                <td>{{ photos_product.id }}</td>
-                <td>{{ photos_product.link }}</td>
-                <td>{{ photos_product.product.name }}</td>
-                <td><img src="{{ asset('build/images/' ~ photos_product.link) }}"  width="80" height="80" alt="..."></td>
-                <td>
-                    <a class="btn btn-success" href="{{ path('app_photos_product_show', {'id': photos_product.id}) }}">show</a>
-                    <a class="btn btn-warning" href="{{ path('app_photos_product_edit', {'id': photos_product.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <a class="btn btn-primary" href="{{ path('app_photos_product_new') }}">Create new</a>
-</div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Link</th>
+					<th>Produit</th>
+					<th>Photo</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for photos_product in photos_products %}
+					<tr>
+						<td>{{ photos_product.id }}</td>
+						<td>{{ photos_product.link }}</td>
+						<td>{{ photos_product.product.name }}</td>
+						<td><img src="{{ asset('build/images/' ~ photos_product.link) }}" width="80" height="80" alt="..."></td>
+						<td>
+							<a class="btn btn-success" href="{{ path('app_photos_product_show', {'id': photos_product.id}) }}">show</a>
+							<a class="btn btn-warning" href="{{ path('app_photos_product_edit', {'id': photos_product.id}) }}">edit</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="3">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<a class="btn btn-primary" href="{{ path('app_photos_product_new') }}">Create new</a>
+	</div>
 {% endblock %}

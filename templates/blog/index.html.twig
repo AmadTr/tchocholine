@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
 
-
 {% block title %}Hello BlogController!
 {% endblock %}
 
@@ -15,21 +14,20 @@
 			<meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
 			<meta name="generator" content="Hugo 0.88.1">
 			<title>Blog Template · Bootstrap v5.1</title>
-			<link
-			rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/blog/">
+			<link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/blog/">
 			<!-- Bootstrap core CSS -->
-			
+
 			<!-- Custom styles for this template -->
-			<link
-			href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
-		<!-- Custom styles for this template -->
+		<link
+			href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet"> <!-- Custom styles for this template -->
 
 		</head>
 		<body></body>
 		<body>
 			<div class="container">
-				
-					<div class="row g-5"> <div class="col-md-8">
+
+				<div class="row g-5">
+					<div class="col-md-8">
 						<h3 class="pb-4 mb-4 fst-italic border-bottom">
 							Africa House
 						</h3>
@@ -40,7 +38,7 @@
 								<h2 class="blog-post-title">{{ article_blog.title }}</h2>
 								<p class="blog-post-meta">{{ article_blog.postDate |date('d/m/Y à H:i') }}</p>
 								<p>{{ article_blog.content |u.truncate(100,' ...',false) }}</p>
-								<a class="btn btn-outline-primary" href="{{path('blog_show',{'id' : article_blog.id})}}" >Voir</a>
+								<a class="btn btn-outline-primary" href="{{path('blog_show',{'id' : article_blog.id})}}">Voir</a>
 								<hr>
 							</article>
 						{% endfor %}
@@ -115,7 +113,7 @@
 					</div>
 				</div>
 			</div>
-		
+
 		</body>
 	</html>
 

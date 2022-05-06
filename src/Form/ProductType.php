@@ -24,13 +24,13 @@ class ProductType extends AbstractType
                 'class' => Category::class,
                 'choice_label' => 'name',
             ])
-           
+
             ->add('stock')
-            ->add('photo',FileType::class, [
+            ->add('photo', FileType::class, [
                 'label' => false,
                 'multiple' => false,
-                'mapped' =>false,
-                'required'=>false
+                'mapped' => false,
+                'required' => false
             ])
             ->add('price');
     }
