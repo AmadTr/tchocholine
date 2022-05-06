@@ -56,14 +56,14 @@
 						<a class="nav-link" href="{{ path('app_admin') }}">Tableau de bord</a>
 					</li>
 					{# {% else %}
-										<li class="nav-item">
-											<a class="nav-link" href="{{ path('app_cart') }}">
-												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cart4" viewbox="0 0 16 16">
-													<path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
-												</svg>
-												<sup class="badge badge-pill bg-danger">{{ getTotalQty() }}</sup>
-											</a>
-										</li> #}
+															<li class="nav-item">
+																<a class="nav-link" href="{{ path('app_cart') }}">
+																	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cart4" viewbox="0 0 16 16">
+																		<path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+																	</svg>
+																	<sup class="badge badge-pill bg-danger">{{ getTotalQty() }}</sup>
+																</a>
+															</li> #}
 				{% endif %}
 				<li
 					class="nav-item">{# <a class="nav-link" href="#">Mon compte</a> #}
@@ -137,36 +137,52 @@
 				<i class="bi bi-search"></i>
 			</button>
 		</form>
+		
 		<div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample10">
 			<ul class="navbar-nav">
-
-
-				<li class="nav-item dropdown">
+				<li class="nav-item dropdown ">
 					<a class="nav-link dropdown-toggle dropdown-menu-right" href="{{ path('app_cart') }}" id="dropdown10" data-bs-toggle="dropdown" aria-expanded="false">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cart4" viewbox="0 0 16 16">
 							<path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
 						</svg>
 						<sup class="badge badge-pill bg-danger">{{ getTotalQty() }}</sup>
 					</a>
-					<ul class="dropdown-menu dropdown-menu-right"   aria-labelledby="dropdown10">
-
-{% if items is defined %}
-	
-						{% for item in items %}
-						<br>
-						<li >
+					<ul class="dropdown-menu dropdown-menu-end"  aria-labelledby="dropdown10">
+						{% if items is defined %}
 						<div class="container">
-						{{item.product.name}} 
+						<table class="table">
+						<thead>
 						
-						{{item.quantity}}
-						<img src="{{ asset('build/images/' ~ item.product.photo) }}" class="card-img-top" alt="...">
+						<th class="text-center">Photo</th>
+						<th class="text-center">Nom</th>
+						<th class="text-center">Quantité</th>
+						
+						</thead>
+						<tbody>
+							{% for item in items %}
+								
+								<li>
+								
+								<tr>
+								<th class="text-center"><img src="{{ asset('build/images/' ~ item.product.photo) }}"  width ="40" height="40"alt="..."> </th>
+								<th class="text-center">{{item.product.name}} </th>
+								<th class="text-center">{{item.quantity}} </th>
+								</tr>
+								</li>
+								
+						
+							{% endfor %}
+						{% endif %}
+						</tbody>
+						
+						
+						
+						<th colspan='3'><a href="{{ path('app_cart') }}" class="btn btn-primary" style='float:right'>voir panier</A>
+						</th>
+						
+						</table>
 						</div>
-						</li>
-						<br>
-						{% endfor %}
-{% endif %}
-						<a href="{{ path('app_cart') }}">voir panier</A>
-
+						
 					</ul>
 				</li>
 
@@ -175,6 +191,7 @@
 		</div>
 
 	</div>
+
 </div></nav><hr>{# <div class="container"> #}{% block body %}{% endblock %}{# </div> #}<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script><!------ Include the above in your HEAD tag ----------><!--footer--><footer
 class="kilimanjaro_area">
 <!-- Top Footer Area Start -->
@@ -370,83 +387,83 @@ class="kilimanjaro_area">
 		</div>
 	</div>
 </div></footer>{# <footer class="blog-footer">
-			<a href="#">Haut de page</a>
-			
-			<div class="container">
-			
-				<div class="row">
-					<div class="col-2">
-						<h5>Rechercher sur le site</h5>
-						<ul class="nav flex-column">
-							<li class="nav-item mb-2">
-									<form class="d-flex" method="get" action="{{path('home')}}">
-						<input type="search" class="form-control" name="search" placeholder="Recherche..." aria-label="Search">
-						<button class="btn btn-secondary my-2 my-sm-0" type="submit">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewbox="0 0 16 16">
-								<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-							</svg>
-						</button>
-			
-					</form>
-							</li>
-						</ul>
-					</div>
-			
-					<div class="col-2">
-						<h5>Quelques produits</h5>
-						<ul class="nav flex-column">
-							<li class="nav-item mb-2">
-								<a href="#" class="nav-link p-0 text-muted">Sac à dos</a>
-							</li>
-							<li class="nav-item mb-2">
-								<a href="#" class="nav-link p-0 text-muted">Bracelet en maille doré</a>
-							</li>
-							<li class="nav-item mb-2">
-								<a href="#" class="nav-link p-0 text-muted">Bracelet style vannerie doré</a>
-							</li>
-						</ul>
-					</div>
-			
-					<div class="col-2">
-						<h5>Nous contacter</h5>
-						<ul class="nav flex-column">
-							<li class="nav-item mb-2">
-								<a href="#" class="nav-link p-0 text-muted">Nous envoyer un message</a>
-							</li>
-						</ul>
-					</div>
-			
-					<div class="col-4 offset-1">
-						<form>
-							<h5>Souscrire à notre NEWSLETTER</h5>
-							<p>Résumé mensuel de ce qui est nouveau et passionnant.</p>
-							<div class="d-flex w-100 gap-2">
-								<label for="newsletter1" class="visually-hidden">Adresse Email</label>
-								<input id="newsletter1" type="text" class="form-control" placeholder="Adresse Email">
-								<button class="btn btn-primary" type="button">Souscrire</button>
-							</div>
+				<a href="#">Haut de page</a>
+				
+				<div class="container">
+				
+					<div class="row">
+						<div class="col-2">
+							<h5>Rechercher sur le site</h5>
+							<ul class="nav flex-column">
+								<li class="nav-item mb-2">
+										<form class="d-flex" method="get" action="{{path('home')}}">
+							<input type="search" class="form-control" name="search" placeholder="Recherche..." aria-label="Search">
+							<button class="btn btn-secondary my-2 my-sm-0" type="submit">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewbox="0 0 16 16">
+									<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+								</svg>
+							</button>
+				
 						</form>
+								</li>
+							</ul>
+						</div>
+				
+						<div class="col-2">
+							<h5>Quelques produits</h5>
+							<ul class="nav flex-column">
+								<li class="nav-item mb-2">
+									<a href="#" class="nav-link p-0 text-muted">Sac à dos</a>
+								</li>
+								<li class="nav-item mb-2">
+									<a href="#" class="nav-link p-0 text-muted">Bracelet en maille doré</a>
+								</li>
+								<li class="nav-item mb-2">
+									<a href="#" class="nav-link p-0 text-muted">Bracelet style vannerie doré</a>
+								</li>
+							</ul>
+						</div>
+				
+						<div class="col-2">
+							<h5>Nous contacter</h5>
+							<ul class="nav flex-column">
+								<li class="nav-item mb-2">
+									<a href="#" class="nav-link p-0 text-muted">Nous envoyer un message</a>
+								</li>
+							</ul>
+						</div>
+				
+						<div class="col-4 offset-1">
+							<form>
+								<h5>Souscrire à notre NEWSLETTER</h5>
+								<p>Résumé mensuel de ce qui est nouveau et passionnant.</p>
+								<div class="d-flex w-100 gap-2">
+									<label for="newsletter1" class="visually-hidden">Adresse Email</label>
+									<input id="newsletter1" type="text" class="form-control" placeholder="Adresse Email">
+									<button class="btn btn-primary" type="button">Souscrire</button>
+								</div>
+							</form>
+						</div>
 					</div>
-				</div>
-			
-				<div class="d-flex justify-content-between py-4 my-4 border-top">
-					<p>&copy; 2022  LA B.A.C, Inc. All rights reserved.</p>
-					<ul class="list-unstyled d-flex">
-						<li class="ms-3">
-							<a class="link-dark" href="https://twitter.com/?lang=fr" target="_blank">
-								<svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg>
-							</a>
-						</li>
-						<li class="ms-3">
-							<a class="link-dark" href="https://www.instagram.com/" target="_blank">
-								<svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg>
-							</a>
-						</li>
-						<li class="ms-3">
-							<a class="link-dark" href="https://fr-fr.facebook.com/" target="_blank">
-								<svg class="bi" width="24" height="24"><use xlink:href="#facebook"/></svg>
-							</a>
-						</li>
-					</ul>
-				</div>
-			</div></footer> #}
+				
+					<div class="d-flex justify-content-between py-4 my-4 border-top">
+						<p>&copy; 2022  LA B.A.C, Inc. All rights reserved.</p>
+						<ul class="list-unstyled d-flex">
+							<li class="ms-3">
+								<a class="link-dark" href="https://twitter.com/?lang=fr" target="_blank">
+									<svg class="bi" width="24" height="24"><use xlink:href="#twitter"/></svg>
+								</a>
+							</li>
+							<li class="ms-3">
+								<a class="link-dark" href="https://www.instagram.com/" target="_blank">
+									<svg class="bi" width="24" height="24"><use xlink:href="#instagram"/></svg>
+								</a>
+							</li>
+							<li class="ms-3">
+								<a class="link-dark" href="https://fr-fr.facebook.com/" target="_blank">
+									<svg class="bi" width="24" height="24"><use xlink:href="#facebook"/></svg>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div></footer> #}
