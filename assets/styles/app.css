@@ -270,11 +270,9 @@ footer {
     /* color: #fff */
 }
 
-.dropdown-menu {
-    /* margin-left:1000px;
+
+.dropdown:hover>.dropdown-menu {
+    
     display:flex;
-     */
-    align-items: center;
-    width: 600px !important;
-    height: 600px !important;
-}
+    
+  }
