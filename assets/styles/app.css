@@ -24,6 +24,9 @@ body {
 h2 {
     font-weight: 900
 }
+.btn.btn-warning{
+    color: #000;
+}
 
 .container-fluid {
     max-width: 1200px

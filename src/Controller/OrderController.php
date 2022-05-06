@@ -97,11 +97,13 @@ class OrderController extends AbstractController
      * @IsGranted("ROLE_USER", statusCode=404, message="Page introuvable")
      * @Route("/detail/{order}", name="order_detail")
      */
-    public function showCdeDetail(Order $order)
+    public function showCdeDetail(Order $order, CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository)
     {
         return $this->render('/order/showCustomer.html.twig', [
             'ols' => $order->getOrderLines(),
             'order' => $order->getamount(),
+            'catSups' => $catPremierRepository->findAll(),
+            'categories' => $categoryRepository->findAll()
         ]);
     }
 

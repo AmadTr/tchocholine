@@ -29,7 +29,7 @@ class TchoChoLineController extends AbstractController
         CartService $cart
     ): Response {
 
-
+        // dd($catPremierRepository->findAll());
         $session->remove('answer');
         $session->remove('category');
 
