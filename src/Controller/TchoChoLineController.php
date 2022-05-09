@@ -29,13 +29,8 @@ class TchoChoLineController extends AbstractController
         CartService $cart
     ): Response {
 
-        // dd($catPremierRepository->findAll());
         $session->remove('answer');
         $session->remove('category');
-
-        // dd($cart->getCartDetails()[0]);
-
-
 
         if ($request->get('search')) {
             return $this->render('tcho_cho_line/index.html.twig', [
@@ -46,6 +41,7 @@ class TchoChoLineController extends AbstractController
                 'catSups' => $catPremierRepository->findAll()
             ]);
         }
+
         $products = $productRepository->findAll();
         return $this->render('tcho_cho_line/index.html.twig', [
             'products' => $products,
@@ -71,7 +67,7 @@ class TchoChoLineController extends AbstractController
 
         return $this->render('tcho_cho_line/index.html.twig', [
             'products' => $productRepository->findBy([
-                'category' => $cat->getId(),
+            'category' => $cat->getId(),
             ]),
             'categories' => $catRepo->findAll(),
             'catSups' => $catPremierRepository->findAll(),

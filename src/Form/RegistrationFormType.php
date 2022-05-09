@@ -27,7 +27,7 @@ class RegistrationFormType extends AbstractType
                 'required' => true,
                 'attr' => ['placeholder' => 'Votre email']
             ])
-            ->add('lastName',TextType::class,[
+            ->add('lastname',TextType::class,[
                 'required' => true,
                 'attr' => ['placeholder' => 'Votre nom'],
                 'label' => 'Nom'
@@ -56,6 +56,8 @@ class RegistrationFormType extends AbstractType
                         'minMessage' => 'Votre code postal doit contenir {{ limit }} chiffres',
                         // max length allowed by Symfony for security reasons
                         'max' => 5,
+                        'maxMessage' => 'Votre code postal doit contenir {{ limit }} chiffres',
+
                     ]),
                 ],   
             ])
