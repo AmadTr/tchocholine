@@ -139,4 +139,16 @@ class TchoChoLineController extends AbstractController
 
         ]);
     }
+
+     /**
+     * @Route("/acount", name="app_acount", methods={"GET"})
+     */
+    public function indexy(): Response
+    {
+
+        return $this->render('account/acount.html.twig', [
+           
+
+        ]);
+    }
 }

@@ -19,7 +19,7 @@ import './bootstrap';
 import './bootstrap.bundle.min';
 import './dashboard.js';
 
-//nos images
+//Images tests
 import './images/bijoux1.jpg';
 // import './images/livre1.jpg';
 import './images/bijoux2.jpg';
@@ -33,3 +33,20 @@ import './images/bijoux9.jpg';
 import './images/bijoux10.jpg';
 import './images/bijoux11.jpg';
 import './images/logoTchoChoLine.png';
+
+//Nos Images
+import './images/boucles-doreille.jpg';
+import './images/boucles-doreille2.jpg';
+import './images/bracelet.jpg';
+import './images/bracelet2.jpg';
+import './images/bracelet3.jpg';
+import './images/bracelet4.jpg';
+import './images/bracelet5.jpg';
+import './images/bracelet6.jpg';
+import './images/bracelet-mailles.jpg';
+import './images/pouf.jpg';
+import './images/sac.jpg';
+import './images/sac-a-dos.jpg';
+import './images/sac-a-dos2.jpg';
+import './images/tableau.jpg';
+import './images/trousse.jpg';
