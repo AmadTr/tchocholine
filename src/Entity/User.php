@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -41,11 +43,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Assert\Regex(
+     * pattern="/\d/",
+     * match=false,
+     * message="Votre nom ne peut pas contenir un chiffre!"
+     * )
+     * 
+     * @Assert\Length(
+     * min=3,
+     * minMessage="plus de 1 caratère",
+     * max=50,
+     * maxMessage="moins de 50 caractères")
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Assert\Regex(
+     * pattern="/\d/",
+     * match=false,
+     * message="Votre prénom ne peut pas contenir un chiffre!"
+     * )
+     * 
+     * @Assert\Length(
+     * min=3,
+     * minMessage="plus de 1 caratère",
+     * max=50,
+     * maxMessage="moins de 50 caractères")
      */
     private $firstname;
 
@@ -61,7 +87,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Length(
+     * min=5,
+     * minMessage="Code Postal invalide",
+     * max=5,
+     * maxMessage="Code Postal invalid")
      */
+
     private $postCode;
 
     /**
@@ -70,7 +102,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $city;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=15)
      */
     private $gender;
 

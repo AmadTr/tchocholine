@@ -10,10 +10,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * @Route("/image/blog")
- * @IsGranted("ROLE_ADMIN", statusCode=404, message="Page introuvable")
  * 
  */
 class ImageBlogController extends AbstractController
@@ -23,9 +23,17 @@ class ImageBlogController extends AbstractController
      */
     public function index(ImageBlogRepository $imageBlogRepository): Response
     {
-        return $this->render('image_blog/index.html.twig', [
-            'image_blogs' => $imageBlogRepository->findAll(),
-        ]);
+        try {
+            $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+            return $this->render('image_blog/index.html.twig', [
+                'image_blogs' => $imageBlogRepository->findAll(),
+            ]);
+        }
+        catch (AccessDeniedException $ex) {
+            $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
+            return $this->redirectToRoute('home');
+        }
     }
 
     /**
@@ -33,19 +41,28 @@ class ImageBlogController extends AbstractController
      */
     public function new(Request $request, ImageBlogRepository $imageBlogRepository): Response
     {
-        $imageBlog = new ImageBlog();
-        $form = $this->createForm(ImageBlogType::class, $imageBlog);
-        $form->handleRequest($request);
+        try {
+            $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $imageBlogRepository->add($imageBlog);
-            return $this->redirectToRoute('app_image_blog_index', [], Response::HTTP_SEE_OTHER);
+            $imageBlog = new ImageBlog();
+            $form = $this->createForm(ImageBlogType::class, $imageBlog);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $imageBlogRepository->add($imageBlog);
+                return $this->redirectToRoute('app_image_blog_index', [], Response::HTTP_SEE_OTHER);
+            }
+
+            return $this->renderForm('image_blog/new.html.twig', [
+                'image_blog' => $imageBlog,
+                'form' => $form,
+            ]);
+        }
+        catch (AccessDeniedException $ex) {
+            $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
+            return $this->redirectToRoute('home');
         }
 
-        return $this->renderForm('image_blog/new.html.twig', [
-            'image_blog' => $imageBlog,
-            'form' => $form,
-        ]);
     }
 
     /**
@@ -53,9 +70,17 @@ class ImageBlogController extends AbstractController
      */
     public function show(ImageBlog $imageBlog): Response
     {
-        return $this->render('image_blog/show.html.twig', [
-            'image_blog' => $imageBlog,
-        ]);
+        try {
+            $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+            return $this->render('image_blog/show.html.twig', [
+                'image_blog' => $imageBlog,
+            ]);
+        }
+        catch (AccessDeniedException $ex) {
+            $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
+            return $this->redirectToRoute('home');
+        }
     }
 
     /**
@@ -63,18 +88,26 @@ class ImageBlogController extends AbstractController
      */
     public function edit(Request $request, ImageBlog $imageBlog, ImageBlogRepository $imageBlogRepository): Response
     {
-        $form = $this->createForm(ImageBlogType::class, $imageBlog);
-        $form->handleRequest($request);
+        try {
+            $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $imageBlogRepository->add($imageBlog);
-            return $this->redirectToRoute('app_image_blog_index', [], Response::HTTP_SEE_OTHER);
+            $form = $this->createForm(ImageBlogType::class, $imageBlog);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $imageBlogRepository->add($imageBlog);
+                return $this->redirectToRoute('app_image_blog_index', [], Response::HTTP_SEE_OTHER);
+            }
+
+            return $this->renderForm('image_blog/edit.html.twig', [
+                'image_blog' => $imageBlog,
+                'form' => $form,
+            ]);
         }
-
-        return $this->renderForm('image_blog/edit.html.twig', [
-            'image_blog' => $imageBlog,
-            'form' => $form,
-        ]);
+        catch (AccessDeniedException $ex) {
+            $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
+            return $this->redirectToRoute('home');
+        }
     }
 
     /**
@@ -82,10 +115,18 @@ class ImageBlogController extends AbstractController
      */
     public function delete(Request $request, ImageBlog $imageBlog, ImageBlogRepository $imageBlogRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $imageBlog->getId(), $request->request->get('_token'))) {
-            $imageBlogRepository->remove($imageBlog);
-        }
+        try {
+            $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        return $this->redirectToRoute('app_image_blog_index', [], Response::HTTP_SEE_OTHER);
+            if ($this->isCsrfTokenValid('delete' . $imageBlog->getId(), $request->request->get('_token'))) {
+                $imageBlogRepository->remove($imageBlog);
+            }
+
+            return $this->redirectToRoute('app_image_blog_index', [], Response::HTTP_SEE_OTHER);
+        }
+        catch (AccessDeniedException $ex) {
+        $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
+        return $this->redirectToRoute('home');
+        }
     }
 }

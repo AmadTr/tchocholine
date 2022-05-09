@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
@@ -21,65 +22,60 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
  */
 class CustomerController extends AbstractController
 {
-    /**
-     * @Route("/", name="app_customer")
-     */
-    public function index(): Response
-    {
-        return $this->render('customer/deleteSuccess.html.twig', [
-            'controller_name' => 'CustomerController',
-        ]);
-    }
-
+  
     /**
      * @Route("/{id}", name="app_customer_show", methods={"GET"})
      */
     public function show(User $user, CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository): Response
     {
-        return $this->render('customer/show.html.twig', [
-            'user' => $user,
-            'catSups' => $catPremierRepository->findAll(),
-            'categories' => $categoryRepository->findAll()
+        try {
+            $this->denyAccessUnlessGranted('ROLE_USER');
 
-        ]);
+            return $this->render('customer/show.html.twig', [
+                'user' => $user,
+                'catSups' => $catPremierRepository->findAll(),
+                'categories' => $categoryRepository->findAll()
+            ]);
+        } 
+        catch (AccessDeniedException $ex) {
+            $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
+            return $this->redirectToRoute('home');
+        }
     }
 
 
-    /**
-     * @Route("/profile/{id}", name="app_customer_indexProfile", methods={"GET"})
-     */
-    public function indexProfile(UserRepository $userRepository, UserInterface $user): Response
-    {
-        return $this->render('customer/index.html.twig', [
-            'users' => $userRepository->findBy(['id' => $user]),
-
-
-        ]);
-    }
 
     /**
      * @Route("/{id}/edit", name="app_customer_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, User $user, UserPasswordHasherInterface $userPasswordHasher, UserRepository $userRepository): Response
     {
-        $form = $this->createForm(CustomerType::class, $user);
-        $form->handleRequest($request);
+        try {
+            $this->denyAccessUnlessGranted('ROLE_USER');
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('password')->getData()
-                )
-            );
-            $userRepository->add($user);
-            return $this->redirectToRoute('app_customer_show', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
+            $form = $this->createForm(CustomerType::class, $user);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $user->setPassword(
+                    $userPasswordHasher->hashPassword(
+                        $user,
+                        $form->get('password')->getData()
+                    )
+                );
+                $userRepository->add($user);
+                return $this->redirectToRoute('app_customer_show', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
+            }
+
+            return $this->renderForm('customer/edit.html.twig', [
+                'user' => $user,
+                'form' => $form,
+            ]);
         }
-
-        return $this->renderForm('customer/edit.html.twig', [
-            'user' => $user,
-            'form' => $form,
-        ]);
+        catch (AccessDeniedException $ex) {
+            $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
+            return $this->redirectToRoute('home');
+        }
     }
 
     /**
@@ -87,12 +83,20 @@ class CustomerController extends AbstractController
      */
     public function delete(Request $request, User $user, UserRepository $userRepository): Response
     {
-        $session = new Session();
-        $session->invalidate();
-        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
-            $userRepository->remove($user);
-        }
+        try {
+            $this->denyAccessUnlessGranted('ROLE_USER');
 
-        return $this->redirectToRoute('app_logout');
+            $session = new Session();
+            $session->invalidate();
+            if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
+                $userRepository->remove($user);
+            }
+
+            return $this->redirectToRoute('app_logout');
+        }
+        catch (AccessDeniedException $ex) {
+            $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
+            return $this->redirectToRoute('home');
+        }
     }
 }

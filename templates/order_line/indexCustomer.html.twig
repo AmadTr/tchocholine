@@ -21,7 +21,7 @@
 					<td>{{ order_line.amount }}</td>
 					<td>
 						<a href="{{ path('app_order_line_show', {'id': order_line.id}) }}">Voir</a>
-						<a href="{{ path('app_order_line_edit', {'id': order_line.id}) }}">Modifier</a>
+						{# <a href="{{ path('app_order_line_edit', {'id': order_line.id}) }}">Modifier</a> #}
 					</td>
 				</tr>
 			{% else %}
@@ -32,5 +32,5 @@
 		</tbody>
 	</table>
 
-	<a href="{{ path('app_order_line_new') }}">Créer une nouvelle ligne de commande</a>
+	{# <a href="{{ path('app_order_line_new') }}">Créer une nouvelle ligne de commande</a> #}
 {% endblock %}

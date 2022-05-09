@@ -20,7 +20,6 @@ class CatPremierController extends AbstractController
 {
 
     /**
-     * @IsGranted("ROLE_ADMIN", statusCode=404, message="Page introuvable")
      * @Route("/", name="app_cat_premier_index", methods={"GET"})
      */
     public function index(CatPremierRepository $catPremierRepository): Response

@@ -12,7 +12,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @IsGranted("ROLE_ADMIN", statusCode=404, message="Page introuvable")
  * @Route("/photos/product")
  */
 class PhotosProductController extends AbstractController
@@ -20,54 +19,61 @@ class PhotosProductController extends AbstractController
     /**
      * @Route("/", name="app_photos_product_index", methods={"GET"})
      */
-    public function index(
-        PhotosProductRepository $photosProductRepository
-    ): Response {
-        return $this->render('photos_product/index.html.twig', [
-            'photos_products' => $photosProductRepository->findAll(),
-        ]);
+    public function index(PhotosProductRepository $photosProductRepository): Response 
+    {
+        try {
+            $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+            return $this->render('photos_product/index.html.twig', [
+                'photos_products' => $photosProductRepository->findAll(),
+            ]);
+        }
+        catch (AccessDeniedException $ex) {
+            $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
+            return $this->redirectToRoute('home');
+        }
     }
 
     /**
      * @Route("/new", name="app_photos_product_new", methods={"GET", "POST"})
      */
-    public function new(
-        Request $request,
-        PhotosProductRepository $photosProductRepository
-    ): Response {
-        $photosProduct = new PhotosProduct();
-        $form = $this->createForm(PhotosProductType::class, $photosProduct);
-        $form->handleRequest($request);
+    public function new(Request $request,PhotosProductRepository $photosProductRepository): Response 
+    {
+        try {
+            $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // dd($form);
-            $images = $form->get('link')->getData();
-            $product = $form->get('product')->getData();
-            // dd($images);
+            $photosProduct = new PhotosProduct();
+            $form = $this->createForm(PhotosProductType::class, $photosProduct);
+            $form->handleRequest($request);
 
-            foreach ($images as $img) {
-                $fichier = $img->getClientOriginalName();
+            if ($form->isSubmitted() && $form->isValid()) {
+                $images = $form->get('link')->getData();
+                $product = $form->get('product')->getData();
 
-                $img->move($this->getParameter('images_directory'), $fichier);
+                foreach ($images as $img) {
+                    $fichier = $img->getClientOriginalName();
 
-                $photosProduct = new PhotosProduct();
+                    $img->move($this->getParameter('images_directory'), $fichier);
 
-                $photosProduct->setLink($fichier);
-                $photosProduct->setProduct($product);
+                    $photosProduct = new PhotosProduct();
 
-                $photosProductRepository->add($photosProduct);
+                    $photosProduct->setLink($fichier);
+                    $photosProduct->setProduct($product);
+
+                    $photosProductRepository->add($photosProduct);
+                }
+                return $this->redirectToRoute('app_photos_product_index',[],Response::HTTP_SEE_OTHER);
             }
-            return $this->redirectToRoute(
-                'app_photos_product_index',
-                [],
-                Response::HTTP_SEE_OTHER
-            );
-        }
 
-        return $this->renderForm('photos_product/new.html.twig', [
-            'photos_product' => $photosProduct,
-            'form' => $form,
-        ]);
+            return $this->renderForm('photos_product/new.html.twig', [
+                'photos_product' => $photosProduct,
+                'form' => $form,
+            ]);
+        }
+        catch (AccessDeniedException $ex) {
+            $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
+            return $this->redirectToRoute('home');
+        }
     }
 
     /**
@@ -75,73 +81,89 @@ class PhotosProductController extends AbstractController
      */
     public function show(PhotosProduct $photosProduct): Response
     {
-        return $this->render('photos_product/show.html.twig', [
-            'photos_product' => $photosProduct,
-        ]);
+        try {
+            $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+            return $this->render('photos_product/show.html.twig', [
+                'photos_product' => $photosProduct,
+            ]);
+        }
+        catch (AccessDeniedException $ex) {
+            $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
+            return $this->redirectToRoute('home');
+        }
     }
 
     /**
      * @Route("/{id}/edit", name="app_photos_product_edit", methods={"GET", "POST"})
      */
-    public function edit(
-        Request $request,
-        PhotosProduct $photosProduct,
-        PhotosProductRepository $photosProductRepository
-    ): Response {
-        $form = $this->createForm(PhotosProductType::class, $photosProduct);
-        $form->handleRequest($request);
+    public function edit(Request $request,PhotosProduct $photosProduct,PhotosProductRepository $photosProductRepository): Response 
+    {
+        try {
+            $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $images = $form->get('link')->getData();
-            $product = $form->get('product')->getData();
-            // dd($images);
+            $form = $this->createForm(PhotosProductType::class, $photosProduct);
+            $form->handleRequest($request);
 
-            foreach ($images as $img) {
-                $fichier = $img->getClientOriginalName();
+            if ($form->isSubmitted() && $form->isValid()) {
+                $images = $form->get('link')->getData();
+                $product = $form->get('product')->getData();
 
-                $img->move($this->getParameter('images_directory'), $fichier);
+                foreach ($images as $img) {
+                    $fichier = $img->getClientOriginalName();
 
-                $photosProduct = new PhotosProduct();
+                    $img->move($this->getParameter('images_directory'), $fichier);
 
-                $photosProduct->setLink($fichier);
-                $photosProduct->setProduct($product);
+                    $photosProduct = new PhotosProduct();
 
-                $photosProductRepository->add($photosProduct);
+                    $photosProduct->setLink($fichier);
+                    $photosProduct->setProduct($product);
+
+                    $photosProductRepository->add($photosProduct);
+                }
+                return $this->redirectToRoute(
+                    'app_photos_product_index',
+                    [],
+                    Response::HTTP_SEE_OTHER
+                );
             }
+
+            return $this->renderForm('photos_product/edit.html.twig', [
+                'photos_product' => $photosProduct,
+                'form' => $form,
+            ]);
+        }
+        catch (AccessDeniedException $ex) {
+            $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
+            return $this->redirectToRoute('home');
+        }
+    }
+
+    /**
+     * @Route("/{id}", name="app_photos_product_delete", methods={"POST"})
+     */
+    public function delete(Request $request,PhotosProduct $photosProduct,PhotosProductRepository $photosProductRepository): Response 
+    {
+        try {
+            $this->denyAccessUnlessGranted('ROLE_ADMIN');
+            if (
+                $this->isCsrfTokenValid(
+                    'delete' . $photosProduct->getId(),
+                    $request->request->get('_token')
+                )
+            ) {
+                $photosProductRepository->remove($photosProduct);
+            }
+
             return $this->redirectToRoute(
                 'app_photos_product_index',
                 [],
                 Response::HTTP_SEE_OTHER
             );
         }
-
-        return $this->renderForm('photos_product/edit.html.twig', [
-            'photos_product' => $photosProduct,
-            'form' => $form,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="app_photos_product_delete", methods={"POST"})
-     */
-    public function delete(
-        Request $request,
-        PhotosProduct $photosProduct,
-        PhotosProductRepository $photosProductRepository
-    ): Response {
-        if (
-            $this->isCsrfTokenValid(
-                'delete' . $photosProduct->getId(),
-                $request->request->get('_token')
-            )
-        ) {
-            $photosProductRepository->remove($photosProduct);
+        catch (AccessDeniedException $ex) {
+            $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
+            return $this->redirectToRoute('home');
         }
-
-        return $this->redirectToRoute(
-            'app_photos_product_index',
-            [],
-            Response::HTTP_SEE_OTHER
-        );
     }
 }

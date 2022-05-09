@@ -21,7 +21,6 @@ class ApiProductController extends AbstractController
      */
     public function index(ProductRepository $prodRepo): Response
     {
-        dd($prodRepo->findAll());
         return $this->json($prodRepo->findAll(), 200, [], ['groups' => 'prods:read']);
     }
 }
