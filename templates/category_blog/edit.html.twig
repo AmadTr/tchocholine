@@ -4,11 +4,11 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Edit CategoryBlog</h1>
+	<h1>Modifier la catégorie Blog</h1>
 
 	{{ include('category_blog/_form.html.twig', {'button_label': 'Update'}) }}
 
-	<a href="{{ path('app_category_blog_index') }}">back to list</a>
+	<a href="{{ path('app_category_blog_index') }}">Retour</a>
 
 	{{ include('category_blog/_delete_form.html.twig') }}
 {% endblock %}

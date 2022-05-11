@@ -1,10 +1,10 @@
 {% extends 'dashboardbase.html.twig' %}
 
-{% block title %}ArticleBlog
+{% block title %}Article Blog
 {% endblock %}
 
 {% block body %}
-	<h1>ArticleBlog</h1>
+	<h1>Article Blog</h1>
 
 	<table class="table">
 		<tbody>
@@ -13,19 +13,19 @@
 				<td>{{ article_blog.id }}</td>
 			</tr>
 			<tr>
-				<th>Title</th>
+				<th>Titre</th>
 				<td>{{ article_blog.title }}</td>
 			</tr>
 			<tr>
-				<th>Content</th>
+				<th>Contenu</th>
 				<td>{{ article_blog.content }}</td>
 			</tr>
 		</tbody>
 	</table>
 
-	<a href="{{ path('app_article_blog_index') }}">back to list</a>
+	<a class="btn btn-secondary" href="{{ path('app_article_blog_index') }}">Retour</a>
 
-	<a href="{{ path('app_article_blog_edit', {'id': article_blog.id}) }}">edit</a>
+	<a class="btn btn-warning" href="{{ path('app_article_blog_edit', {'id': article_blog.id}) }}">Modifier</a>
 
 	{{ include('article_blog/_delete_form.html.twig') }}
 {% endblock %}

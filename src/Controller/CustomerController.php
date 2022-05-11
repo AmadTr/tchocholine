@@ -48,7 +48,7 @@ class CustomerController extends AbstractController
     /**
      * @Route("/{id}/edit", name="app_customer_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, User $user, UserPasswordHasherInterface $userPasswordHasher, UserRepository $userRepository): Response
+    public function edit(Request $request, User $user, UserPasswordHasherInterface $userPasswordHasher, UserRepository $userRepository, CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository): Response
     {
         try {
             $this->denyAccessUnlessGranted('ROLE_USER');
@@ -70,6 +70,8 @@ class CustomerController extends AbstractController
             return $this->renderForm('customer/edit.html.twig', [
                 'user' => $user,
                 'form' => $form,
+                'catSups' => $catPremierRepository->findAll(),
+                'categories' => $categoryRepository->findAll()
             ]);
         }
         catch (AccessDeniedException $ex) {

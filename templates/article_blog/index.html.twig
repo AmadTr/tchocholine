@@ -4,15 +4,15 @@
 {% endblock %}
 
 {% block body %}
-	<h1>ArticleBlog index</h1>
+	<h1>Liste des Articles Blog</h1>
 
 	<table class="table">
 		<thead>
 			<tr>
 				<th>Id</th>
-				<th>Title</th>
-				<th>Content</th>
-				<th>actions</th>
+				<th>Titre</th>
+				<th>Contenu</th>
+				<th>Actions</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -22,17 +22,17 @@
 					<td>{{ article_blog.title }}</td>
 					<td>{{ article_blog.content }}</td>
 					<td>
-						<a href="{{ path('app_article_blog_show', {'id': article_blog.id}) }}">show</a>
-						<a href="{{ path('app_article_blog_edit', {'id': article_blog.id}) }}">edit</a>
+						<a class="btn btn-success" href="{{ path('app_article_blog_show', {'id': article_blog.id}) }}">Voir</a>
+						<a class="btn btn-warning" href="{{ path('app_article_blog_edit', {'id': article_blog.id}) }}">Modifier</a>
 					</td>
 				</tr>
 			{% else %}
 				<tr>
-					<td colspan="4">no records found</td>
+					<td colspan="4">Aucun résultat trouvé</td>
 				</tr>
 			{% endfor %}
 		</tbody>
 	</table>
 
-	<a href="{{ path('app_article_blog_new') }}">Create new</a>
+	<a class="btn btn-primary" href="{{ path('app_article_blog_new') }}">Création nouvelle </a>
 {% endblock %}

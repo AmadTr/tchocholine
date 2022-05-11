@@ -29,8 +29,8 @@
 		{# {{ include('customer/_form.html.twig', {'button_label': 'Modifier'}) }} #}
 		<button type="submit" class="btn btn-primary">Valider</button>
 		{{ form_end(form) }}
+		{{ include('customer/_delete_form.html.twig') }}
 
 	</div>
-	{{ include('customer/_delete_form.html.twig') }}
 
 {% endblock %}

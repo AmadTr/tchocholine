@@ -37,6 +37,7 @@ class OrderController extends AbstractController
                 'orders' => $orderRepo->findBy(['user' => $user]),
                 'catSups' => $catPremierRepository->findAll(),
                 'categories' => $categoryRepository->findAll()
+                
             ]); //Je passe à mon twig le repository de mon order comme paramètre
         }
         catch (AccessDeniedException $ex) {

@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-	<h1>CategoryBlog index</h1>
+	<h1>Liste des Catégories Blog</h1>
 
 	<table class="table">
 		<thead>
@@ -12,7 +12,7 @@
 				<th>Id</th>
 				<th>Name</th>
 				<th>Description</th>
-				<th>actions</th>
+				<th>Actions</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -22,17 +22,19 @@
 					<td>{{ category_blog.name }}</td>
 					<td>{{ category_blog.description }}</td>
 					<td>
-						<a href="{{ path('app_category_blog_show', {'id': category_blog.id}) }}">show</a>
-						<a href="{{ path('app_category_blog_edit', {'id': category_blog.id}) }}">edit</a>
+						<a class="btn btn-success" href="{{ path('app_category_blog_show', {'id': category_blog.id}) }}">Voir</a>
+						</td>
+						<td>
+						<a class="btn btn-warning" href="{{ path('app_category_blog_edit', {'id': category_blog.id}) }}">Modifier</a>
 					</td>
 				</tr>
 			{% else %}
 				<tr>
-					<td colspan="4">no records found</td>
+					<td colspan="4">Aucun résultat trouvé</td>
 				</tr>
 			{% endfor %}
 		</tbody>
 	</table>
 
-	<a href="{{ path('app_category_blog_new') }}">Create new</a>
+	<a class="btn btn-primary" href="{{ path('app_category_blog_new') }}">Création une nouvelle catégorie</a>
 {% endblock %}

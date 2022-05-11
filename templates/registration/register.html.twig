@@ -29,21 +29,14 @@
 								{{ form_row(registrationForm.postcode) }}
 								{{ form_row(registrationForm.city) }}
 								{{ form_row(registrationForm.phone) }}
-								{{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
+								{{ form_row(registrationForm.plainPassword) }}
 								{{ form_row(registrationForm.agreeTerms) }}
 
 								<button type="submit" class="btn btn-primary">Valider</button>
 								{{ form_end(registrationForm) }}
 							</div>
-							<hr>
 						</article>
 
-						<nav class="blog-pagination" aria-label="Pagination">
-							<a class="btn btn-outline-primary" href="#">Older</a>
-							<a class="btn btn-outline-secondary disabled">Newer</a>
-						</nav>
 					</div>
 					<div class="col-md-4">
 						<div class="position-sticky" style="top: 2rem;">

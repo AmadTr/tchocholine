@@ -147,4 +147,15 @@ class TchoChoLineController extends AbstractController
 
         ]);
     }
+
+     /**
+     * @Route("/payment", name="app_order_payement", methods={"GET"})
+     * 
+     */
+    public function payment(): Response
+    {
+
+            return $this->render('order_line/payment.html.twig');
+       
+    }
 }

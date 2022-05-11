@@ -10,11 +10,11 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Modifier ArticleBlog</h1>
+	<h1>Modifier Article Blog</h1>
 
 	{{ include('article_blog/_form.html.twig', {'button_label': 'Update'}) }}
 
-	<a href="{{ path('app_article_blog_index') }}">Retour à la liste</a>
+	<a class="btn btn-secondary" href="{{ path('app_article_blog_index') }}">Retour à la liste</a>
 
 	{{ include('article_blog/_delete_form.html.twig') }}
 {% endblock %}
