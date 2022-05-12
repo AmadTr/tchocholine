@@ -1,4 +1,30 @@
-<form method="post" action="{{ path('app_product_delete', {'id': product.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer le produit?');">
-	<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
-	<button class="btn btn-danger">Supprimer</button>
+<form method="post" action="{{ path('app_product_delete', {'id': product.id}) }}" >
+	<input
+	type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" role="dialog">
+		<div
+			class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Modal Header</h4>
+				</div>
+				<div class="modal-body">
+					<p>Some text in the modal.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					{# <a class="btn btn-danger" href="{{ path('prod-delete',{'id':product.id}) }}">supprimer</a> #}
+					<button class="btn btn-danger">Supprimer</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+			<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">delete</button>
 </form>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
