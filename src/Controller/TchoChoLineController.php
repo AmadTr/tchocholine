@@ -17,10 +17,33 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TchoChoLineController extends AbstractController
 {
-    /**
+
+     /**
      * @Route("/", name="home")
      */
-    public function index(
+    public function home( Request $request,
+    ProductRepository $productRepository,
+    CategoryRepository $categoryRepository,
+    CatPremierRepository $catPremierRepository,
+    SessionInterface $session,
+    CartService $cart
+): Response {
+
+
+
+    return $this->render('tcho_cho_line/home.html.twig', [
+        'products' => $products = $productRepository->findAll(),
+        'categories' => $categoryRepository->findAll(),
+        'catSups' => $catPremierRepository->findAll(),
+        'items' => $cart->getCartDetails()
+    ]);
+}
+
+
+    /**
+     * @Route("/vueProds", name="vue_prods")
+     */
+    public function vueProds(
         Request $request,
         ProductRepository $productRepository,
         CategoryRepository $categoryRepository,
@@ -42,9 +65,8 @@ class TchoChoLineController extends AbstractController
             ]);
         }
 
-        $products = $productRepository->findAll();
-        return $this->render('tcho_cho_line/index.html.twig', [
-            'products' => $products,
+        return $this->render('tcho_cho_line/vueProds.html.twig', [
+            'products' => $products = $productRepository->findAll(),
             'categories' => $categoryRepository->findAll(),
             'catSups' => $catPremierRepository->findAll(),
             'items' => $cart->getCartDetails()

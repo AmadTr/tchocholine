@@ -17,6 +17,9 @@
 			</thead>
 			<tbody>
 				{% for product in products %}
+				<pre>
+					{{ dump(product.photosProduct) }}
+				</pre>
 					<tr>
 						<td>{{ product.name }}</td>
 						<td>{{ product.description }}</td>
