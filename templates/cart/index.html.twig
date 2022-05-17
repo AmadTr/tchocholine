@@ -28,12 +28,12 @@
 								{{item.product.category.name}}
 							</td>
 							<td class="text-center">
-								<a class="btn" href="{{ path('cart_lessQty',{'id':item.product.id}) }}"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+								<a class="btn less" href="{{ path('cart_lessQty',{'id':item.product.id}) }}"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
   <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
   <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
 </svg>
 </svg></a>
-								{{item.quantity}}<a class="btn"  href="{{ path('cart_addQty',{'id':item.product.id}) }}"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+								<span class="quantity">{{item.quantity}}</span><a class="btn more"  href="{{ path('cart_addQty',{'id':item.product.id}) }}"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
   <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
 </svg></a>
 							</td>
@@ -90,4 +90,28 @@
 			{% endif %}
 		</table>
 	</div>
+{% endblock %}
+{% block javascripts %}
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+let less = document.querySelectorAll('a.less')
+let more = document.querySelectorAll('a.more')
+let quantity = document.querySelectorAll('span.quantity')
+for (let index = 0; index < less.length; index++) {
+	less[index].addEventListener('click', (event) => {
+		event.preventDefault();
+			axios.get(less[index].href).then(function(response){
+			quantity[index].innerHTML = response.data[0][index]['quantity']
+	   		}) 
+	})
+}   	
+for (let index = 0; index < more.length; index++) {
+	more[index].addEventListener('click', (event) => {
+		event.preventDefault();
+			axios.get(more[index].href).then(function(response){
+			quantity[index].innerHTML = response.data[0][index]['quantity']
+	   		}) 
+	})
+}   
+</script>	
 {% endblock %}

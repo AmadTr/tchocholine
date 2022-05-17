@@ -56,9 +56,8 @@ class CartController extends AbstractController
     public function addQtyItem($id, CartService $carteService)
     {
         $carteService->addQtyItem($id);
-        return $this->redirectToRoute('app_cart', [
-            'controller_name' => 'CartController',
-        ]);
+        return $this->json([
+            $carteService->getCartDetails()], 200, [], ['groups' => 'prods:read']);
     }
 
 
@@ -68,9 +67,8 @@ class CartController extends AbstractController
     public function lessQtyItem($id, CartService $carteService)
     {
         $carteService->lessQtyItem($id);
-        return $this->redirectToRoute('app_cart', [
-            'controller_name' => 'CartController',
-        ]);
+        return $this->json([
+            $carteService->getCartDetails()], 200, [], ['groups' => 'prods:read']);
     }
 
 
