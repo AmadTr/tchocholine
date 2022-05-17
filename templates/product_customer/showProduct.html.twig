@@ -4,20 +4,161 @@
 {% endblock %}
 
 {% block body %}
-	<h1>{{ product.name }}</h1>
+<pre>
+	{{ dump(photosProds) }}
+</pre>
 	<div class="container">
 		<table class="table">
 			<tbody>
-				<tr>
+				{# <tr>
 					<th>Description</th>
 					<td>{{ product.description }}</td>
 				</tr>
 				<tr>
 					<td><img src="{{ asset('build/images/' ~ product.photo) }}" class="card-img-top" alt="..."></td>
-				</tr>
+				</tr> #}
+
+				<div class="row g-5">
+
+	<div class="primary-images col-12 col-lg-8 col-x7-11 p-0">
+
+		<div class="row gx-0">
+		<div class="carousel-outer col-md-2">
+
+		{% if photosProds[0].link is defined%}
+		<a data-bs-target=" #pdpCarousel-100157510002" data-bs-slide-to="0" class='active image-indicator'>
+		<img src= "{{ asset('build/images/' ~ photosProds[0].link) }}" class="d-block img-fluid" alt="" itemprop="image" width="109px" height="145px" />
+		</a>
+		{% endif %}
+
+		{% if photosProds[1].link is defined%}
+		<a data-bs-target=" #pdpCarousel-100157510002" data-bs-slide-to="1" class=' image-indicator'>
+		<img src="{{ asset('build/images/' ~ photosProds[1].link) }}" class="" itemprop="image" width="109px" height="145px" />
+		</a>
+		{% endif %}
+
+
+		{% if photosProds[2].link is defined%}
+		<a data-bs-target=" #pdpCarousel-100157510002" data-bs-slide-to="2" class=' image-indicator'>
+		<img src="{{ asset('build/images/' ~ photosProds[2].link) }}" class="d-block img-fluid" alt="" itemprop="image" width="109px" height="145px" />
+		</a>
+		{% endif %}
+
+	</div>
+
+		<div id="pdpCarousel-100157510002" class="carousel slide col-lg-10 col-12 pdp-control" data-bs-interval="0" data-controls="true" data-bs-prev="Pr&eacute;c&eacute;dent" data-bs-next="Suivant">
+		<ol class="carousel-indicators" aria-hidden="true">
+		<li data-bs-target=" #pdpCarousel-100157510002" data-bs-slide-to="0" class='active'>
+		</li>
+		<li data-bs-target=" #pdpCarousel-100157510002" data-bs-slide-to="1" class=''>
+		</li>
+		<li data-bs-target=" #pdpCarousel-100157510002" data-bs-slide-to="2" class=''>
+		</li>
+		</ol>
+		<div class="carousel-inner">
+
+		<div class="flags">
+		</div>
+		{# <div class="overView">
+		<button type="button" class="open" data-bs-dismiss="modal" aria-label="overView"></button>
+		</div> #}
+		{% if photosProds[0].link is defined%}
+		<div data-image-large="{{ asset('build/images/' ~ photosProds[0].link) }}" class='carousel-item active'>
+		<picture>
+		<source srcset="{{ asset('build/images/' ~ photosProds[0].link) }}" media="(min-width: 960px)" />
+		<source srcset="{{ asset('build/images/' ~ photosProds[0].link) }}" media="(min-width: 769px) and (max-width: 959px)" />
+		<source srcset="{{ asset('build/images/' ~ photosProds[0].link) }}" media="(min-width: 545px) and (max-width: 768px)" />
+		<source srcset="{{ asset('build/images/' ~ photosProds[0].link) }}" media="(max-width: 544px)" />
+		<img alt="" src="{{ asset('build/images/' ~ photosProds[0].link) }}" />
+		</picture>
+		</div>
+		{% endif %}
+
+		{% if photosProds[1].link is defined%}
+		<div data-image-large="{{ asset('build/images/' ~ photosProds[1].link) }}" class='carousel-item '>
+		<picture>
+		<source srcset="{{ asset('build/images/' ~ photosProds[1].link) }}" media="(min-width: 960px)" />
+		<source srcset="{{ asset('build/images/' ~ photosProds[1].link) }}" media="(min-width: 769px) and (max-width: 959px)" />
+		<source srcset="{{ asset('build/images/' ~ photosProds[1].link) }}" media="(min-width: 545px) and (max-width: 768px)" />
+		<source srcset="{{ asset('build/images/' ~ photosProds[1].link) }}" media="(max-width: 544px)" />
+		<img alt="" src="{{ asset('build/images/' ~ photosProds[1].link) }}" />
+		</picture>
+		</div>
+		{% endif %}
+
+		{% if photosProds[2].link is defined%}
+		<div data-image-large="{{ asset('build/images/' ~ photosProds[2].link) }}" class='carousel-item '>
+		<picture>
+		<source srcset="{{ asset('build/images/' ~ photosProds[2].link) }}" media="(min-width: 960px)" />
+		<source srcset="{{ asset('build/images/' ~ photosProds[2].link) }}" media="(min-width: 769px) and (max-width: 959px)" />
+		<source srcset="{{ asset('build/images/' ~ photosProds[2].link) }}" media="(min-width: 545px) and (max-width: 768px)" />
+		<source srcset="{{ asset('build/images/' ~ photosProds[2].link) }}" media="(max-width: 544px)" />
+		<img alt="" src="{{ asset('build/images/' ~ photosProds[2].link) }}" />
+		</picture>
+		</div>
+		{% endif %}
+
+
+
+		</div>
+		<a class="carousel-control-prev d-none d-lg-flex" href=" #pdpCarousel-100157510002" role="button" data-bs-slide="prev">
+		<span class="fa icon-prev skeleton-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Previous</span>
+		</a>
+		<a class="carousel-control-next d-none d-lg-flex" href=" #pdpCarousel-100157510002" role="button" data-bs-slide="next">
+		<span class="fa icon-next skeleton-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Next</span>
+		</a>
+
+		<div class="modal fade" id="fullWidthModal">
+		<div class="modal-header">
+		<button type="button" class="btn-close close close-quickview" data-bs-dismiss="modal"></button>
+		</div>
+		<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+
+		<div class="modal-body">
+		</div>
+		</div>
+		</div>
+		<a class="fullwidth-control fullwidth-prev" href="#" role="button" data-bs-slide="prev">
+		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Previous</span>
+		</a>
+		<a class="fullwidth-control fullwidth-next" href="#" role="button" data-bs-slide="next">
+		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Next</span>
+		</a>
+		</div>
+		</div>
+		</div>
+		</div>
+					<div class="col-md-4">
+						<h1>{{ product.name }}</h1>
+
+						<h2>Description</h2>
+						<h3 align="justify">{{ product.description }}</h3>
+						{# <img src="{{ asset('build/images/' ~ product.photo) }}" class="card-img-top" alt="..."> #}
+
+					{% if product.stock <= 0 %}
+						{# <td> #}
+							<button class="btn btn-danger" type="disabled">
+								Rupture de stock
+							</button>
+						{# </td> #}
+					{% else %}
+						{# <td> #}
+							<a class="btn btn-primary" href="{{ path('cart_add',{'id':product.id}) }}">Ajouter au panier</a>
+						{# </td> #}
+					{% endif %}
+
+					</div>
+
+</div>
+				
 			</tbody>
 			<tfoot>
-				<tr>
+				{# <tr>
 					{% if product.stock <= 0 %}
 						<td>
 							<button class="btn btn-danger" type="disabled">
@@ -29,10 +170,9 @@
 							<a class="btn btn-primary" href="{{ path('cart_add',{'id':product.id}) }}">Ajouter au panier</a>
 						</td>
 					{% endif %}
-
-				</tr>
+				</tr> #}
 			</tfoot>
-
 		</table>
 	</div>
+
 {% endblock %}

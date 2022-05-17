@@ -56,7 +56,7 @@ class TchoChoLineController extends AbstractController
         $session->remove('category');
 
         if ($request->get('search')) {
-            return $this->render('tcho_cho_line/index.html.twig', [
+            return $this->render('tcho_cho_line/vueProds.html.twig', [
                 'categories' => $categoryRepository->findAll(),
                 'products' => $productRepository->findByExampleField([
                     $request->get('search'),
@@ -87,7 +87,7 @@ class TchoChoLineController extends AbstractController
 
         $session->set('category', $cat);
 
-        return $this->render('tcho_cho_line/index.html.twig', [
+        return $this->render('tcho_cho_line/vueProds.html.twig', [
             'products' => $productRepository->findBy([
             'category' => $cat->getId(),
             ]),
@@ -113,7 +113,7 @@ class TchoChoLineController extends AbstractController
 
 
 
-        return $this->render('tcho_cho_line/index.html.twig', [
+        return $this->render('tcho_cho_line/vueProds.html.twig', [
             'products' => $productRepository->findBy(['category' => $category]),
             'categories' => $categoryRepository->findAll(),
             'items' => $cart->getCartDetails()
@@ -136,7 +136,7 @@ class TchoChoLineController extends AbstractController
         $cat = $session->get('category');
 
 
-        return $this->render('tcho_cho_line/index.html.twig', [
+        return $this->render('tcho_cho_line/vueProds.html.twig', [
             'products' => $productRepository->Sort([$session->get('category', $cat), $session->get('answer')]),
             'categories' => $categoryRepository->findAll(),
             'catSups' => $catPremierRepository->findAll(),

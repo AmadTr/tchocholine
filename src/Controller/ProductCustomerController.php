@@ -8,6 +8,7 @@ use App\Service\Cart\CartService;
 use App\Repository\ProductRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\CatPremierRepository;
+use App\Repository\PhotosProductRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,13 +29,14 @@ class ProductCustomerController extends AbstractController
     /**
      * @Route("/products/{id}", name="app_products_show", methods={"GET"})
      */
-    public function show(Product $product, CartService $cart,CategoryRepository $categoryRepository, CatPremierRepository $catPremierRepository): Response
+    public function show(Product $product, CartService $cart,CategoryRepository $categoryRepository, CatPremierRepository $catPremierRepository, PhotosProductRepository $photosProds): Response
     {
         return $this->render('product_customer/showProduct.html.twig', [
             'product' => $product,
             'items' => $cart->getCartDetails(),
             'categories' => $categoryRepository->findAll(),
-            'catSups' => $catPremierRepository->findAll()
+            'catSups' => $catPremierRepository->findAll(),
+            'photosProds' => $photosProds->findBy(['product' => $product])
         ]);
     }
 }
