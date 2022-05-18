@@ -57,8 +57,13 @@ class CartController extends AbstractController
     {
         $carteService->addQtyItem($id);
         return $this->json([
-            $carteService->getCartDetails()], 200, [], ['groups' => 'prods:read']);
+
+            $carteService->getCartDetails(),
+            $carteService->getCartTotal(),
+            $carteService->getCartQty(),
+        ], 200, [], ['groups' => 'prods:read']);
     }
+
 
 
     /**
@@ -68,14 +73,19 @@ class CartController extends AbstractController
     {
         $carteService->lessQtyItem($id);
         return $this->json([
-            $carteService->getCartDetails()], 200, [], ['groups' => 'prods:read']);
+
+            $carteService->getCartDetails(),
+            $carteService->getCartTotal(),
+            $carteService->getCartQty(),
+        ], 200, [], ['groups' => 'prods:read']);
     }
+
 
 
     /**
      * @Route("/remove/{id}",name="cart_remove")
      */
-    public function remove($id, SessionInterface $session)
+    public function remove($id, SessionInterface $session, CartService $carteService)
     {
         $cart = $session->get('cart', []);
 
@@ -84,7 +94,12 @@ class CartController extends AbstractController
         }
         $session->set('cart', $cart);
 
-        return $this->redirectToRoute('app_cart');
+        return $this->json([
+
+            $carteService->getCartDetails(),
+            $carteService->getCartTotal(),
+            $carteService->getCartQty(),
+        ], 200, [], ['groups' => 'prods:read']);
     }
 
 

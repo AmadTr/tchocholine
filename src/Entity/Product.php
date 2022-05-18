@@ -51,29 +51,32 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
-     * 
+     * @Groups("prods:read")
      */
     private $photo;
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products")
+     * @Groups("prods:read")
      */
     private $category;
 
     /**
      * @ORM\OneToMany(targetEntity=OrderLine::class, mappedBy="product")
+     * @Groups("prods:read")
      */
     private $orderlines;
 
     /**
      * @ORM\Column(type="float")
      * @Assert\PositiveOrZero(message="La quantité doit etre >=0.")
-     * 
+     * @Groups("prods:read")
      */
     private $price;
 
     /**
      * @ORM\OneToMany(targetEntity=PhotosProduct::class, mappedBy="product")
+     * 
      */
     private $photosProduct;
 

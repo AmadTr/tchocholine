@@ -4,9 +4,12 @@
 {% endblock %}
 
 {% block body %}
+{% if items %}
+	
+
 	<h1>votre panier</h1>
 	<div class="container">
-		{% if items | length > 0 %}
+	
 			<table class="table">
 				<thead>
 					<tr>
@@ -18,57 +21,26 @@
 						<th class="text-center">Action</th>
 					</tr>
 				</thead>
-				<tbody>
-					{% for item in items %}
-						<tr>
-							<td class="text-center">
-								{{item.product.name}}
-							</td>
-							<td class="text-center">
-								{{item.product.category.name}}
-							</td>
-							<td class="text-center">
-								<a class="btn less" href="{{ path('cart_lessQty',{'id':item.product.id}) }}"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
-  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
-</svg>
-</svg></a>
-								<span class="quantity">{{item.quantity}}</span><a class="btn more"  href="{{ path('cart_addQty',{'id':item.product.id}) }}"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-</svg></a>
-							</td>
-							<td class="text-center">
-								{{item.product.price}}€
-							</td>
-							<td class="text-center">
-								{{item.product.price * item.quantity}}€
-							</td>
-							<td class="text-center">
-								<a href="{{path('cart_remove',{'id':item.product.id})}}"> 
-									<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash" viewbox="0 0 16 16">
-										<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-										<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-									</svg>
-								</a>
-							</td>
-						</tr>
-					{% endfor %}
+				<tbody class="container affichage">
+					
 				</tbody>
+				</div> 
+				</div> 
+				<div class="container">
 				<tfoot>
 					<tr>
 						<td colspan="3" class="text-center"></td>
 						<td class="text-center">
 							Total :
 						</td class="text-center">
-						<td class="text-center">
-							{{total}}€</td>
+						<td class="text-center total">
+							
+							</td>
 						<td class="text-center"></td>
 					</tr>
 					<tr>
 					<td colspan="4" class="text-center"></td>
-		{# <td class="text-center">
-        <a class="btn btn-danger" href="{{ path('cart_delete')}}">Vider le panier</a>
-		</td> #}
+
 		<td class="text-center">
         <a class="btn btn-success" href="{{ path('home')}}">Continuer vos achats</a>
 		</td>
@@ -94,24 +66,165 @@
 {% block javascripts %}
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
+
+
+function affichage(tabAffichage = null){
+	
+	let affichage = document.querySelector('.affichage')
+	let total = document.querySelector('.total')
+	
+	affichage.innerHTML = "";
+ 	
+	 if(tabAffichage == null){
+	axios.get('/api').then(function (response) {
+		
+	total.innerHTML = response.data[1].toFixed(2)+'€'
+	let cart = document.querySelector('.cartTotal')
+	cart.innerHTML = response.data[2];
+	
+						for (let index = 0; index < response.data[0].length; index++) {
+		affichage.innerHTML +='<tr>'
+							+'<td class="text-center">'
+							+response.data[0][index].product.name
+							+'</td>'
+							+'<td class="text-center">'
+							+response.data[0][index].product.category.name
+							+'</td>'
+							+'<td class="text-center">'
+							+'<a class="btn less" href="/cart/lessQty/'+response.data[0][index].product.id + '">'
+							+'<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">'
+							+'<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>'
+							+'<path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>'
+							+'</svg>'
+							+'</svg>'
+							+'</a>'
+							+'<span class="quantity">'
+							+response.data[0][index]['quantity']
+							+'</span>'
+							+'<a class="btn more"  href="/cart/addQty/' + response.data[0][index].product.id + '">'
+							+'<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">'
+							+'<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>'
+							+'</svg>'
+							+'</a>'
+							+'</td>'
+							+'<td class="text-center">'
+							+response.data[0][index].product.price
+							+'€'
+							+'</td>'
+							+'<td class="text-center">'
+							+response.data[0][index].product.price * response.data[0][index]['quantity'] + '€'
+							+'</td>'
+							+'<td class="text-center">'
+							+'<a class= "remove" href="/cart/remove/' + response.data[0][index].product.id + '"> '
+							+'<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash" viewbox="0 0 16 16">'
+							+'<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>'
+							+'<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>'
+							+'</svg>'
+							+'</a>'
+							+'</td>'
+							+'</tr>'
+							}
+
+	less()	
+	more()
+	remove()
+	})
+
+	 }else if(tabAffichage != null){
+		 let cart = document.querySelector('.cartTotal')
+		 cart.innerHTML = tabAffichage[2];
+		 total.innerHTML = tabAffichage[1].toFixed(2)+'€'
+		 	for (let index = 0; index < tabAffichage[0].length; index++) {
+				 
+		affichage.innerHTML +='<tr>'
+							+'<td class="text-center">'
+							+tabAffichage[0][index].product.name
+							+'</td>'
+							+'<td class="text-center">'
+							+tabAffichage[0][index].product.category.name
+							+'</td>'
+							+'<td class="text-center">'
+							+'<a class="btn less" href="/cart/lessQty/'+tabAffichage[0][index].product.id + '">'
+							+'<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">'
+							+'<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>'
+							+'<path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>'
+							+'</svg>'
+							+'</svg>'
+							+'</a>'
+							+'<span class="quantity">'
+							+tabAffichage[0][index]['quantity']
+							+'</span>'
+							+'<a class="btn more"  href="/cart/addQty/' + tabAffichage[0][index].product.id + '">'
+							+'<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">'
+							+'<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>'
+							+'</svg>'
+							+'</a>'
+							+'</td>'
+							+'<td class="text-center">'
+							+tabAffichage[0][index].product.price
+							+'€'
+							+'</td>'
+							+'<td class="text-center">'
+							+tabAffichage[0][index].product.price * tabAffichage[0][index]['quantity'] + '€'
+							+'</td>'
+							+'<td class="text-center">'
+							+'<a href="/cart/remove/' + tabAffichage[0][index].product.id + '"> '
+							+'<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash" viewbox="0 0 16 16">'
+							+'<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>'
+							+'<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>'
+							+'</svg>'
+							+'</a>'
+							+'</td>'
+							+'</tr>'
+							}
+		less()	
+		more()			
+		remove()		
+	 }
+
+}
+
+affichage()
+
+function less(){
 let less = document.querySelectorAll('a.less')
-let more = document.querySelectorAll('a.more')
 let quantity = document.querySelectorAll('span.quantity')
+
 for (let index = 0; index < less.length; index++) {
 	less[index].addEventListener('click', (event) => {
 		event.preventDefault();
 			axios.get(less[index].href).then(function(response){
-			quantity[index].innerHTML = response.data[0][index]['quantity']
+			affichage(response.data)
 	   		}) 
 	})
 }   	
+}
+
+function more(){
+let more = document.querySelectorAll('a.more')
+let quantity = document.querySelectorAll('span.quantity')
 for (let index = 0; index < more.length; index++) {
 	more[index].addEventListener('click', (event) => {
 		event.preventDefault();
 			axios.get(more[index].href).then(function(response){
-			quantity[index].innerHTML = response.data[0][index]['quantity']
+			
+			affichage(response.data)
 	   		}) 
 	})
 }   
+}
+function remove(){
+let remove = document.querySelectorAll('a.remove')
+for (let index = 0; index < remove.length; index++) {
+	remove[index].addEventListener('click', (event) => {
+		event.preventDefault();
+		axios.get(remove[index].href).then(function(response){
+			
+		affichage(response.data)
+	   	}) 
+	})
+}
+}
+
 </script>	
 {% endblock %}
