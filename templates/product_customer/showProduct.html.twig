@@ -4,9 +4,7 @@
 {% endblock %}
 
 {% block body %}
-<pre>
-	{{ dump(photosProds) }}
-</pre>
+
 	<div class="container">
 		<table class="table">
 			<tbody>
@@ -148,7 +146,7 @@
 						{# </td> #}
 					{% else %}
 						{# <td> #}
-							<a class="btn btn-primary" href="{{ path('cart_add',{'id':product.id}) }}">Ajouter au panier</a>
+							<a class="btn btn-primary cartLogo" href="{{ path('cart_add',{'id':product.id}) }}">Ajouter au panier</a>
 						{# </td> #}
 					{% endif %}
 
@@ -175,4 +173,43 @@
 		</table>
 	</div>
 
+{% endblock %}
+{% block javascripts %}
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+
+let cartLogo = document.querySelectorAll('.cartLogo');
+let smallCart = document.querySelector('.smallCart');
+
+for (let index = 0; index < cartLogo.length; index++){
+	let cartTotal = document.querySelector('.cartTotal');
+
+	cartLogo[index].addEventListener('click', (event) => {
+		event.preventDefault();
+
+		axios.get(cartLogo[index].href).then(function (response){
+			//console.log(response.data[0][0])
+			cartTotal.innerHTML = response.data[2];
+			smallCart.innerHTML =""
+									for (let index = 0; index < response.data[0].length; index++){
+								smallCart.innerHTML +='<li>'
+
+										+'<tr>'
+										+'<th class="text-center"><img src="/imagesJs/' + response.data[0][index].product.photo+'" width="40" height="40" alt="...">'
+										+'</th>'
+											+'<th class="text-center">'
+											+response.data[0][index].product.name
+											+'</th>'
+											+'<th class="text-center">'
+											+response.data[0][index].quantity
+											+'</th>'
+										+'</tr>'
+									+'</li>'
+									}
+			
+		})
+	})
+}
+</script>	
 {% endblock %}

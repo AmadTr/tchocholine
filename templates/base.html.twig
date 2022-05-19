@@ -105,7 +105,7 @@
 							<ul class="dropdown-menu" aria-labelledby="dropdown10">
 								<li>
 									{% for category in catSup.categories %}
-										<a class="dropdown-item" href="{{path('app_product_indexByCategory',{'cat':category.id})}}">{{ category.name }}</a>
+										<a class="dropdown-item catBtn" href="{{path('app_product_indexByCategory',{'cat':category.id})}}">{{ category.name }}</a>
 									{% endfor %}
 								</li>
 							</ul>
@@ -148,12 +148,13 @@
 											<th class="text-center">Quantité</th>
 
 										</thead>
-										<tbody>
+										<tbody class="smallCart">
+										
 											{% for item in items %}
 
-												<li>
-
+												<li  >
 													<tr>
+													
 														<th class="text-center"><img src="{{ asset('build/images/' ~ item.product.photo) }}" width="40" height="40" alt="...">
 														</th>
 														<th class="text-center">{{item.product.name}}
@@ -162,7 +163,6 @@
 														</th>
 													</tr>
 												</li>
-
 
 											{% endfor %}
 										{% endif %}

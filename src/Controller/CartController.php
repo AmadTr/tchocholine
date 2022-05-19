@@ -43,10 +43,11 @@ class CartController extends AbstractController
     public function add($id, CartService $carteService)
     {
         $carteService->add($id);
-        return $this->redirectToRoute('home', [
-            'controller_name' => 'CartController',
-
-        ]);
+        return $this->json([
+            $carteService->getCartDetails(),
+            $carteService->getCartTotal(),
+            $carteService->getCartQty(),
+        ], 200, [], ['groups' => 'prods:read']);
     }
 
 
