@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ApiController extends AbstractController
+class ApiCartController extends AbstractController
 {
     /**
      * @Route("/api", name="app_api")

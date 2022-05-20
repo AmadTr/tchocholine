@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ProductCustomerController extends AbstractController
 {
     /**
-     * @Route("/products/customer", name="app_product_customer", methods={"GET"} )
+     * @Route("/products/customer", name="app_product_customer", methods={"GET"})
      */
     public function index(ProductRepository $productRepository): Response
     {

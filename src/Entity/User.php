@@ -27,6 +27,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * 
+     * @Assert\Regex(
+     * pattern="/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/",
+     * match=true,
+     * message="Votre email est invalide!"
+     * )
      */
     private $email;
 
@@ -47,11 +53,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Assert\Regex(
      * pattern="/\d/",
      * match=false,
-     * message="Votre nom ne peut pas contenir un chiffre!"
+     * message="Votre nom ne peut pas contenir de chiffre!"
      * )
      * 
      * @Assert\Length(
-     * min=3,
+     * min=1,
      * minMessage="plus de 1 caratère",
      * max=50,
      * maxMessage="moins de 50 caractères")
@@ -64,11 +70,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Assert\Regex(
      * pattern="/\d/",
      * match=false,
-     * message="Votre prénom ne peut pas contenir un chiffre!"
+     * message="Votre prénom ne peut pas contenir de chiffre!"
      * )
      * 
      * @Assert\Length(
-     * min=3,
+     * min=1,
      * minMessage="plus de 1 caratère",
      * max=50,
      * maxMessage="moins de 50 caractères")
@@ -77,6 +83,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Assert\Regex(
+     * pattern="/^(?:(?:\+|00)33[\s.-]{0,3}(?:\(0\)[\s.-]{0,3})?|0)[1-9](?:(?:[\s.-]?\d{2}){4}|\d{2}(?:[\s.-]?\d{3}){2})$/",
+     * match=true,
+     * message="Votre numéro de téléphone n'est pas valide!"
+     * )
      */
     private $phone;
 

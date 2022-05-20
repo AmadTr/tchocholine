@@ -58,7 +58,6 @@ class OrderLineController extends AbstractController
 
     /**
      * @Route("/all", name="app_order_line_all", methods={"GET"})
-     * 
      */
     public function indexAdmin(OrderLineRepository $orderLineRepository): Response
     {
@@ -75,29 +74,4 @@ class OrderLineController extends AbstractController
         }
     }
 
-
-
-
-    /**
-     * @Route("/new", name="app_order_line_new", methods={"GET", "POST"})
-     */
-    // public function new(Request $request, OrderLineRepository $orderLineRepository): Response
-    // {
-    //     $orderLine = new OrderLine();
-    //     $form = $this->createForm(OrderLineType::class, $orderLine);
-    //     $form->handleRequest($request);
-
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $orderLineRepository->add($orderLine);
-    //         return $this->redirectToRoute('app_order_line_index', [], Response::HTTP_SEE_OTHER);
-    //     }
-
-    //     return $this->renderForm('order_line/new.html.twig', [
-    //         'order_line' => $orderLine,
-    //         'form' => $form,
-    //     ]);
-    // }
-
-
- 
 }

@@ -14,13 +14,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/cart")
- *
  */
 class CartController extends AbstractController
 {
     /**
      * @Route("/", name="app_cart")
-     *
      */
     public function index(
         CartService $cart,

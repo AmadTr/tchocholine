@@ -14,7 +14,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * @Route("/image/blog")
- * 
  */
 class ImageBlogController extends AbstractController
 {

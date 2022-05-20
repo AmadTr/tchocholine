@@ -13,7 +13,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 /**
  * @Route("/api")
  */
-
 class ApiProductController extends AbstractController
 {
     /**

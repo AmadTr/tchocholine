@@ -130,8 +130,6 @@ class TchoChoLineController extends AbstractController
         CategoryRepository $categoryRepository,
         CartService $cart
     ) {
-        // dd($request->get('answer'));
-        // dd($request);
         $session->set('answer', $request->get('answer'));
         $cat = $session->get('category');
 
