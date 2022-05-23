@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Form\CustomerType;
 use App\Repository\UserRepository;
+use App\Form\Type\ChangePasswordType;
 use App\Repository\CategoryRepository;
 use App\Repository\CatPremierRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -55,14 +56,17 @@ class CustomerController extends AbstractController
 
             $form = $this->createForm(CustomerType::class, $user);
             $form->handleRequest($request);
-
+            
             if ($form->isSubmitted() && $form->isValid()) {
-                $user->setPassword(
-                    $userPasswordHasher->hashPassword(
-                        $user,
-                        $form->get('password')->getData()
-                    )
-                );
+                // if (empty($user->getPassword())) {
+                    
+                //     $user->setPassword(
+                //         $userPasswordHasher->hashPassword(
+                //             $user,
+                //             $form->get('password')->getData()
+                //             )
+                //         );
+                // }
                 $userRepository->add($user);
                 return $this->redirectToRoute('app_customer_show', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
             }
@@ -78,6 +82,31 @@ class CustomerController extends AbstractController
             $this->addFlash('error', "Vous n'avez pas les droits necessaires pour accèder à cette fonction");
             return $this->redirectToRoute('home');
         }
+    }
+
+
+    /**
+     * @Route("/{id}/changePassword", name="change_password", methods={"GET", "POST"})
+     */
+    public function changePassword(Request $request, User $user, UserPasswordHasherInterface $userPasswordHasher, UserRepository $userRepository, CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository): Response
+    {
+        $form = $this->createForm(ChangePasswordType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+
+            dd($user);
+        }
+        return $this->renderForm('customer/changePassword.html.twig',[
+            'user' => $user,
+            'form' => $form,
+            'catSups' => $catPremierRepository->findAll(),
+            'categories' => $categoryRepository->findAll()
+
+
+
+        ]);
     }
 
     /**
