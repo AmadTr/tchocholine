@@ -9,6 +9,7 @@ use App\Repository\UserRepository;
 use App\Form\Type\ChangePasswordType;
 use App\Repository\CategoryRepository;
 use App\Repository\CatPremierRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,7 +24,13 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
  */
 class CustomerController extends AbstractController
 {
-  
+
+    // private $user;
+
+    // public function __construct(UserInterface $user)
+    // {
+    //     $this->user = $user;
+    // }
     /**
      * @Route("/{id}", name="app_customer_show", methods={"GET"})
      */
@@ -86,24 +93,30 @@ class CustomerController extends AbstractController
 
 
     /**
-     * @Route("/{id}/changePassword", name="change_password", methods={"GET", "POST"})
+     * @Route("/changePassword/{id}", name="change_password", methods={"GET", "POST"})
      */
-    public function changePassword(Request $request, User $user, UserPasswordHasherInterface $userPasswordHasher, UserRepository $userRepository, CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository): Response
+    public function changePassword(Request $request,UserPasswordHasherInterface $hasher, EntityManagerInterface $entityManager, UserRepository $userRepository, CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository): Response
     {
-        $form = $this->createForm(ChangePasswordType::class, $user);
+        $user = $this->getUser();
+        $form = $this->createForm(ChangePasswordType::class);
+        // dd($request,$request->get('change_password')['newPassword']['first']);
+        // dd($request->get('newPassword'));
         $form->handleRequest($request);
-
+        // dd($user);
+        
         if ($form->isSubmitted() && $form->isValid()) {
-
-
-            dd($user);
+        
+            $user->setPassword($hasher->hashPassword($user,$form->get('newPassword')->getData()));
+            $entityManager->flush();
+            
+            return $this->redirectToRoute('app_logout');
         }
-        return $this->renderForm('customer/changePassword.html.twig',[
+
+        return $this->render('customer/changePassword.html.twig',[
             'user' => $user,
-            'form' => $form,
+            'form' => $form->createView(),
             'catSups' => $catPremierRepository->findAll(),
             'categories' => $categoryRepository->findAll()
-
 
 
         ]);
