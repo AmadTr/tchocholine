@@ -32,13 +32,14 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog/{id}", name="blog_show", methods={"GET"})
      */
-    public function show(ArticleBlog $articleBlog, CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository): Response
+    public function show(ArticleBlog $articleBlog, ImageBlogRepository $imagesBlog, CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository): Response
     {
 
         return $this->render('blog/show.html.twig', [
             'article_blog' => $articleBlog,
             'catSups' => $catPremierRepository->findAll(),
-            'categories' => $categoryRepository->findAll()
+            'categories' => $categoryRepository->findAll(),
+            'imagesBlog' => $imagesBlog->findBy(['articleBlog' => $articleBlog])
         ]);
     }
 }
