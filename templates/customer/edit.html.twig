@@ -7,6 +7,7 @@
 	<h1>Modifier votre profil</h1>
 	<div class="container">
 		<a class="btn btn-secondary" href="{{ path('app_customer_show',{'id':user.id}) }}">Retour</a>
+		<a class="btn btn-warning" href="{{ path('change_password',{'id':user.id}) }}">Modifier votre mot de passe</a>
 		{{ form_start(form) }}
 
 		{{ form_row(form.gender) }}
@@ -33,7 +34,6 @@
 
 	</div>
 
-		<a class="btn btn-warning" href="{{ path('change_password',{'id':user.id}) }}">test</a>
 
 
 {% endblock %}

@@ -95,21 +95,21 @@ class CustomerController extends AbstractController
     /**
      * @Route("/changePassword/{id}", name="change_password", methods={"GET", "POST"})
      */
-    public function changePassword(Request $request,UserPasswordHasherInterface $hasher, EntityManagerInterface $entityManager, UserRepository $userRepository, CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository): Response
+    public function changePassword(Request $request,UserPasswordHasherInterface $hasher,
+     EntityManagerInterface $entityManager, UserRepository $userRepository,
+      CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository): Response
     {
         $user = $this->getUser();
         $form = $this->createForm(ChangePasswordType::class);
-        // dd($request,$request->get('change_password')['newPassword']['first']);
-        // dd($request->get('newPassword'));
         $form->handleRequest($request);
-        // dd($user);
         
         if ($form->isSubmitted() && $form->isValid()) {
         
             $user->setPassword($hasher->hashPassword($user,$form->get('newPassword')->getData()));
             $entityManager->flush();
-            
-            return $this->redirectToRoute('app_logout');
+
+            $this->addFlash('success', "Votre mot de passe à été modifié avec succès!");
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('customer/changePassword.html.twig',[
