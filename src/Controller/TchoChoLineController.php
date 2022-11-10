@@ -29,8 +29,6 @@ class TchoChoLineController extends AbstractController
     CartService $cart
 ): Response {
 
-
-
     return $this->render('tcho_cho_line/home.html.twig', [
         'products' => $products = $productRepository->findAll(),
         'categories' => $categoryRepository->findAll(),

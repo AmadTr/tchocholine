@@ -34,7 +34,10 @@ class CustomerController extends AbstractController
     /**
      * @Route("/{id}", name="app_customer_show", methods={"GET"})
      */
-    public function show(User $user, CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository): Response
+    public function show(
+        User $user,
+        CatPremierRepository $catPremierRepository,
+        CategoryRepository $categoryRepository): Response
     {
         try {
             $this->denyAccessUnlessGranted('ROLE_USER');
@@ -95,9 +98,13 @@ class CustomerController extends AbstractController
     /**
      * @Route("/changePassword/{id}", name="change_password", methods={"GET", "POST"})
      */
-    public function changePassword(Request $request,UserPasswordHasherInterface $hasher,
-     EntityManagerInterface $entityManager, UserRepository $userRepository,
-      CatPremierRepository $catPremierRepository, CategoryRepository $categoryRepository): Response
+    public function changePassword(
+        Request $request,
+        UserPasswordHasherInterface $hasher,
+        EntityManagerInterface $entityManager,
+        UserRepository $userRepository,
+        CatPremierRepository $catPremierRepository,
+        CategoryRepository $categoryRepository): Response
     {
         $user = $this->getUser();
         $form = $this->createForm(ChangePasswordType::class);
